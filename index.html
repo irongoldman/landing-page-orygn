@@ -2,6 +2,26 @@
 <html lang="es">
 
 <head>
+    <!-- ============== PERSISTENCIA DE DISTRIBUIDOR ============== -->
+    <script>
+        (function() {
+            const path = window.location.pathname;
+            const pathParts = path.split('/').filter(p => p !== "");
+            
+            // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
+            if (pathParts.length > 0 && !pathParts[0].includes('.html')) {
+                localStorage.setItem('orygn_dist_id', pathParts[0]);
+            } 
+            // Si estamos en la raíz (/), comprobamos si hay un ID guardado
+            else if (path === "/" || path === "" || path === "/index.html") {
+                const savedId = localStorage.getItem('orygn_dist_id');
+                if (savedId && savedId !== 'default' && savedId !== 'index.html') {
+                    window.location.href = "/" + savedId + "/";
+                }
+            }
+        })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
