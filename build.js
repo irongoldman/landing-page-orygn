@@ -40,6 +40,11 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/href="assets\//g, 'href="../assets/')
             .replace(/src="assets\//g, 'src="../assets/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
+            
+        // Reemplazar PDFs por versiones genéricas en subcarpetas
+        output = output
+            .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Presentation_\(SP\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN_Presentation_%28SP%29_gener.pdf')
+            .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Comp_Plan_\(ES\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN-Comp-Plan-%28ES%29-gener.pdf');
     }
     return output;
 }
