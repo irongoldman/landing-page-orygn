@@ -1,12 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
 
 const DIST_DIR = path.join(__dirname, 'dist');
 const PROMOTORES_FILE = path.join(__dirname, 'promotores.json');
-
-// URL final de Google Forms CSV
-const CSV_URL = process.env.PROMOTORES_CSV_URL || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwjrI3bIHgEWPb-8En28ttLk6l3rZO3y3enAA9N48oe4wrqjngtbf67afpanILA-lepjgspvRgTJS2/pub?gid=1668580010&single=true&output=csv';
 
 // Archivos y carpetas base a copiar a /dist
 const ASSETS_TO_COPY = [
@@ -35,87 +31,38 @@ function copyRecursiveSync(src, dest) {
     }
 }
 
-function parseCSV(csvText) {
-    const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
-    if (lines.length === 0) return [];
-    
-    // Función simple para manejar posibles comas dentro de comillas
-    const splitLine = (line) => {
-        const result = [];
-        let cur = '';
-        let inQuotes = false;
-        for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') inQuotes = !inQuotes;
-            else if (char === ',' && !inQuotes) {
-                result.push(cur.trim());
-                cur = '';
-            } else cur += char;
-        }
-        result.push(cur.trim());
-        return result;
-    };
+function runBuild() {
+    console.log('--- Iniciando Build Local (promotores.json) ---');
 
-    const headers = splitLine(lines[0]);
-    return lines.slice(1).map(line => {
-        const values = splitLine(line);
-        const obj = {};
-        headers.forEach((header, i) => {
-            if (values[i] !== undefined) obj[header] = values[i];
-        });
-        return obj;
-    });
-}
-
-async function fetchPromotores() {
-    console.log('1. Intentando descargar datos desde Google Forms...');
-    return new Promise((resolve) => {
-        https.get(CSV_URL, (res) => {
-            let data = '';
-            res.on('data', (chunk) => data += chunk);
-            res.on('end', () => {
-                try {
-                    const list = parseCSV(data);
-                    if (list.length === 0) throw new Error('CSV vacío');
-                    console.log(`   ✅ Descargados ${list.length} registros desde el formulario.`);
-                    resolve(list);
-                } catch (e) {
-                    console.error('   ❌ Error al procesar datos remotos, usando copia local.');
-                    resolve(JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8')));
-                }
-            });
-        }).on('error', (err) => {
-            console.error('   ❌ Error de conexión, usando copia local.');
-            resolve(JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8')));
-        });
-    });
-}
-
-async function runBuild() {
-    console.log('--- Iniciando Build Automatizado (Formulario) ---');
-
+    // 1. Limpiar dist
     if (fs.existsSync(DIST_DIR)) fs.rmSync(DIST_DIR, { recursive: true, force: true });
     fs.mkdirSync(DIST_DIR);
 
-    console.log('2. Copiando archivos base...');
+    // 2. Copiar base
+    console.log('1. Copiando archivos base a /dist...');
     ASSETS_TO_COPY.forEach(item => {
         const src = path.join(__dirname, item);
         const dest = path.join(DIST_DIR, item);
         if (fs.existsSync(src)) copyRecursiveSync(src, dest);
     });
 
-    const promotores = await fetchPromotores();
+    // 3. Leer promotores locales
+    if (!fs.existsSync(PROMOTORES_FILE)) {
+        console.error('ERROR: No se encontró promotores.json');
+        process.exit(1);
+    }
+    const promotores = JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8'));
 
-    console.log('3. Generando páginas replicadas...');
+    // 4. Generar páginas
+    console.log('2. Generando páginas replicadas...');
     const templateHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');
     const privacidadHtml = fs.readFileSync(path.join(__dirname, 'privacidad.html'), 'utf-8');
 
     promotores.forEach(promotor => {
-        // Ignorar si no tiene ID o es el default (que ya está en la raíz)
-        if (!promotor.id || promotor.id === 'default' || promotor.id === '') return;
+        if (!promotor.id || promotor.id === 'default') return;
 
-        console.log(`   -> Generando: /${promotor.id}/ (${promotor.nombre})`);
+        console.log(`   -> Generando subcarpeta para: ${promotor.id} (${promotor.nombre})`);
         const promotorDir = path.join(DIST_DIR, promotor.id);
         if (!fs.existsSync(promotorDir)) fs.mkdirSync(promotorDir, { recursive: true });
 
