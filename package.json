@@ -1,0 +1,10 @@
+{
+  "name": "orygn-landing-page",
+  "version": "1.0.0",
+  "description": "ORYGN Landing Page with SSG",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "Irongoldman",
+  "license": "ISC"
+}

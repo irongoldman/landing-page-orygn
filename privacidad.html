@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - ORYGN Promotor Independiente</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .legal-page { padding: 100px 20px; max-width: 800px; margin: 0 auto; color: var(--text-main); }
+        .legal-page h1 { font-size: 2.5rem; margin-bottom: 30px; color: var(--primary); }
+        .legal-page h2 { font-size: 1.5rem; margin-top: 30px; margin-bottom: 15px; }
+        .legal-page p { margin-bottom: 15px; color: var(--text-muted); }
+        .accept-container { margin-top: 50px; text-align: center; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--bg-darker); border: 1px solid var(--glass-border); padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; color: var(--text-main); }
+    </style>
+</head>
+<body>
+    <header class="navbar" style="background: var(--bg-darker);">
+        <div class="container">
+            <div class="logo">
+                <a href="./">
+                    <img src="https://technoeconomia.com/assets/images/frame7.png" alt="ORYGN" class="header-logo">
+                </a>
+                <span class="badge">Distribuidor Independiente</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="legal-page">
+        <h1>Política de Privacidad</h1>
+        
+        <h2>1. Información General</h2>
+        <p>Esta página web ("Landing Page") es administrada por un promotor y distribuidor independiente de ORYGN. No es la web oficial corporativa de la marca.</p>
+
+        <h2>2. Recopilación de Datos</h2>
+        <p>Esta página en sí no cuenta con formularios de registro directo, bases de datos internas ni procesamiento de pagos. La principal vía de interacción es a través de un botón de contacto por WhatsApp y enlaces externos a la tienda oficial de ORYGN.</p>
+        <p>Si el usuario decide hacer clic en el botón de WhatsApp, iniciará una conversación privada directa con el promotor. La información compartida voluntariamente a través de WhatsApp (número de teléfono, nombre, consultas) será utilizada única y exclusivamente para responder a sus dudas sobre el producto TriGLP o la oportunidad de negocio, sin ser compartida con terceros ni incluida en listas de spam.</p>
+
+        <h2>3. Enlaces a Terceros y Compras</h2>
+        <p>Cuando hace clic en "Comprar" o "Registrarse", será redirigido a la página oficial de ORYGN. Todo el proceso de compra, creación de cuenta, pago e introducción de datos personales y financieros se realiza bajo la responsabilidad, los términos y las políticas de privacidad de la empresa ORYGN.</p>
+
+        <h2>4. Derechos del Usuario</h2>
+        <p>En caso de haber contactado vía WhatsApp, el usuario tiene el derecho de solicitar en cualquier momento la eliminación del historial de la conversación o pedir no ser contactado nuevamente.</p>
+        
+        <h2>5. Contacto</h2>
+        <p>Para cualquier consulta sobre esta política de privacidad simplificada, puede contactar a través del mismo canal de WhatsApp habilitado en la página.</p>
+
+        <div class="accept-container">
+            <button id="accept-btn" class="btn btn-primary">He leído y acepto la Política de Privacidad</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 15px; font-family: var(--font-heading);">¡Gracias!</h3>
+            <p>Has aceptado la Política de Privacidad correctamente.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 20px;">Redirigiendo a la página principal...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('accept-btn').addEventListener('click', function() {
+            document.getElementById('success-modal').style.display = 'flex';
+            setTimeout(function() {
+                window.location.href = './';
+            }, 2500);
+        });
+    </script>
+</body>
+</html>

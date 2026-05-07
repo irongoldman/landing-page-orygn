@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+._*
+
+# Dependencias y Build
+dist/
+node_modules/
+
+# Archivos pesados (Zips)
+*.zip
+
+# Carpetas de contenido multimedia local (alojadas externamente)
+video/
+audio/
+assets/images/
+
+# Carpetas de trabajo o documentos locales
+Fuentes de contenido/
+documents/
+logs/
+skills/
+.tmp_validation/
+version_netlify_final-3/
+
+# Otros
+*.ogv
+*.webm
+*.mp4
+*.mp3
