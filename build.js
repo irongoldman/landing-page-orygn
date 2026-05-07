@@ -98,6 +98,7 @@ promotores.forEach(promotor => {
     // Adjust relative asset paths for index.html
     customizedHtml = customizedHtml.replace(/href="assets\//g, 'href="../assets/');
     customizedHtml = customizedHtml.replace(/src="assets\//g, 'src="../assets/');
+    customizedHtml = customizedHtml.replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
     
     fs.writeFileSync(path.join(promotorDir, 'index.html'), customizedHtml);
 
