@@ -11,7 +11,8 @@ const ASSETS_TO_COPY = [
     'aviso-legal.html',
     'privacidad.html',
     'robots.txt',
-    'sitemap.xml'
+    'sitemap.xml',
+    'favicon.svg'
 ];
 
 // Default values in the current index.html
