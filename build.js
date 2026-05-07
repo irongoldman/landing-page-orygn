@@ -5,8 +5,8 @@ const https = require('https');
 const DIST_DIR = path.join(__dirname, 'dist');
 const PROMOTORES_FILE = path.join(__dirname, 'promotores.json');
 
-// URL de Google Sheets CSV (Base de datos remota)
-const CSV_URL = process.env.PROMOTORES_CSV_URL || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwjrI3bIHgEWPb-8En28ttLk6l3rZO3y3enAA9N48oe4wrqjngtbf67afpanILA-lepjgspvRgTJS2/pub?output=csv';
+// URL final de Google Forms CSV
+const CSV_URL = process.env.PROMOTORES_CSV_URL || 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRwjrI3bIHgEWPb-8En28ttLk6l3rZO3y3enAA9N48oe4wrqjngtbf67afpanILA-lepjgspvRgTJS2/pub?gid=1668580010&single=true&output=csv';
 
 // Archivos y carpetas base a copiar a /dist
 const ASSETS_TO_COPY = [
@@ -36,20 +36,39 @@ function copyRecursiveSync(src, dest) {
 }
 
 function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
+    const lines = csvText.split(/\r?\n/).filter(line => line.trim() !== '');
+    if (lines.length === 0) return [];
+    
+    // Función simple para manejar posibles comas dentro de comillas
+    const splitLine = (line) => {
+        const result = [];
+        let cur = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') inQuotes = !inQuotes;
+            else if (char === ',' && !inQuotes) {
+                result.push(cur.trim());
+                cur = '';
+            } else cur += char;
+        }
+        result.push(cur.trim());
+        return result;
+    };
+
+    const headers = splitLine(lines[0]);
     return lines.slice(1).map(line => {
-        const values = line.split(',').map(v => v.trim());
+        const values = splitLine(line);
         const obj = {};
         headers.forEach((header, i) => {
-            obj[header] = values[i];
+            if (values[i] !== undefined) obj[header] = values[i];
         });
         return obj;
     });
 }
 
 async function fetchPromotores() {
-    console.log('1. Intentando descargar datos desde Google Sheets...');
+    console.log('1. Intentando descargar datos desde Google Forms...');
     return new Promise((resolve) => {
         https.get(CSV_URL, (res) => {
             let data = '';
@@ -57,28 +76,27 @@ async function fetchPromotores() {
             res.on('end', () => {
                 try {
                     const list = parseCSV(data);
-                    console.log(`   ✅ Descargados ${list.length} promotores desde la nube.`);
+                    if (list.length === 0) throw new Error('CSV vacío');
+                    console.log(`   ✅ Descargados ${list.length} registros desde el formulario.`);
                     resolve(list);
                 } catch (e) {
-                    console.error('   ❌ Error al parsear CSV, usando copia local.');
+                    console.error('   ❌ Error al procesar datos remotos, usando copia local.');
                     resolve(JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8')));
                 }
             });
         }).on('error', (err) => {
-            console.error('   ❌ Error de red al conectar con Google, usando copia local.');
+            console.error('   ❌ Error de conexión, usando copia local.');
             resolve(JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8')));
         });
     });
 }
 
 async function runBuild() {
-    console.log('--- Iniciando Build Automatizado (Google Sheets) ---');
+    console.log('--- Iniciando Build Automatizado (Formulario) ---');
 
-    // 1. Limpiar dist
     if (fs.existsSync(DIST_DIR)) fs.rmSync(DIST_DIR, { recursive: true, force: true });
     fs.mkdirSync(DIST_DIR);
 
-    // 2. Copiar base
     console.log('2. Copiando archivos base...');
     ASSETS_TO_COPY.forEach(item => {
         const src = path.join(__dirname, item);
@@ -86,17 +104,16 @@ async function runBuild() {
         if (fs.existsSync(src)) copyRecursiveSync(src, dest);
     });
 
-    // 3. Obtener promotores (Nube o Local)
     const promotores = await fetchPromotores();
 
-    // 4. Generar páginas
     console.log('3. Generando páginas replicadas...');
     const templateHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');
     const privacidadHtml = fs.readFileSync(path.join(__dirname, 'privacidad.html'), 'utf-8');
 
     promotores.forEach(promotor => {
-        if (!promotor.id || promotor.id === 'default') return;
+        // Ignorar si no tiene ID o es el default (que ya está en la raíz)
+        if (!promotor.id || promotor.id === 'default' || promotor.id === '') return;
 
         console.log(`   -> Generando: /${promotor.id}/ (${promotor.nombre})`);
         const promotorDir = path.join(DIST_DIR, promotor.id);
@@ -113,7 +130,7 @@ async function runBuild() {
 
         fs.writeFileSync(path.join(promotorDir, 'index.html'), customHtml);
 
-        // Personalizar Legales (ajustar rutas de assets)
+        // Legales
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
     });
