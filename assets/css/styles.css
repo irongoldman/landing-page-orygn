@@ -2468,8 +2468,8 @@ footer {
     margin: 40px 0;
 }
 .ingredient-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     padding: 30px 20px;
     text-align: center;
@@ -2538,8 +2538,8 @@ footer {
     margin-top: 50px;
 }
 .diferenciador-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     padding: 35px;
     display: flex;
@@ -2583,17 +2583,19 @@ footer {
     margin: 40px 0;
 }
 .earning-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
+    background: #ffffff;
+    border: 1px solid rgba(240, 78, 35, 0.15);
     border-radius: 20px;
     padding: 35px 20px 25px;
     text-align: center;
     position: relative;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .earning-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary);
+    box-shadow: 0 12px 35px rgba(240, 78, 35, 0.15);
 }
 .earning-badge {
     position: absolute;
@@ -2619,11 +2621,11 @@ footer {
 .earning-card h3 {
     font-size: 1.2rem;
     margin-bottom: 12px;
-    color: var(--text-main);
+    color: var(--text-dark);
 }
 .earning-card p {
     font-size: 0.88rem;
-    color: var(--text-muted);
+    color: #475569;
     line-height: 1.5;
 }
 
