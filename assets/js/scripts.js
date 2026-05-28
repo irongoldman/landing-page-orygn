@@ -132,4 +132,72 @@ document.addEventListener('DOMContentLoaded', () => {
             cookieBanner.classList.remove('show');
         });
     }
+
+    // --- Calculadora Metabólica Interactiva ---
+    const objResultados = document.getElementById('obj-resultados');
+    const objMantenimiento = document.getElementById('obj-mantenimiento');
+    const weightInput = document.getElementById('calc-weight');
+    const ageInput = document.getElementById('calc-age');
+    const weightVal = document.getElementById('weight-val');
+    const ageVal = document.getElementById('age-val');
+
+    const resTomas = document.getElementById('res-tomas');
+    const resTomasDesc = document.getElementById('res-tomas-desc');
+    const resDuracion = document.getElementById('res-duracion');
+    const recPackTitle = document.getElementById('rec-pack-title');
+    const recPackDesc = document.getElementById('rec-pack-desc');
+    const recPackPrice = document.getElementById('rec-pack-price');
+    const calcBuyBtn = document.getElementById('calc-buy-btn');
+
+    if(weightInput && ageInput) {
+        function calculatePlan() {
+            const isResultados = document.querySelector('input[name="calc-objective"]:checked').value === 'resultados';
+            const weight = parseInt(weightInput.value);
+            const age = parseInt(ageInput.value);
+
+            weightVal.textContent = weight;
+            ageVal.textContent = age;
+
+            if (isResultados) {
+                resTomas.textContent = "2 tomas al día";
+                resTomasDesc.textContent = "Repartido en mañana y tarde";
+                resDuracion.textContent = "18 días";
+                
+                // Si pesa más de 90kg o es mayor de 45 años, damos un consejo dinámico
+                if (weight > 90 || age > 45) {
+                    recPackTitle.textContent = "Pack de 2 Botellas (18 mL) - Plan Recomendado";
+                    recPackDesc.textContent = "Cubre 36 días completos. Recomendado especialmente para metabolismos que requieren un apoyo más constante y sostenido.";
+                } else {
+                    recPackTitle.textContent = "Pack de 2 Botellas (18 mL)";
+                    recPackDesc.textContent = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.";
+                }
+                recPackPrice.textContent = "112€ / $130.00 USD";
+                calcBuyBtn.href = "https://iorngoldman.orygn.co/";
+                calcBuyBtn.textContent = "Pedir Pack de 2 Botellas";
+            } else {
+                resTomas.textContent = "1 toma al día";
+                resTomasDesc.textContent = "En una sola toma (por la mañana)";
+                resDuracion.textContent = "36 días";
+                
+                recPackTitle.textContent = "1 Botella Individual (9 mL)";
+                if (age > 50) {
+                    recPackDesc.textContent = "Cubre 36 días completos. Excelente para mantenimiento y vitalidad diaria en la madurez metabólica.";
+                } else {
+                    recPackDesc.textContent = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
+                }
+                recPackPrice.textContent = "64€ / $75.00 USD";
+                calcBuyBtn.href = "https://iorngoldman.orygn.co/";
+                calcBuyBtn.textContent = "Pedir 1 Botella de Mantenimiento";
+            }
+        }
+
+        weightInput.addEventListener('input', calculatePlan);
+        ageInput.addEventListener('input', calculatePlan);
+        document.querySelectorAll('input[name="calc-objective"]').forEach(radio => {
+            radio.addEventListener('change', calculatePlan);
+        });
+
+        // Ejecutar inicialmente
+        calculatePlan();
+    }
 });

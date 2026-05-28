@@ -753,6 +753,84 @@
         </div>
     </section>
 
+    <!-- ============== CALCULADORA METABÓLICA INTERACTIVA ============== -->
+    <section id="calculadora" class="section-light section--off-white">
+        <div class="container text-center">
+            <span class="badge badge-dark">Interactivo</span>
+            <h2>Calculadora Metabólica triGLP</h2>
+            <p class="subtitle">Calcula de forma personalizada tu plan sugerido, tomas al día y duración estimada de tu pack.</p>
+            
+            <div class="calculator-wrapper">
+                <div class="calc-inputs">
+                    <h3>Paso 1: Configura tus datos</h3>
+                    
+                    <div class="input-group">
+                        <label>Tu objetivo principal:</label>
+                        <div class="segmented-control">
+                            <input type="radio" name="calc-objective" value="resultados" id="obj-resultados" checked>
+                            <label for="obj-resultados">Pérdida de Peso Activa</label>
+                            
+                            <input type="radio" name="calc-objective" value="mantenimiento" id="obj-mantenimiento">
+                            <label for="obj-mantenimiento">Mantenimiento / Bienestar</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-with-value">
+                            <label for="calc-weight">Tu peso actual:</label>
+                            <span class="calc-value-display"><strong id="weight-val">75</strong> kg</span>
+                        </div>
+                        <input type="range" id="calc-weight" min="45" max="150" value="75" class="slider-calc">
+                        <div class="slider-labels">
+                            <span>45 kg</span>
+                            <span>95 kg</span>
+                            <span>150 kg</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-with-value">
+                            <label for="calc-age">Tu edad:</label>
+                            <span class="calc-value-display"><strong id="age-val">40</strong> años</span>
+                        </div>
+                        <input type="range" id="calc-age" min="18" max="85" value="40" class="slider-calc">
+                        <div class="slider-labels">
+                            <span>18 años</span>
+                            <span>50 años</span>
+                            <span>85 años</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <h3>Tu Plan Metabólico Sugerido</h3>
+                    
+                    <div class="results-grid-calc">
+                        <div class="result-box-calc">
+                            <span class="result-title-calc">Tomas recomendadas</span>
+                            <span class="result-highlight-calc" id="res-tomas">2 tomas al día</span>
+                            <span class="result-desc-calc" id="res-tomas-desc">Repartido en mañana y tarde</span>
+                        </div>
+                        <div class="result-box-calc">
+                            <span class="result-title-calc">Duración por Botella</span>
+                            <span class="result-highlight-calc" id="res-duracion">18 días</span>
+                            <span class="result-desc-calc">Botella de 9 mL (36 tomas)</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-recommendation-card">
+                        <span class="rec-badge-calc">Recomendación de Compra</span>
+                        <h4 id="rec-pack-title">Pack de 2 Botellas (18 mL)</h4>
+                        <p id="rec-pack-desc">Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.</p>
+                        <div class="rec-price-calc" id="rec-pack-price">112€ / $130.00 USD</div>
+                    </div>
+
+                    <a href="https://iorngoldman.orygn.co/" class="btn btn-glow w-full calc-cta-btn" target="_blank" rel="noopener noreferrer" id="calc-buy-btn">Pedir mi Plan Personalizado</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="que-no-es" class="section-light section--white-bg">
         <div class="container text-center">
             <span class="badge badge-primary badge--primary-filled">Transparencia Total</span>
