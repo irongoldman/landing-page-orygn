@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://orygn-triglp.netlify.app/sitemap.xml
+Sitemap: http://gotas-triglp.com/sitemap.xml
