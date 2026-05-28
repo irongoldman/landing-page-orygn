@@ -2157,3 +2157,53 @@ footer {
         padding-bottom: 90px;
     }
 }
+
+/* =============================================
+   SECCIÓN PÚBLICO IDEAL - ¿PARA QUIÉN ES?
+   ============================================= */
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin: 50px 0 40px;
+}
+.avatar-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.avatar-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 35px rgba(240, 78, 35, 0.15);
+}
+.avatar-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+.avatar-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+.avatar-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .avatar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 576px) {
+    .avatar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
