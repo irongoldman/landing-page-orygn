@@ -4,14 +4,14 @@
 <head>
     <!-- ============== PERSISTENCIA DE DISTRIBUIDOR ============== -->
     <script>
-        (function() {
+        (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
-            
+
             // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
             if (pathParts.length > 0 && !pathParts[0].includes('.html')) {
                 localStorage.setItem('orygn_dist_id', pathParts[0]);
-            } 
+            }
             // Si estamos en la raíz (/), comprobamos si hay un ID guardado
             else if (path === "/" || path === "" || path === "/index.html") {
                 const savedId = localStorage.getItem('orygn_dist_id');
@@ -21,7 +21,7 @@
             }
         })();
     </script>
-    <!-- CDN Cache Invalidation Trigger v3.7 -->
+    <!-- CDN Cache Invalidation Trigger v3.8 -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -95,7 +95,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
     <!-- ============== STYLES ============== -->
-    <link rel="stylesheet" href="assets/css/styles.css?v=3.7">
+    <link rel="stylesheet" href="assets/css/styles.css?v=3.8">
 
     <!-- ============== ALTERNATE / HREFLANG ============== -->
     <link rel="alternate" hreflang="es" href="https://gotas-triglp.com/">
@@ -212,8 +212,10 @@
                     </ul>
                     <a href="https://iorngoldman.orygn.co/" class="btn btn-primary mt-4" target="_blank"
                         rel="noopener noreferrer">Conocer TriGLP</a>
-                    <a href="#calculadora" class="btn btn-outline-dark mt-2 w-full text-center" style="display: block; padding: 10px 15px;">Calcular Dosis y Plan</a>
-                    <p class="price-tag price-tag--primary" style="margin-top: 15px;">Por sólo 64€ / $75 USD + gastos de env&iacute;o</p>
+                    <a href="#calculadora" class="btn btn-outline-dark mt-2 w-full text-center"
+                        style="display: block; padding: 10px 15px;">Calcular Dosis y Plan</a>
+                    <p class="price-tag price-tag--primary" style="margin-top: 15px;">Por sólo 64€ / $75 USD + gastos de
+                        env&iacute;o</p>
                 </div>
             </div>
         </div>
@@ -304,7 +306,7 @@
                         mientras ayuda con los antojos sin esfuerzo.</p>
                 </div>
                 <div class="bottle-center reveal-up">
-                    <img src="https://technoeconomia.com/assets/images/botella_triglyp.webp"
+                    <img src="assets/images/botella_triglyp.png"
                         alt="TriGLP — 3 vías en una gota: control del apetito, escudo intestinal y optimizador metabólico"
                         class="product-bottle" width="300" height="600" loading="lazy">
                     <div class="bottle-badge">3 en 1</div>
@@ -331,11 +333,14 @@
                 </div>
             </div>
 
-            <div class="cta-wrapper" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center; margin-top: 50px;">
+            <div class="cta-wrapper"
+                style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; align-items: center; margin-top: 50px;">
                 <a href="https://iorngoldman.orygn.co/" class="btn btn-primary cta-large" target="_blank"
                     rel="noopener noreferrer" style="margin: 0;">Ordena tu Botella Hoy</a>
-                <a href="#calculadora" class="btn btn-outline-dark cta-large" style="margin: 0;">Calcular Plan Sugerido</a>
-                <p class="price-tag price-tag--slate" style="width: 100%; text-align: center; margin-top: 10px;">64€ / $75 USD &bull; env&iacute;o desde 10€ &bull; 3-10 d&iacute;as</p>
+                <a href="#calculadora" class="btn btn-outline-dark cta-large" style="margin: 0;">Calcular Plan
+                    Sugerido</a>
+                <p class="price-tag price-tag--slate" style="width: 100%; text-align: center; margin-top: 10px;">64€ /
+                    $75 USD &bull; env&iacute;o desde 10€ &bull; 3-10 d&iacute;as</p>
             </div>
         </div>
     </section>
@@ -374,28 +379,33 @@
         <div class="container text-center">
             <span class="badge badge-primary badge--primary-filled">Público Ideal</span>
             <h2>¿Quién se beneficia más de TriGLP?</h2>
-            <p class="subtitle subtitle--muted">Una tecnología molecular diseñada para devolverte el control de tu metabolismo.</p>
-            
+            <p class="subtitle subtitle--muted">Una tecnología molecular diseñada para devolverte el control de tu
+                metabolismo.</p>
+
             <div class="avatar-grid">
                 <div class="avatar-card reveal-up">
                     <div class="avatar-icon">⏳</div>
                     <h4>Mayores de 40-45 Años</h4>
-                    <p>Ideal si sientes que tu metabolismo se ha ralentizado de forma natural. TriGLP ayuda a optimizar las señales metabólicas y a recuperar tu vitalidad activa.</p>
+                    <p>Ideal si sientes que tu metabolismo se ha ralentizado de forma natural. TriGLP ayuda a optimizar
+                        las señales metabólicas y a recuperar tu vitalidad activa.</p>
                 </div>
                 <div class="avatar-card reveal-up">
                     <div class="avatar-icon">🌸</div>
                     <h4>Bienestar Hormonal</h4>
-                    <p>Un apoyo excelente para mujeres que atraviesan transiciones hormonales (premenopausia y menopausia), equilibrando los ritmos metabólicos internos.</p>
+                    <p>Un apoyo excelente para mujeres que atraviesan transiciones hormonales (premenopausia y
+                        menopausia), equilibrando los ritmos metabólicos internos.</p>
                 </div>
                 <div class="avatar-card reveal-up">
                     <div class="avatar-icon">🏃‍♂️</div>
                     <h4>Atletas y Composición</h4>
-                    <p>Perfecto para deportistas que buscan recomposición física. Favorece la pérdida de grasa mientras protege y preserva el 100% de la masa muscular magra.</p>
+                    <p>Perfecto para deportistas que buscan recomposición física. Favorece la pérdida de grasa mientras
+                        protege y preserva el 100% de la masa muscular magra.</p>
                 </div>
                 <div class="avatar-card reveal-up">
                     <div class="avatar-icon">⚡</div>
                     <h4>Estilo de Vida Activo</h4>
-                    <p>Para quienes buscan controlar la saciedad sin dietas restrictivas extremas ni batallas de fuerza de voluntad, logrando energía constante sin bajones.</p>
+                    <p>Para quienes buscan controlar la saciedad sin dietas restrictivas extremas ni batallas de fuerza
+                        de voluntad, logrando energía constante sin bajones.</p>
                 </div>
             </div>
         </div>
@@ -405,7 +415,8 @@
         <div class="container text-center">
             <span class="badge badge-dark badge--primary">Evidencia Científica</span>
             <h2>Resultados Clínicamente Comprobados</h2>
-            <p class="subtitle subtitle--muted">Más de <strong>$50 millones de dólares</strong> en investigación científica clínica respaldan la seguridad y la eficacia de cada servicio de triGLP.</p>
+            <p class="subtitle subtitle--muted">Más de <strong>$50 millones de dólares</strong> en investigación
+                científica clínica respaldan la seguridad y la eficacia de cada servicio de triGLP.</p>
             <div class="clinical-disclaimer mt-4 mb-4 text-sm opacity-75">
                 Los porcentajes indicados proceden de documentación corporativa o estudios citados por la marca. Esta
                 página no sustituye la revisión de fuentes científicas originales ni el consejo de un profesional
@@ -715,8 +726,8 @@
             <div class="dosage-grid">
                 <div class="dosage-card results-phase">
                     <div class="dosage-badge">Fase de Resultados</div>
-                    <img src="assets/images/dos-triGLP.jpg"
-                        alt="Pack de 2 botellas de TriGLP para fase de resultados" class="dosage-image" loading="lazy">
+                    <img src="assets/images/dos-triGLP.jpg" alt="Pack de 2 botellas de TriGLP para fase de resultados"
+                        class="dosage-image" loading="lazy">
                     <h3>2 tomas al día</h3>
                     <p>Reparte en 2 servicios (mañana y tarde)</p>
                     <div class="dosage-info">
@@ -727,7 +738,8 @@
                 <div class="dosage-card maintenance-phase">
                     <div class="dosage-badge">Fase de Mantenimiento</div>
                     <img src="assets/images/1-triGLP.jpg"
-                        alt="Botella de TriGLP en el nuevo packaging para fase de mantenimiento" class="dosage-image" loading="lazy">
+                        alt="Botella de TriGLP en el nuevo packaging para fase de mantenimiento" class="dosage-image"
+                        loading="lazy">
                     <h3>1 toma al día</h3>
                     <p>En una sola toma (por la mañana)</p>
                     <div class="dosage-info">
@@ -738,16 +750,20 @@
             </div>
 
             <div class="usage-tips">
-                <p><strong>Cada frasco de 9 mL contiene 36 tomas completas.</strong> Viene presentado en el exclusivo tubo ORYGN, un estuche premium diseñado para proteger la fórmula molecular y garantizar su máxima estabilidad.</p>
+                <p><strong>Cada frasco de 9 mL contiene 36 tomas completas.</strong> Viene presentado en el exclusivo
+                    tubo ORYGN, un estuche premium diseñado para proteger la fórmula molecular y garantizar su máxima
+                    estabilidad.</p>
                 <p><strong>Almacenamiento:</strong> Guarda en un lugar fresco y seco, lejos de la luz solar directa.</p>
-                <p><strong>Tip:</strong> Escucha a tu cuerpo. Puedes ajustar el horario de tus tomas según te funcione mejor. La constancia importa más que la perfección.</p>
+                <p><strong>Tip:</strong> Escucha a tu cuerpo. Puedes ajustar el horario de tus tomas según te funcione
+                    mejor. La constancia importa más que la perfección.</p>
             </div>
 
             <div class="cta-wrapper--sm">
                 <a href="https://iorngoldman.orygn.co/" class="btn btn-primary cta-large" target="_blank"
                     rel="noopener noreferrer">Comprar TriGLP
                     por 64€ / $75</a>
-                <p class="price-tag price-tag--slate">+ env&iacute;o internacional (10€-20€) &bull; Pack de 2 botellas: 112€ /
+                <p class="price-tag price-tag--slate">+ env&iacute;o internacional (10€-20€) &bull; Pack de 2 botellas:
+                    112€ /
                     $130.00</p>
             </div>
         </div>
@@ -758,18 +774,19 @@
         <div class="container text-center">
             <span class="badge badge-dark">Interactivo</span>
             <h2>Calculadora Metabólica triGLP</h2>
-            <p class="subtitle">Calcula de forma personalizada tu plan sugerido, tomas al día y duración estimada de tu pack.</p>
-            
+            <p class="subtitle">Calcula de forma personalizada tu plan sugerido, tomas al día y duración estimada de tu
+                pack.</p>
+
             <div class="calculator-wrapper">
                 <div class="calc-inputs">
                     <h3>Paso 1: Configura tus datos</h3>
-                    
+
                     <div class="input-group">
                         <label>Tu objetivo principal:</label>
                         <div class="segmented-control">
                             <input type="radio" name="calc-objective" value="resultados" id="obj-resultados" checked>
                             <label for="obj-resultados">Pérdida de Peso Activa</label>
-                            
+
                             <input type="radio" name="calc-objective" value="mantenimiento" id="obj-mantenimiento">
                             <label for="obj-mantenimiento">Mantenimiento / Bienestar</label>
                         </div>
@@ -804,7 +821,7 @@
 
                 <div class="calc-results">
                     <h3>Tu Plan Metabólico Sugerido</h3>
-                    
+
                     <div class="results-grid-calc">
                         <div class="result-box-calc">
                             <span class="result-title-calc">Tomas recomendadas</span>
@@ -821,11 +838,13 @@
                     <div class="calc-recommendation-card">
                         <span class="rec-badge-calc">Recomendación de Compra</span>
                         <h4 id="rec-pack-title">Pack de 2 Botellas (18 mL)</h4>
-                        <p id="rec-pack-desc">Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.</p>
+                        <p id="rec-pack-desc">Cubre 36 días completos. Ideal para alcanzar los primeros resultados
+                            clínicos visibles de 6 a 8 semanas.</p>
                         <div class="rec-price-calc" id="rec-pack-price">112€ / $130.00 USD</div>
                     </div>
 
-                    <a href="https://iorngoldman.orygn.co/" class="btn btn-glow w-full calc-cta-btn" target="_blank" rel="noopener noreferrer" id="calc-buy-btn">Pedir mi Plan Personalizado</a>
+                    <a href="https://iorngoldman.orygn.co/" class="btn btn-glow w-full calc-cta-btn" target="_blank"
+                        rel="noopener noreferrer" id="calc-buy-btn">Pedir mi Plan Personalizado</a>
                 </div>
             </div>
         </div>
@@ -886,7 +905,9 @@
                 </div>
                 <div class="faq-item">
                     <h4>¿Cómo se administra y cuánto dura cada botella?</h4>
-                    <p>Se aplica directamente debajo de la lengua (absorción sublingual). Con la nueva presentación de 9 mL y 36 servicios, en fase de resultados (toma doble) una botella dura exactamente 18 días. En fase de mantenimiento (toma única), dura 36 días por botella.</p>
+                    <p>Se aplica directamente debajo de la lengua (absorción sublingual). Con la nueva presentación de 9
+                        mL y 36 servicios, en fase de resultados (toma doble) una botella dura exactamente 18 días. En
+                        fase de mantenimiento (toma única), dura 36 días por botella.</p>
                 </div>
                 <div class="faq-item">
                     <h4>¿Necesito prescripción médica?</h4>
@@ -896,11 +917,15 @@
                 </div>
                 <div class="faq-item">
                     <h4>¿Cómo viene presentado el producto?</h4>
-                    <p>triGLP se presenta ahora en el exclusivo tubo ORYGN, un estuche premium de diseño elegante que ofrece una protección superior para la fórmula molecular, preservando su estabilidad y garantizando 9 mL (36 tomas) de producto puro.</p>
+                    <p>triGLP se presenta ahora en el exclusivo tubo ORYGN, un estuche premium de diseño elegante que
+                        ofrece una protección superior para la fórmula molecular, preservando su estabilidad y
+                        garantizando 9 mL (36 tomas) de producto puro.</p>
                 </div>
                 <div class="faq-item">
                     <h4>¿Cómo se deben dividir las tomas?</h4>
-                    <p>Para la fase de resultados activos, se aconseja dividir el consumo en dos servicios diarios (uno por la mañana y otro por la tarde/noche) para mantener una absorción metabólica constante. Para mantenimiento, basta con un solo servicio por la mañana.</p>
+                    <p>Para la fase de resultados activos, se aconseja dividir el consumo en dos servicios diarios (uno
+                        por la mañana y otro por la tarde/noche) para mantener una absorción metabólica constante. Para
+                        mantenimiento, basta con un solo servicio por la mañana.</p>
                 </div>
                 <div class="faq-item">
                     <h4>¿Tiene efectos secundarios?</h4>
@@ -1157,7 +1182,7 @@
         </svg>
     </a>
 
-    <script src="assets/js/scripts.js?v=3.7"></script>
+    <script src="assets/js/scripts.js?v=3.8"></script>
 
     <!-- ===================================================
          JSON-LD STRUCTURED DATA — SEO + GEO
