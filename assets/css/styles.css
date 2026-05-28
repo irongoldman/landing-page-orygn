@@ -412,7 +412,7 @@ nav a:not(.btn):hover {
 
 .product-bottle {
     max-width: 100%;
-    max-height: 500px;
+    max-height: 550px;
     transform: scale(1.35);
     transform-origin: center center;
     object-fit: contain;
