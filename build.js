@@ -10,6 +10,7 @@ const ASSETS_TO_COPY = [
     'aviso-legal.html',
     'privacidad.html',
     'testimonios.html',
+    'negocio.html',
     'robots.txt',
     'sitemap.xml',
     'favicon.svg',
@@ -46,6 +47,7 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
             .replace(/href="index\.html"/g, 'href="./"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
+            .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
             
@@ -96,6 +98,7 @@ function runBuild() {
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');
     const privacidadHtml = fs.readFileSync(path.join(__dirname, 'privacidad.html'), 'utf-8');
     const testimoniosHtml = fs.readFileSync(path.join(__dirname, 'testimonios.html'), 'utf-8');
+    const negocioHtml = fs.readFileSync(path.join(__dirname, 'negocio.html'), 'utf-8');
 
     // 2. Actualizar la RAÍZ (index.html principal) con los datos de "default"
     const defaultData = promotores.find(p => p.id === 'default');
@@ -103,8 +106,10 @@ function runBuild() {
         console.log('2. Actualizando página principal (raíz) con datos default...');
         const rootHtml = customizeHtml(templateHtml, defaultData, false);
         const rootTestimoniosHtml = customizeHtml(testimoniosHtml, defaultData, false);
+        const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false);
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'negocio.html'), rootNegocioHtml);
     }
 
     // 3. Generar subcarpetas para todos los que NO sean "default"
@@ -118,6 +123,7 @@ function runBuild() {
 
         fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
     });
