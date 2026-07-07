@@ -1,32 +1,34 @@
-[
-  {
-    "id": "default",
-    "nombre": "José",
-    "orygnUsername": "iorngoldman",
-    "whatsapp": "34655404502"
-  },
-  {
-    "id": "iorngoldman",
-    "nombre": "José",
-    "orygnUsername": "iorngoldman",
-    "whatsapp": "34655404502"
-  },
-  {
-    "id": "jusa",
-    "nombre": "Sara",
-    "orygnUsername": "jusa",
-    "whatsapp": "34665329537"
-  },
-  {
-    "id": "gotasdesalud",
-    "nombre": "Joaquin",
-    "orygnUsername": "eidiamond",
-    "whatsapp": "34651672745"
-  },
-  {
-    "id": "agbnetwork",
-    "nombre": "Felix",
-    "orygnUsername": "agbnetwork",
-    "whatsapp": "34691229815"
-  }
-]
+{
+  "promotores": [
+    {
+      "id": "default",
+      "nombre": "José",
+      "orygnUsername": "iorngoldman",
+      "whatsapp": "34655404502"
+    },
+    {
+      "id": "iorngoldman",
+      "nombre": "José",
+      "orygnUsername": "iorngoldman",
+      "whatsapp": "34655404502"
+    },
+    {
+      "id": "jusa",
+      "nombre": "Sara",
+      "orygnUsername": "jusa",
+      "whatsapp": "34665329537"
+    },
+    {
+      "id": "gotasdesalud",
+      "nombre": "Joaquin",
+      "orygnUsername": "eidiamond",
+      "whatsapp": "34651672745"
+    },
+    {
+      "id": "agbnetwork",
+      "nombre": "Felix",
+      "orygnUsername": "agbnetwork",
+      "whatsapp": "34691229815"
+    }
+  ]
+}

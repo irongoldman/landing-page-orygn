@@ -12,6 +12,7 @@ collections:
       - label: "Lista de Distribuidores"
         name: "lista"
         file: "promotores.json"
+        format: "json"
         description: "Añade, edita o elimina los datos de tu equipo."
         fields:
           - label: "Distribuidores"
