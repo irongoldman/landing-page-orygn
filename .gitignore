@@ -27,3 +27,7 @@ version_netlify_final-3/
 *.webm
 *.mp4
 *.mp3
+
+# Excepciones (Permitir subir el video optimizado y el audio)
+!testiminios_triGLP/ORYGN-triGLP-testimonios-web.mp4
+!testiminios_triGLP/testimonios_triGLP.mp3
