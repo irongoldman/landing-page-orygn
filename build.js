@@ -13,7 +13,8 @@ const ASSETS_TO_COPY = [
     'robots.txt',
     'sitemap.xml',
     'favicon.svg',
-    'testiminios_triGLP'
+    'testiminios_triGLP',
+    'admin'
 ];
 
 const DEFAULT_USERNAME = 'iorngoldman';
@@ -48,6 +49,19 @@ function customizeHtml(html, promotor, isSubfolder = true) {
         output = output
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Presentation_\(SP\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN_Presentation_%28SP%29_gener.pdf')
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Comp_Plan_\(ES\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN-Comp-Plan-%28ES%29-gener.pdf');
+
+        // Inyectar script de retención anti-bypass (Cookie 48h)
+        const antiBypassScript = `
+    <script>
+        // Sistema de retención (Anti-Bypass) 48h
+        (function() {
+            var d = new Date();
+            d.setTime(d.getTime() + (48*60*60*1000));
+            document.cookie = "sponsor=${promotor.id}; expires=" + d.toUTCString() + "; path=/";
+        })();
+    </script>
+</head>`;
+        output = output.replace('</head>', antiBypassScript);
     }
     return output;
 }
@@ -69,7 +83,10 @@ function runBuild() {
         console.error('ERROR: No se encontró promotores.json');
         process.exit(1);
     }
-    const promotores = JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8'));
+    let promotores = JSON.parse(fs.readFileSync(PROMOTORES_FILE, 'utf-8'));
+    if (promotores && !Array.isArray(promotores) && promotores.promotores) {
+        promotores = promotores.promotores;
+    }
 
     const templateHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');

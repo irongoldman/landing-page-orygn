@@ -101,6 +101,24 @@
     <link rel="alternate" hreflang="es" href="https://gotas-triglp.com/">
     <link rel="alternate" hreflang="x-default" href="https://gotas-triglp.com/">
 
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Script Guardián Anti-Bypass -->
+    <script>
+        (function() {
+            var match = document.cookie.match(new RegExp('(^| )sponsor=([^;]+)'));
+            if (match) {
+                var sponsor = match[2];
+                if (sponsor && sponsor !== 'default') {
+                    var path = window.location.pathname;
+                    if (path === '/' || path === '/index.html') {
+                        window.location.replace('/' + sponsor + '/');
+                    }
+                }
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -1496,8 +1514,16 @@
         </div>
     </div>
 
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
 </body>
-
-
-
 </html>
