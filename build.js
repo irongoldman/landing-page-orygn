@@ -42,6 +42,10 @@ function customizeHtml(html, promotor, isSubfolder = true) {
         output = output
             .replace(/href="assets\//g, 'href="../assets/')
             .replace(/src="assets\//g, 'src="../assets/')
+            .replace(/poster="assets\//g, 'poster="../assets/')
+            .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
+            .replace(/href="index\.html"/g, 'href="./"')
+            .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
             
