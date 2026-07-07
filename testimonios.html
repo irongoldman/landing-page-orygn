@@ -105,6 +105,11 @@
     <!-- Script Guardián Anti-Bypass -->
     <script>
         (function() {
+            // Evitar redirección si Netlify Identity está procesando un token
+            if (window.location.hash.includes('_token=')) {
+                return;
+            }
+
             var match = document.cookie.match(new RegExp('(^| )sponsor=([^;]+)'));
             if (match) {
                 var sponsor = match[2];
