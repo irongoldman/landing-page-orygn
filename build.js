@@ -13,6 +13,7 @@ const ASSETS_TO_COPY = [
     'negocio.html',
     'robots.txt',
     'sitemap.xml',
+    'sitemap.html',
     'favicon.svg',
     'testiminios_triGLP',
     'admin'
