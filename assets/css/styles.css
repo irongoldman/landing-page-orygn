@@ -2838,6 +2838,7 @@ footer {
 }
 .modal-content {
     background: white;
+    color: #1a1a1a;
     padding: 40px;
     border-radius: 20px;
     max-width: 500px;
@@ -2845,6 +2846,11 @@ footer {
     position: relative;
     transform: translateY(20px);
     transition: 0.3s ease;
+}
+.modal-content h2, 
+.modal-content p, 
+.modal-content strong {
+    color: #1a1a1a !important;
 }
 .modal-overlay.show .modal-content {
     transform: translateY(0);
