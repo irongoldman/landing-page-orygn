@@ -220,3 +220,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// =========================================================
+// CRO & CONVERSION OPTIMIZATIONS
+// =========================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Social Proof FOMO Notifications
+    const fomoNames = [
+        { name: "María C. (Madrid)", time: "hace 2 min", pack: "Pack de 2 Botellas" },
+        { name: "Carlos R. (Barcelona)", time: "hace 5 min", pack: "1 Botella Individual" },
+        { name: "Laura M. (Valencia)", time: "hace 12 min", pack: "Pack de 2 Botellas" },
+        { name: "Javier T. (Sevilla)", time: "hace 1 min", pack: "Pack de 2 Botellas" },
+        { name: "Ana P. (Málaga)", time: "hace 8 min", pack: "1 Botella Individual" },
+        { name: "Luis F. (Bilbao)", time: "hace 15 min", pack: "Pack de 2 Botellas" },
+        { name: "Carmen G. (Zaragoza)", time: "hace 3 min", pack: "1 Botella Individual" }
+    ];
+    
+    const fomoNotification = document.getElementById('fomo-notification');
+    if (fomoNotification) {
+        const fomoNameEl = document.getElementById('fomo-name');
+        const fomoTimeEl = document.getElementById('fomo-time');
+        const fomoPackEl = document.getElementById('fomo-pack');
+        
+        function showFOMO() {
+            const randomFomo = fomoNames[Math.floor(Math.random() * fomoNames.length)];
+            fomoNameEl.textContent = randomFomo.name;
+            fomoTimeEl.textContent = randomFomo.time;
+            fomoPackEl.textContent = randomFomo.pack;
+            
+            fomoNotification.classList.add('show');
+            
+            setTimeout(() => {
+                fomoNotification.classList.remove('show');
+            }, 5000); // Show for 5 seconds
+        }
+
+        // Trigger first notification after 15 seconds, then randomly every 20-35 seconds
+        setTimeout(() => {
+            showFOMO();
+            setInterval(showFOMO, Math.floor(Math.random() * 15000) + 20000);
+        }, 15000);
+    }
+
+    // 2. Exit Intent Modal
+    let exitModalTriggered = false;
+    const exitModal = document.getElementById('exit-modal');
+
+    document.addEventListener('mouseleave', (e) => {
+        // Only trigger if mouse leaves through the top of the viewport
+        if (e.clientY < 0 && !exitModalTriggered && exitModal) {
+            exitModal.classList.add('show');
+            exitModalTriggered = true;
+        }
+    });
+
+    // Make closeExitModal available globally
+    window.closeExitModal = function() {
+        if (exitModal) {
+            exitModal.classList.remove('show');
+        }
+    };
+});
