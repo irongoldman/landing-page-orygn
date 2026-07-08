@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recPackDesc = document.getElementById('rec-pack-desc');
     const recPackPrice = document.getElementById('rec-pack-price');
     const calcBuyBtn = document.getElementById('calc-buy-btn');
+    const recSavings = document.getElementById('rec-savings');
 
     if(weightInput && ageInput) {
         function calculatePlan() {
@@ -171,9 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     recPackTitle.textContent = "Pack de 2 Botellas (18 mL)";
                     recPackDesc.textContent = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.";
                 }
-                recPackPrice.textContent = "112€ / $130.00 USD";
+                recPackPrice.textContent = "113,60€ / $129,95";
                 calcBuyBtn.href = "https://iorngoldman.orygn.co/";
                 calcBuyBtn.textContent = "Pedir Pack de 2 Botellas";
+                if(recSavings) recSavings.style.display = 'block';
             } else {
                 resTomas.textContent = "1 toma al día";
                 resTomasDesc.textContent = "En una sola toma (por la mañana)";
@@ -185,9 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     recPackDesc.textContent = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
                 }
-                recPackPrice.textContent = "64€ / $75.00 USD";
+                recPackPrice.textContent = "64€ / $75";
                 calcBuyBtn.href = "https://iorngoldman.orygn.co/";
                 calcBuyBtn.textContent = "Pedir 1 Botella de Mantenimiento";
+                if(recSavings) recSavings.style.display = 'none';
             }
         }
 
