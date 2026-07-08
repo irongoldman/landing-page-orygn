@@ -140,6 +140,9 @@ a {
     z-index: 100;
 }
 
+.mobile-menu-btn {
+    display: none;
+}
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -1668,8 +1671,34 @@ footer {
     .feature-list li {
         justify-content: center;
     }
-    nav {
-        display: none; /* simple mobile nav hide for demo */
+    .mobile-menu-btn {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
+    nav.nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-dark);
+        flex-direction: column;
+        padding: 20px;
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+    nav.nav-menu.active {
+        display: flex;
+    }
+    nav.nav-menu a {
+        margin: 10px 0;
+        text-align: left;
+        width: 100%;
     }
     .infographic-container {
         gap: 40px; /* Restore gap for mobile stacking */

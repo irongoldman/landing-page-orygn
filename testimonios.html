@@ -126,16 +126,26 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
             <div class="logo">
                 <a href="index.html">
-                    <img src="https://technoeconomia.com/assets/images/frame7.png" alt="ORYGN" class="header-logo" style="height: 40px;">
+                    <img src="https://technoeconomia.com/assets/images/frame7.png"
+                        alt="ORYGN"
+                        class="header-logo" style="height: 35px;">
                 </a>
+                <span class="badge" style="display: none;">Distribuidor Independiente</span>
             </div>
-            <nav style="display: flex; gap: 15px; align-items: center;">
-                <a href="index.html" class="btn btn-outline" style="padding: 10px 20px;">Inicio</a>
-                <a href="negocio.html" class="btn btn-outline" style="padding: 10px 20px;">Oportunidad</a>
-                <a href="https://iorngoldman.orygn.co/shop" class="btn btn-primary" style="padding: 10px 20px;" target="_blank" rel="noopener noreferrer">Comprar TriGLP</a>
+            
+            <button class="mobile-menu-btn" aria-label="Menú">&#9776;</button>
+            
+            <nav class="nav-menu">
+                <a href="index.html#producto">TriGLP</a>
+                <a href="index.html#estudios-clinicos">Estudios</a>
+                <a href="index.html#como-usar">Cómo Usar</a>
+                <a href="testimonios.html" style="color: var(--primary); font-weight: bold;">Testimonios</a>
+                <a href="negocio.html" >Oportunidad</a>
+                <a href="https://iorngoldman.orygn.co/" class="btn btn-primary" target="_blank"
+                    rel="noopener noreferrer">Únete Ahora</a>
             </nav>
         </div>
     </header>

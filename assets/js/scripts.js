@@ -201,3 +201,19 @@ document.addEventListener('DOMContentLoaded', () => {
         calculatePlan();
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    if(menuBtn && navMenu) {
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+});
