@@ -228,13 +228,31 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Social Proof FOMO Notifications
     const fomoNames = [
-        { name: "Mar�a C. (Madrid)", time: "hace 2 min", pack: "Pack de 2 Botellas" },
+        { name: "María C. (Madrid)", time: "hace 2 min", pack: "Pack de 2 Botellas" },
         { name: "Carlos R. (Barcelona)", time: "hace 5 min", pack: "1 Botella Individual" },
         { name: "Laura M. (Valencia)", time: "hace 12 min", pack: "Pack de 2 Botellas" },
         { name: "Javier T. (Sevilla)", time: "hace 1 min", pack: "Pack de 2 Botellas" },
-        { name: "Ana P. (M�laga)", time: "hace 8 min", pack: "1 Botella Individual" },
+        { name: "Ana P. (Málaga)", time: "hace 8 min", pack: "1 Botella Individual" },
         { name: "Luis F. (Bilbao)", time: "hace 15 min", pack: "Pack de 2 Botellas" },
-        { name: "Carmen G. (Zaragoza)", time: "hace 3 min", pack: "1 Botella Individual" }
+        { name: "Carmen G. (Zaragoza)", time: "hace 3 min", pack: "1 Botella Individual" },
+        { name: "David L. (Murcia)", time: "hace 21 min", pack: "Pack de 2 Botellas" },
+        { name: "Elena S. (Alicante)", time: "hace 4 min", pack: "Pack de 2 Botellas" },
+        { name: "Sergio V. (Córdoba)", time: "hace 11 min", pack: "1 Botella Individual" },
+        { name: "Paula N. (Valladolid)", time: "hace 7 min", pack: "Pack de 2 Botellas" },
+        { name: "Andrés B. (Vigo)", time: "hace 14 min", pack: "Pack de 2 Botellas" },
+        { name: "Marta J. (Gijón)", time: "hace 2 min", pack: "1 Botella Individual" },
+        { name: "Hugo D. (Hospitalet)", time: "hace 19 min", pack: "Pack de 2 Botellas" },
+        { name: "Sofía Q. (Vitoria)", time: "hace 6 min", pack: "Pack de 2 Botellas" },
+        { name: "Raúl H. (A Coruña)", time: "hace 9 min", pack: "1 Botella Individual" },
+        { name: "Isabel Y. (Granada)", time: "hace 13 min", pack: "Pack de 2 Botellas" },
+        { name: "Miguel Z. (Elche)", time: "hace 25 min", pack: "Pack de 2 Botellas" },
+        { name: "Lucía F. (Oviedo)", time: "hace 1 min", pack: "1 Botella Individual" },
+        { name: "Antonio W. (Badalona)", time: "hace 18 min", pack: "Pack de 2 Botellas" },
+        { name: "Rocío K. (Terrassa)", time: "hace 32 min", pack: "1 Botella Individual" },
+        { name: "Pablo M. (Cartagena)", time: "hace 41 min", pack: "Pack de 2 Botellas" },
+        { name: "Natalia C. (Sabadell)", time: "hace 10 min", pack: "Pack de 2 Botellas" },
+        { name: "Óscar T. (Jerez)", time: "hace 22 min", pack: "1 Botella Individual" },
+        { name: "Irene R. (Pamplona)", time: "hace 28 min", pack: "Pack de 2 Botellas" }
     ];
     
     const fomoNotification = document.getElementById('fomo-notification');
