@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada (404) - ORYGN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        .error-page { 
+            padding: 150px 20px 100px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            text-align: center; 
+            color: var(--text-main); 
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .error-page h1 { 
+            font-size: 6rem; 
+            margin-bottom: 20px; 
+            color: var(--primary); 
+            font-family: var(--font-heading);
+            background: linear-gradient(135deg, var(--primary), #FF7B54);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        .error-page h2 { 
+            font-size: 2rem; 
+            margin-bottom: 20px; 
+        }
+        .error-page p { 
+            margin-bottom: 40px; 
+            color: var(--text-muted); 
+            font-size: 1.2rem;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar" style="background: var(--bg-darker);">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="https://technoeconomia.com/assets/images/frame7.png" alt="ORYGN" class="header-logo">
+                </a>
+                <span class="badge">Distribuidor Independiente</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="error-page">
+        <h1>404</h1>
+        <h2>Página no encontrada</h2>
+        <p>Lo sentimos, la página que estás buscando no existe, ha sido movida o la dirección es incorrecta.</p>
+        <a href="/" class="btn btn-primary">Volver al inicio</a>
+    </div>
+</body>
+</html>
