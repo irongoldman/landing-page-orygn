@@ -7,15 +7,16 @@
         (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
+            const internalPaths = ['negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
 
             // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
-            if (pathParts.length > 0 && !pathParts[0].includes('.html')) {
+            if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
                 localStorage.setItem('orygn_dist_id', pathParts[0]);
             }
             // Si estamos en la raíz (/), comprobamos si hay un ID guardado
             else if (path === "/" || path === "" || path === "/index.html") {
                 const savedId = localStorage.getItem('orygn_dist_id');
-                if (savedId && savedId !== 'default' && savedId !== 'index.html') {
+                if (savedId && savedId !== 'default' && savedId !== 'index.html' && !internalPaths.includes(savedId)) {
                     window.location.href = "/" + savedId + "/";
                 }
             }
