@@ -16,7 +16,9 @@ const ASSETS_TO_COPY = [
     'sitemap.html',
     'favicon.svg',
     'testiminios_triGLP',
-    'admin'
+    'admin',
+    '404.html',
+    '500.html'
 ];
 
 const DEFAULT_USERNAME = 'iorngoldman';
