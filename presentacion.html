@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- ============== PERSISTENCIA DE DISTRIBUIDOR ============== -->
+    <script>
+        (function () {
+            const path = window.location.pathname;
+            const pathParts = path.split('/').filter(p => p !== "");
+            const internalPaths = ['negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+
+            // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
+            if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
+                localStorage.setItem('orygn_dist_id', pathParts[0]);
+            }
+            // Si estamos en la raíz (/), comprobamos si hay un ID guardado
+            else if (path === "/" || path === "" || path === "/index.html") {
+                const savedId = localStorage.getItem('orygn_dist_id');
+                if (savedId && savedId !== 'default' && savedId !== 'index.html' && !internalPaths.includes(savedId)) {
+                    window.location.href = "/" + savedId + "/";
+                }
+            }
+        })();
+    </script>
+    <!-- CDN Cache Invalidation Trigger v4.4 -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- ============== SEO PRIMARIO ============== -->
+    <title>Presentación Oficial de TriGLP | Alternativa Natural GLP-1</title>
+    <meta name="description"
+        content="Vea la presentación oficial de TriGLP de ORYGN: descubre la revolucionaria fórmula sublingual basada en péptidos bioactivos de salmón noruego.">
+    <meta name="author" content="José Jumilla - Promotor Independiente ORYGN">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://gotas-triglp.com/presentacion">
+    <meta name="theme-color" content="#F04E23">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ORYGN TriGLP Presentación">
+
+    <!-- ============== GEO: Generative Engine Optimization ============== -->
+    <meta name="geo.placename" content="Global">
+    <meta name="geo.region" content="Internacional">
+    <meta property="article:published_time" content="2024-01-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-07-26T12:00:00+02:00">
+    <meta name="citation_title" content="triGLP: Bioactive Peptide Innovation for Metabolic Support">
+    <meta name="citation_abstract"
+        content="This video presentation details the clinical effectiveness of triGLP, a non-synthetic, natural peptide formulation that triggers GLP-1, GLP-2, and GIP pathways sublingually.">
+
+    <!-- ============== OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ============== -->
+    <meta property="og:type" content="video.other">
+    <meta property="og:url" content="https://gotas-triglp.com/presentacion">
+    <meta property="og:title" content="Presentación Oficial de TriGLP | Alternativa Natural GLP-1">
+    <meta property="og:description"
+        content="Vea la presentación oficial de TriGLP de ORYGN: descubre la revolucionaria fórmula sublingual basada en péptidos bioactivos de salmón noruego.">
+    <meta property="og:image" content="https://gotas-triglp.com/assets/images/og-presentacion.png">
+    <meta property="og:image:alt" content="Presentación de TriGLP de ORYGN — Gotas Sublinguales Naturales">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="TriGLP de ORYGN | Promotor Independiente">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- ============== TWITTER CARD ============== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ORYGN">
+    <meta name="twitter:title" content="Presentación Oficial de TriGLP | Alternativa Natural GLP-1">
+    <meta name="twitter:description"
+        content="Vea la presentación oficial de TriGLP de ORYGN: descubre la revolucionaria fórmula sublingual basada en péptidos bioactivos de salmón noruego.">
+    <meta name="twitter:image" content="https://gotas-triglp.com/assets/images/og-presentacion.png">
+    <meta name="twitter:image:alt" content="Presentación TriGLP ORYGN">
+
+    <!-- ============== PERFORMANCE ============== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://iorngoldman.orygn.co">
+
+    <!-- ============== FONTS ============== -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- ============== FAVICON / APP ICONS ============== -->
+    <link class="favicon" rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <!-- ============== STYLES ============== -->
+    <link rel="stylesheet" href="assets/css/styles.css?v=4.4">
+
+    <!-- ============== ALTERNATE / HREFLANG ============== -->
+    <link rel="alternate" hreflang="es" href="https://gotas-triglp.com/presentacion">
+    <link rel="alternate" hreflang="x-default" href="https://gotas-triglp.com/presentacion">
+
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Script Guardián Anti-Bypass -->
+    <script>
+        (function() {
+            if (window.location.hash.includes('_token=')) {
+                return;
+            }
+
+            var match = document.cookie.match(new RegExp('(^| )sponsor=([^;]+)'));
+            if (match) {
+                var sponsor = match[2];
+                if (sponsor && sponsor !== 'default') {
+                    var path = window.location.pathname;
+                    if (path === '/' || path === '/index.html' || path === '/presentacion.html') {
+                        window.location.replace('/' + sponsor + '/presentacion');
+                    }
+                }
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="top-announcement-bar">
+        <span>🔥 Oferta actual: Ahorra un 14% en el Pack de 2 botellas + Envío internacional garantizado</span>
+    </div>
+    <header class="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://technoeconomia.com/assets/images/frame7.png"
+                        alt="ORYGN"
+                        class="header-logo" style="height: 35px;">
+                </a>
+                <span class="badge" style="display: none;">Distribuidor Independiente</span>
+            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Menú">&#9776;</button>
+            
+            <nav class="nav-menu">
+                <a href="index.html#producto">TriGLP</a>
+                <a href="index.html#estudios-clinicos">Estudios</a>
+                <a href="presentacion.html" style="color: var(--primary); font-weight: bold;">Presentación</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="negocio.html">Oportunidad</a>
+                <a href="https://iorngoldman.orygn.co/" class="btn btn-primary" target="_blank"
+                    rel="noopener noreferrer">Únete Ahora</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Video Sales Letter (VSL) Section -->
+    <section class="hero-vsl" style="padding: 120px 0 60px; text-align: center; background: radial-gradient(circle at top, rgba(240, 78, 35, 0.08) 0%, rgba(13, 17, 23, 1) 80%);">
+        <div class="container" style="max-width: 900px;">
+            <span class="badge" style="background: rgba(240, 78, 35, 0.1); color: var(--primary); border: 1px solid rgba(240, 78, 35, 0.3);">VÍDEO EXCLUSIVO</span>
+            <h1 style="font-size: 2.8rem; margin-top: 15px; margin-bottom: 15px; line-height: 1.2;">Descubre el Descubrimiento que Está Revolucionando el Control de Peso</h1>
+            <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px;">
+                Descubre cómo las gotas sublinguales TriGLP activan las 3 vías metabólicas clave (GLP-1, GLP-2 y GIP) utilizando péptidos bioactivos de salmón noruego.
+            </p>
+            
+            <!-- Video Container -->
+            <div class="hero-video" style="position: relative; max-width: 1000px; margin: 0 auto 40px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                <video id="promo-video" autoplay muted playsinline preload="metadata" style="width: 100%; aspect-ratio: 16/9; display: block; object-fit: cover;"
+                    poster="assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg">
+                    <source src="video/triGLP-ORYGN-GLP1-GLP2-GIP-gotas.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <div class="video-end-overlay" id="video-end-overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,17,23,0.9); justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 20px;">
+                    <div class="end-text">
+                        <span class="badge badge-primary">Fórmula de Alta Eficacia</span>
+                        <h3 style="font-size: 2rem; margin: 15px 0;">Comienza Tu Transformación Hoy Mismo</h3>
+                        <a href="https://iorngoldman.orygn.co/" class="btn btn-glow" style="font-size: 1.1rem; padding: 15px 30px;" target="_blank"
+                            rel="noopener noreferrer">Ordenar mi Botella de TriGLP</a>
+                        <p class="price-tag price-tag--primary" style="margin-top: 15px; color: var(--primary); font-weight: bold;">Desde sólo 64€ / $75 USD por botella</p>
+                    </div>
+                </div>
+                <button type="button" class="video-unmute-btn" id="unmute-btn"
+                    style="position: absolute; bottom: 20px; right: 20px; background: rgba(0, 0, 0, 0.7); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; z-index: 10;"
+                    aria-label="Activar o desactivar sonido del video">
+                    <span class="icon">🔊</span> Haz clic para escuchar
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <a href="https://iorngoldman.orygn.co/" class="btn btn-primary btn-glow" target="_blank" rel="noopener noreferrer">Aprovechar Descuento del 14% en Pack de 2</a>
+                <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20estoy%20viendo%20la%20presentaci%C3%B3n%20de%20TriGLP%20y%20me%20gustar%C3%ADa%20hacerte%20algunas%20preguntas." 
+                   class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                   <span class="icon">💬</span> Resolver Dudas por WhatsApp
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Garantía oficial de fábrica. Envíos express internacionales.</p>
+        </div>
+    </section>
+
+    <!-- Explicación Científica Simplificada -->
+    <section class="section-light" style="padding: 80px 0; background: var(--bg-card);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <span class="badge" style="background: rgba(240, 78, 35, 0.1); color: var(--primary);">CÓMO FUNCIONA</span>
+                <h2 style="font-size: 2.5rem; margin-top: 15px; margin-bottom: 25px;">Los 3 Caminos (Triple Acción) de TriGLP</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 50px;">
+                    A diferencia de las alternativas sintéticas que actúan únicamente por una vía, la innovadora fórmula basada en péptidos bioactivos de salmón noruego grado sashimi estimula simultáneamente tres hormonas fundamentales en el metabolismo humano.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <!-- Vía 1 -->
+                <div class="card-metabolico" style="background: var(--bg-main); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: left; transition: all 0.3s ease;">
+                    <div style="background: rgba(240,78,35,0.1); color: var(--primary); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 25px;">1</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Activación del GLP-1</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Estimula la señal de saciedad directamente en el cerebro. Reduce de forma natural los antojos, la ansiedad por el azúcar y proporciona una sensación duradera de plenitud después de comer.
+                    </p>
+                </div>
+                <!-- Vía 2 -->
+                <div class="card-metabolico" style="background: var(--bg-main); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: left; transition: all 0.3s ease;">
+                    <div style="background: rgba(240,78,35,0.1); color: var(--primary); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 25px;">2</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Estímulo del GLP-2</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Favorece la salud digestiva y la absorción óptima de nutrientes en el intestino. Al regular el tránsito intestinal y la inflamación, mejora el procesamiento metabólico de las comidas.
+                    </p>
+                </div>
+                <!-- Vía 3 -->
+                <div class="card-metabolico" style="background: var(--bg-main); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: left; transition: all 0.3s ease;">
+                    <div style="background: rgba(240,78,35,0.1); color: var(--primary); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 25px;">3</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Regulación del GIP</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                        Ayuda a regular la secreción de insulina y el metabolismo de las grasas. Evita los picos drásticos de glucosa en sangre, estabilizando los niveles de energía física a lo largo del día.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ofertas Section -->
+    <section class="section-dark" style="padding: 80px 0; text-align: center; background: var(--bg-darker); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container">
+            <span class="badge" style="background: rgba(255, 171, 0, 0.1); color: #ffab00;">PRECIOS ESPECIALES</span>
+            <h2 style="font-size: 2.5rem; margin-top: 15px; margin-bottom: 40px; color: white;">Elige Tu Plan de Transformación</h2>
+            
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto;">
+                <!-- Botella Individual -->
+                <div style="background: var(--bg-card); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); text-align: center; flex: 1; min-width: 280px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Mantenimiento</span>
+                        <h3 style="font-size: 1.8rem; margin: 15px 0;">1 Botella TriGLP</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">Ideal para mantener resultados y el bienestar metabólico general. Cubre 36 tomas.</p>
+                        <div style="font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 10px;">64€ <span style="font-size: 1.2rem; color: var(--text-muted); font-weight: 400;">/ $75 USD</span></div>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 30px;">+ Gastos de envío</p>
+                    </div>
+                    <a href="https://iorngoldman.orygn.co/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="width: 100%;">Pedir Botella Única</a>
+                </div>
+                <!-- Pack 2 Botellas -->
+                <div style="background: var(--bg-card); padding: 40px; border-radius: 20px; border: 2px solid var(--primary); text-align: center; flex: 1; min-width: 280px; position: relative; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(240, 78, 35, 0.15);">
+                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; white-space: nowrap;">El Más Recomendado (Ahorras 14%)</div>
+                    <div>
+                        <span style="font-size: 0.9rem; color: var(--primary); text-transform: uppercase; font-weight: 600;">Resultados Clínicos</span>
+                        <h3 style="font-size: 1.8rem; margin: 15px 0;">Pack de 2 Botellas</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 30px;">Plan ideal para lograr los primeros cambios clínicos visibles en el peso en 6 a 8 semanas.</p>
+                        <div style="font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 10px;">112€ <span style="font-size: 1.2rem; color: var(--text-muted); font-weight: 400;">/ $130 USD</span></div>
+                        <p style="font-size: 0.9rem; color: var(--primary); font-weight: bold; margin-bottom: 30px;">Ahorras 16€ / $20 USD</p>
+                    </div>
+                    <a href="https://iorngoldman.orygn.co/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow" style="width: 100%;">Comprar Pack Recomendado</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== SECCIÓN: MISIÓN CORPORATIVA ============== -->
+    <section id="mision-corporativa" class="section-dark">
+        <div class="container text-center">
+            <span class="badge badge-dark badge--primary">Nuestra Filosofía</span>
+            <h2>La Misión de ORYGN</h2>
+            <p class="subtitle subtitle--muted" style="margin-bottom: 2rem;">Unidos por un propósito de innovación metabólica y bienestar de origen natural.</p>
+
+            <div class="orygn-mission">
+                <p>"En un panorama sanitario dominado por gigantes farmacéuticos, nosotros nos alzamos como pioneros del
+                    cambio. Nuestras bases son revolucionarias, nuestra innovación no tiene igual y nuestro propósito es
+                    inquebrantable: acercar soluciones de bienestar de origen natural a personas interesadas en mejorar
+                    sus hábitos y su salud metabólica."</p>
+                <div class="mission-authors">
+                    <span><strong>Robert Sacco</strong> — Co-fundador ORYGN</span>
+                    <span><strong>Pali Istook</strong> — VP de Ventas Europa</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section" style="padding: 100px 0; text-align: center; background: radial-gradient(circle at center, rgba(240, 78, 35, 0.15) 0%, rgba(13, 17, 23, 1) 70%);">
+        <div class="container">
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Empieza Hoy Mismo</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 40px;">No postergues tu bienestar. Experimenta los beneficios de los péptidos bioactivos de salmón de Noruega y da el primer paso hacia una salud metabólica equilibrada.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://iorngoldman.orygn.co/" class="btn btn-primary btn-glow" style="font-size: 1.2rem; padding: 15px 40px;" target="_blank" rel="noopener noreferrer">Comprar TriGLP Ahora</a>
+                <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20estoy%20viendo%20la%20presentaci%C3%B3n%20de%20TriGLP%20y%20me%20gustar%C3%ADa%20hacerte%20algunas%20preguntas." class="btn btn-outline" style="font-size: 1.2rem; padding: 15px 40px;" target="_blank" rel="noopener noreferrer">Hablar con un Asesor</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <div class="footer-logo">
+                    <img src="https://technoeconomia.com/assets/images/frame7.png"
+                        alt="ORYGN — Pharma Results, Natural Delivery | Promotor Independiente" class="header-logo">
+                    <span class="badge">Distribuidor Independiente</span>
+                </div>
+                <p>Esta no es la página web oficial corporativa de ORYGN. Es administrada por un promotor independiente.
+                    Para consultar la información oficial, visita los enlaces de registro.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#producto">Producto</a>
+                <a href="index.html#estudios-clinicos">Estudios Clínicos</a>
+                <a href="presentacion.html">Presentación</a>
+                <a href="testimonios.html">Testimonios</a>
+                <a href="negocio.html">Oportunidad</a>
+                <a href="https://iorngoldman.orygn.co/" target="_blank" rel="noopener">Tienda Oficial</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="disclaimer-text"><strong>Descargo de responsabilidad:</strong> TriGLP es un suplemento dietético.
+                No es un medicamento y no está destinado a diagnosticar, tratar, curar o prevenir ninguna enfermedad. No
+                contiene semaglutida, tirzepatida ni otros fármacos GLP-1. La información de esta página tiene fines
+                informativos y comerciales como promotor independiente de ORYGN. Los resultados pueden variar. Si tienes
+                una condición médica, diabetes, embarazo, lactancia o tomas medicación, consulta con un profesional
+                sanitario antes de usar cualquier suplemento.</p>
+            <p class="disclaimer-text mt-2">Los ingresos como distribuidor/a independiente no están garantizados.
+                Dependen de ventas reales, actividad comercial, cumplimiento del plan de compensación, gastos y
+                condiciones de mercado.</p>
+            <p class="mt-4">&copy; <span id="current-year"></span> ORYGN Promotor Independiente. Todos los derechos
+                reservados.</p>
+            <div class="legal-links mt-2">
+                <a href="aviso-legal.html" class="text-xs opacity-75 hover:opacity-100 mr-4">Aviso Legal</a>
+                <a href="privacidad.html" class="text-xs opacity-75 hover:opacity-100 mr-4">Política de Privacidad</a>
+                <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20estoy%20viendo%20tu%20p%C3%A1gina%20de%20ORYGN%20y%20me%20gustar%C3%ADa%20hacerte%20alguna%20pregunta."
+                    target="_blank" rel="noopener noreferrer" class="text-xs opacity-75 hover:opacity-100">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20estoy%20viendo%20tu%20p%C3%A1gina%20de%20ORYGN%20y%20me%20gustar%C3%ADa%20hacerte%20alguna%20pregunta."
+        class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <div class="whatsapp-tooltip">¿Tienes dudas? ¡Hablemos!</div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="wa-icon">
+            <path fill="currentColor"
+                d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-2.1-3.6 1.5-3.8 5-7.1 2.8-2.7 5.5-5.4 8.3-8.1 2.7-2.8 3.7-4.6 5.5-8.3 1.9-3.7 .9-7.1-.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.7 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+        </svg>
+    </a>
+
+    <!-- Social Proof FOMO -->
+    <div id="fomo-notification" class="fomo-notification">
+        <div class="fomo-img">👤</div>
+        <div class="fomo-text">
+            <span id="fomo-name">Alguien</span> acaba de adquirir <br>
+            <strong id="fomo-pack">Pack de 2 Botellas</strong>
+            <small id="fomo-time">hace 2 min</small>
+        </div>
+    </div>
+
+    <!-- Exit Intent Modal -->
+    <div id="exit-modal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <span class="modal-close" onclick="closeExitModal()">&times;</span>
+            <span class="badge badge-primary" style="margin: 0 auto 15px;">¡Espera! No te vayas aún</span>
+            <h2>¿Aún no estás seguro/a de empezar?</h2>
+            <p>La salud metabólica es la clave del bienestar duradero. Inicia hoy mismo tu cambio y <strong>ahorra un 14%</strong> con el pack recomendado de 2 botellas.</p>
+            <div style="margin: 25px 0;">
+                <img src="assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg" alt="TriGLP" style="width: 100%; max-width: 220px; border-radius: 12px; margin: 0 auto; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
+            </div>
+            <a href="https://iorngoldman.orygn.co/" target="_blank" rel="noopener noreferrer" class="btn btn-glow w-full" style="padding: 15px;">Aprovechar 14% Descuento Ahora</a>
+            <a href="#" class="btn btn-outline-dark w-full mt-2" onclick="closeExitModal(); return false;" style="padding: 15px;">No gracias, perderé esta oferta única</a>
+        </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>Esta página web utiliza cookies para mejorar la experiencia de usuario y analíticas básicas. Al continuar
+                navegando, aceptas nuestra <a href="privacidad.html">Política de Privacidad</a> y <a
+                    href="aviso-legal.html">Aviso Legal</a>.</p>
+            <button id="accept-cookies" class="btn btn-primary text-sm">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="assets/js/scripts.js?v=4.4"></script>
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+        window.netlifyIdentity.init();
+      }
+    </script>
+</body>
+</html>

@@ -11,12 +11,14 @@ const ASSETS_TO_COPY = [
     'privacidad.html',
     'testimonios.html',
     'negocio.html',
+    'presentacion.html',
     'robots.txt',
     'sitemap.xml',
     'sitemap.html',
     'favicon.svg',
     'testiminios_triGLP',
     'admin',
+    'video',
     '404.html',
     '500.html'
 ];
@@ -46,11 +48,13 @@ function customizeHtml(html, promotor, isSubfolder = true) {
         output = output
             .replace(/href="assets\//g, 'href="../assets/')
             .replace(/src="assets\//g, 'src="../assets/')
+            .replace(/src="video\//g, 'src="../video/')
             .replace(/poster="assets\//g, 'poster="../assets/')
             .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
             .replace(/href="index\.html"/g, 'href="./"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/href="negocio\.html"/g, 'href="negocio"')
+            .replace(/href="presentacion\.html"/g, 'href="presentacion"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
             
@@ -102,6 +106,7 @@ function runBuild() {
     const privacidadHtml = fs.readFileSync(path.join(__dirname, 'privacidad.html'), 'utf-8');
     const testimoniosHtml = fs.readFileSync(path.join(__dirname, 'testimonios.html'), 'utf-8');
     const negocioHtml = fs.readFileSync(path.join(__dirname, 'negocio.html'), 'utf-8');
+    const presentacionHtml = fs.readFileSync(path.join(__dirname, 'presentacion.html'), 'utf-8');
     const sitemapHtml = fs.readFileSync(path.join(__dirname, 'sitemap.html'), 'utf-8');
 
     // 2. Actualizar la RAÍZ (index.html principal) con los datos de "default"
@@ -111,10 +116,12 @@ function runBuild() {
         const rootHtml = customizeHtml(templateHtml, defaultData, false);
         const rootTestimoniosHtml = customizeHtml(testimoniosHtml, defaultData, false);
         const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false);
+        const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false);
         const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false);
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'negocio.html'), rootNegocioHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'presentacion.html'), rootPresentacionHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'sitemap.html'), rootSitemapHtml);
     }
 
@@ -130,6 +137,7 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
