@@ -13,12 +13,6 @@
       "whatsapp": "34655404502"
     },
     {
-      "id": "jusa",
-      "nombre": "Sara",
-      "orygnUsername": "jusa",
-      "whatsapp": "34665329537"
-    },
-    {
       "id": "gotasdesalud",
       "nombre": "Joaquin",
       "orygnUsername": "eidiamond",
@@ -53,6 +47,12 @@
       "orygnUsername": "elilete",
       "nombre": "Eli",
       "whatsapp": "34680171711"
+    },
+    {
+      "id": "marga",
+      "nombre": "Marga",
+      "orygnUsername": "marga1963",
+      "whatsapp": "+34666099482"
     }
   ]
 }
