@@ -6,6 +6,7 @@ const PROMOTORES_FILE = path.join(__dirname, 'promotores.json');
 
 const ASSETS_TO_COPY = [
     'assets',
+    'documents',
     'index.html',
     'estudios.html',
     'aviso-legal.html',
@@ -52,6 +53,7 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/src="video\//g, 'src="../video/')
             .replace(/poster="assets\//g, 'poster="../assets/')
             .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
+            .replace(/href="documents\//g, 'href="../documents/')
             .replace(/href="index\.html"/g, 'href="./"')
             .replace(/href="estudios\.html"/g, 'href="estudios"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
@@ -59,6 +61,7 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
+
             
         // Reemplazar PDFs por versiones genéricas en subcarpetas
         output = output

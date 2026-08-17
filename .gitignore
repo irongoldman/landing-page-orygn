@@ -28,8 +28,10 @@ version_netlify_final-3/
 *.mp4
 *.mp3
 
-# Excepciones (Permitir subir el video optimizado y el audio)
+# Excepciones (Permitir subir el video optimizado, audio, imagenes y PDF de estudios)
 !testiminios_triGLP/ORYGN-triGLP-testimonios-web.mp4
 !testiminios_triGLP/testimonios_triGLP.mp3
 !assets/images/estudios_laboratorio_noruega.jpg
+!documents/Estudios-ORYGN.pdf
+
 
