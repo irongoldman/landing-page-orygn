@@ -7,7 +7,7 @@
         (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
-            const internalPaths = ['negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+            const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
 
             // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
             if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
@@ -142,7 +142,7 @@
             
             <nav class="nav-menu">
                 <a href="index.html#producto">TriGLP</a>
-                <a href="index.html#estudios-clinicos">Estudios</a>
+                <a href="estudios.html">Estudios</a>
                 <a href="presentacion.html" style="color: var(--primary); font-weight: bold;">Presentación</a>
                 <a href="testimonios.html">Testimonios</a>
                 <a href="negocio.html">Oportunidad</a>
@@ -314,7 +314,7 @@
             </div>
             <div class="footer-links">
                 <a href="index.html#producto">Producto</a>
-                <a href="index.html#estudios-clinicos">Estudios Clínicos</a>
+                <a href="estudios.html">Estudios Clínicos</a>
                 <a href="presentacion.html">Presentación</a>
                 <a href="testimonios.html">Testimonios</a>
                 <a href="negocio.html">Oportunidad</a>

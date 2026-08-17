@@ -302,4 +302,95 @@ document.addEventListener('DOMContentLoaded', function() {
             exitModal.classList.remove('show');
         }
     };
+
+    // 3. Tab System for Studies Explorer & Pathways
+    const studyTabBtns = document.querySelectorAll('.study-tab-btn');
+    const studyCards = document.querySelectorAll('.study-card-item');
+
+    if (studyTabBtns.length > 0) {
+        studyTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                studyTabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                studyCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        card.classList.add('is-visible');
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    // 4. Interactive Metabolic Simulator
+    const simSlider = document.getElementById('sim-weeks-slider');
+    const simWeeksVal = document.getElementById('sim-weeks-val');
+    const simBmiVal = document.getElementById('sim-bmi-val');
+    const simFatVal = document.getElementById('sim-fat-val');
+    const simEnergyVal = document.getElementById('sim-energy-val');
+    const simIl6Val = document.getElementById('sim-il6-val');
+    const simHmoxVal = document.getElementById('sim-hmox-val');
+
+    if (simSlider && simWeeksVal) {
+        function updateSimulator() {
+            const weeks = parseInt(simSlider.value);
+            simWeeksVal.textContent = weeks;
+
+            let bmi, fat, energy, il6, hmox;
+            if (weeks <= 2) {
+                bmi = "-2.5%";
+                fat = "-3.0%";
+                energy = "+35%";
+                il6 = "-5.0%";
+                hmox = "+150%";
+            } else if (weeks <= 6) {
+                bmi = "-6.0%";
+                fat = "-7.5%";
+                energy = "+65%";
+                il6 = "-15.0%";
+                hmox = "+320%";
+            } else if (weeks <= 8) {
+                bmi = "-7.0%";
+                fat = "-10.0%";
+                energy = "+85%";
+                il6 = "-18.5%";
+                hmox = "+420%";
+            } else {
+                bmi = "-9.5%";
+                fat = "-13.5%";
+                energy = "+95%";
+                il6 = "-22.0%";
+                hmox = "+420%";
+            }
+
+            if (simBmiVal) simBmiVal.textContent = bmi;
+            if (simFatVal) simFatVal.textContent = fat;
+            if (simEnergyVal) simEnergyVal.textContent = energy;
+            if (simIl6Val) simIl6Val.textContent = il6;
+            if (simHmoxVal) simHmoxVal.textContent = hmox;
+        }
+
+        simSlider.addEventListener('input', updateSimulator);
+        updateSimulator();
+    }
+
+    // 5. FAQ Accordion Handler
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    }
 });
+

@@ -7,6 +7,7 @@ const PROMOTORES_FILE = path.join(__dirname, 'promotores.json');
 const ASSETS_TO_COPY = [
     'assets',
     'index.html',
+    'estudios.html',
     'aviso-legal.html',
     'privacidad.html',
     'testimonios.html',
@@ -52,6 +53,7 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/poster="assets\//g, 'poster="../assets/')
             .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
             .replace(/href="index\.html"/g, 'href="./"')
+            .replace(/href="estudios\.html"/g, 'href="estudios"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
@@ -102,6 +104,7 @@ function runBuild() {
     }
 
     const templateHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+    const estudiosHtml = fs.readFileSync(path.join(__dirname, 'estudios.html'), 'utf-8');
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');
     const privacidadHtml = fs.readFileSync(path.join(__dirname, 'privacidad.html'), 'utf-8');
     const testimoniosHtml = fs.readFileSync(path.join(__dirname, 'testimonios.html'), 'utf-8');
@@ -114,11 +117,13 @@ function runBuild() {
     if (defaultData) {
         console.log('2. Actualizando página principal (raíz) con datos default...');
         const rootHtml = customizeHtml(templateHtml, defaultData, false);
+        const rootEstudiosHtml = customizeHtml(estudiosHtml, defaultData, false);
         const rootTestimoniosHtml = customizeHtml(testimoniosHtml, defaultData, false);
         const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false);
         const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false);
         const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false);
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'estudios.html'), rootEstudiosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'negocio.html'), rootNegocioHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'presentacion.html'), rootPresentacionHtml);
@@ -135,6 +140,7 @@ function runBuild() {
         if (!fs.existsSync(promotorDir)) fs.mkdirSync(promotorDir, { recursive: true });
 
         fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), customizeHtml(estudiosHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
@@ -143,6 +149,7 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
 
     });
+
 
     console.log('--- Build completado con éxito ---');
 }
