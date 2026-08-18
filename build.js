@@ -48,19 +48,19 @@ function customizeHtml(html, promotor, isSubfolder = true) {
 
     if (isSubfolder) {
         output = output
-            .replace(/href="assets\//g, 'href="../assets/')
-            .replace(/src="assets\//g, 'src="../assets/')
-            .replace(/src="video\//g, 'src="../video/')
-            .replace(/poster="assets\//g, 'poster="../assets/')
-            .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
-            .replace(/href="documents\//g, 'href="../documents/')
+            .replace(/href="assets\//g, 'href="/assets/')
+            .replace(/src="assets\//g, 'src="/assets/')
+            .replace(/src="video\//g, 'src="/video/')
+            .replace(/poster="assets\//g, 'poster="/assets/')
+            .replace(/url\(['"]?assets\//g, 'url(\'/assets/')
+            .replace(/href="documents\//g, 'href="/documents/')
             .replace(/href="index\.html"/g, 'href="./"')
             .replace(/href="estudios\.html"/g, 'href="estudios"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
-            .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
-            .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
+            .replace(/src="testiminios_triGLP\//g, 'src="/testiminios_triGLP/')
+            .replace(/href="favicon\.svg"/g, 'href="/favicon.svg"');
 
             
         // Reemplazar PDFs por versiones genéricas en subcarpetas
@@ -151,8 +151,8 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
-        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
+        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="/assets/'));
+        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="/assets/'));
     });
 
     // 4. Generar archivo _redirects dinámico para Netlify
