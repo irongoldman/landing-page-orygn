@@ -68,14 +68,17 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Presentation_\(SP\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN_Presentation_%28SP%29_gener.pdf')
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Comp_Plan_\(ES\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN-Comp-Plan-%28ES%29-gener.pdf');
 
-        // Inyectar script de retención anti-bypass (Cookie 48h)
+        // Inyectar script de retención anti-bypass (Cookie 48h + localStorage)
         const antiBypassScript = `
     <script>
         // Sistema de retención (Anti-Bypass) 48h
         (function() {
             var d = new Date();
             d.setTime(d.getTime() + (48*60*60*1000));
-            document.cookie = "sponsor=${promotor.id}; expires=" + d.toUTCString() + "; path=/";
+            var host = window.location.hostname;
+            var domainAttr = host.includes('gotas-triglp.com') ? '; domain=.gotas-triglp.com' : '';
+            document.cookie = "sponsor=${promotor.id}; expires=" + d.toUTCString() + "; path=/" + domainAttr;
+            try { localStorage.setItem('orygn_dist_id', '${promotor.id}'); } catch(e){}
         })();
     </script>
 </head>`;
@@ -150,9 +153,31 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
-
     });
 
+    // 4. Generar archivo _redirects dinámico para Netlify
+    console.log('4. Generando reglas de redirección Netlify (_redirects)...');
+    let redirectsContent = `# Dynamic Netlify Redirects for Subdomains & Legacy Subfolders\n\n`;
+    redirectsContent += `# 1. Reglas de Assets globales para Subdominios\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/assets/*  /assets/:splat  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/video/*  /video/:splat  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/documents/*  /documents/:splat  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/testiminios_triGLP/*  /testiminios_triGLP/:splat  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/favicon.svg  /favicon.svg  200\n\n`;
+
+    redirectsContent += `# 2. Redirecciones 301 de URLs antiguas (gotas-triglp.com/id -> id.gotas-triglp.com)\n`;
+    promotores.forEach(promotor => {
+        if (!promotor.id || promotor.id === 'default') return;
+        redirectsContent += `/${promotor.id}/*  https://${promotor.id}.gotas-triglp.com/:splat  301!\n`;
+        redirectsContent += `/${promotor.id}  https://${promotor.id}.gotas-triglp.com/  301!\n`;
+    });
+
+    redirectsContent += `\n# 3. Enrutamiento automático de Subdominios a carpetas estáticas\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/  /:sub/index.html  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/:page  /:sub/:page.html  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/*  /:sub/:splat  200\n`;
+
+    fs.writeFileSync(path.join(DIST_DIR, '_redirects'), redirectsContent);
 
     console.log('--- Build completado con éxito ---');
 }

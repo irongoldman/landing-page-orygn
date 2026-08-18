@@ -2,23 +2,70 @@
 <html lang="es">
 
 <head>
-    <!-- ============== PERSISTENCIA DE DISTRIBUIDOR ============== -->
+    <!-- ============== PERSISTENCIA DE DISTRIBUIDOR (Anti-Bypass Subdominios + Subcarpetas) ============== -->
     <script>
         (function () {
-            const path = window.location.pathname;
-            const pathParts = path.split('/').filter(p => p !== "");
-            const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+            try {
+                const hostname = window.location.hostname;
+                const path = window.location.pathname;
+                const pathParts = path.split('/').filter(p => p !== "");
+                const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets', 'documents', 'video', 'testiminios_triGLP', '404', '500'];
+                const reservedSubdomains = ['www', 'admin', 'api', 'gotas-triglp', 'localhost'];
 
-            // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
-            if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
-                localStorage.setItem('orygn_dist_id', pathParts[0]);
-            }
-            // Si estamos en la raíz (/), comprobamos si hay un ID guardado
-            else if (path === "/" || path === "" || path === "/index.html") {
-                const savedId = localStorage.getItem('orygn_dist_id');
-                if (savedId && savedId !== 'default' && savedId !== 'index.html' && !internalPaths.includes(savedId)) {
-                    window.location.href = "/" + savedId + "/";
+                // 1. Extraer subdominio si existe (ej: juan.gotas-triglp.com -> 'juan')
+                let subdomainId = null;
+                const parts = hostname.split('.');
+                if (parts.length >= 3) {
+                    const potentialSub = parts[0].toLowerCase();
+                    if (!reservedSubdomains.includes(potentialSub)) {
+                        subdomainId = potentialSub;
+                    }
                 }
+
+                // 2. Extraer ID de subcarpeta si existe (ej: /juan/ -> 'juan')
+                let pathId = null;
+                if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0].toLowerCase())) {
+                    pathId = pathParts[0].toLowerCase();
+                }
+
+                const activeId = subdomainId || pathId;
+
+                function saveSponsor(id) {
+                    if (!id || id === 'default' || internalPaths.includes(id)) return;
+                    try { localStorage.setItem('orygn_dist_id', id); } catch (e) {}
+                    var d = new Date();
+                    d.setTime(d.getTime() + (48 * 60 * 60 * 1000));
+                    var domainAttr = hostname.includes('gotas-triglp.com') ? '; domain=.gotas-triglp.com' : '';
+                    document.cookie = "sponsor=" + id + "; expires=" + d.toUTCString() + "; path=/" + domainAttr;
+                }
+
+                function getCookieSponsor() {
+                    const match = document.cookie.match(/(?:^|; )sponsor=([^;]*)/);
+                    return match ? match[1] : null;
+                }
+
+                if (activeId) {
+                    saveSponsor(activeId);
+                    // Redirigir de subcarpeta antigua a subdominio si aplica
+                    if (pathId && !subdomainId && hostname.includes('gotas-triglp.com')) {
+                        const subPath = pathParts.slice(1).join('/');
+                        const newUrl = 'https://' + pathId + '.gotas-triglp.com/' + (subPath ? subPath : '') + window.location.search;
+                        window.location.replace(newUrl);
+                        return;
+                    }
+                } else if (!subdomainId && (path === "/" || path === "" || path === "/index.html")) {
+                    // Si estamos en la raíz (gotas-triglp.com/), comprobamos si hay sponsor guardado para Anti-Bypass
+                    const savedId = localStorage.getItem('orygn_dist_id') || getCookieSponsor();
+                    if (savedId && savedId !== 'default' && savedId !== 'index.html' && !internalPaths.includes(savedId.toLowerCase())) {
+                        if (hostname.includes('gotas-triglp.com')) {
+                            window.location.replace('https://' + savedId + '.gotas-triglp.com/' + window.location.search);
+                        } else {
+                            window.location.replace('/' + savedId + '/');
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error en persistencia anti-bypass:', e);
             }
         })();
     </script>
