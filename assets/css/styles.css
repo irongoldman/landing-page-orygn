@@ -193,8 +193,10 @@ nav a:not(.btn):hover {
     position: relative;
     padding-top: 80px;
     overflow: hidden;
-    background: radial-gradient(circle at top right, rgba(240, 78, 35, 0.1), transparent 50%),
-                radial-gradient(circle at bottom left, rgba(208, 65, 26, 0.05), transparent 50%);
+    background: linear-gradient(180deg, rgba(13, 17, 23, 0.78) 0%, rgba(13, 17, 23, 0.92) 100%), 
+                url('../images/index_hero_bg.jpg') center/cover no-repeat fixed;
+    background-attachment: fixed;
+    border-bottom: 1px solid rgba(240, 78, 35, 0.3);
 }
 
 .hero-content {
