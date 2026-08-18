@@ -168,8 +168,8 @@ function runBuild() {
     redirectsContent += `# 2. Redirecciones 301 de URLs antiguas (gotas-triglp.com/id -> id.gotas-triglp.com)\n`;
     promotores.forEach(promotor => {
         if (!promotor.id || promotor.id === 'default') return;
-        redirectsContent += `/${promotor.id}/*  https://${promotor.id}.gotas-triglp.com/:splat  301!\n`;
-        redirectsContent += `/${promotor.id}  https://${promotor.id}.gotas-triglp.com/  301!\n`;
+        redirectsContent += `https://gotas-triglp.com/${promotor.id}/*  https://${promotor.id}.gotas-triglp.com/:splat  301!\n`;
+        redirectsContent += `https://gotas-triglp.com/${promotor.id}  https://${promotor.id}.gotas-triglp.com/  301!\n`;
     });
 
     redirectsContent += `\n# 3. Enrutamiento automático de Subdominios a carpetas estáticas\n`;
