@@ -136,23 +136,46 @@ function runBuild() {
         fs.writeFileSync(path.join(DIST_DIR, 'sitemap.html'), rootSitemapHtml);
     }
 
-    // 3. Generar subcarpetas para todos los que NO sean "default"
-    console.log('3. Generando subcarpetas de promotores...');
+    // 3. Generar archivos de promotores (en _p/ para subdominios limpios, y en /id/ para retrocompatibilidad)
+    console.log('3. Generando archivos de promotores...');
+    const pDir = path.join(DIST_DIR, '_p');
+    if (!fs.existsSync(pDir)) fs.mkdirSync(pDir, { recursive: true });
+
     promotores.forEach(promotor => {
         if (!promotor.id || promotor.id === 'default') return;
 
-        console.log(`   -> Carpeta: /${promotor.id}/ (${promotor.nombre})`);
+        console.log(`   -> Promotor: ${promotor.id} (${promotor.nombre})`);
         const promotorDir = path.join(DIST_DIR, promotor.id);
         if (!fs.existsSync(promotorDir)) fs.mkdirSync(promotorDir, { recursive: true });
 
-        fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), customizeHtml(estudiosHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="/assets/'));
-        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="/assets/'));
+        const pIndex = customizeHtml(templateHtml, promotor, true);
+        const pEstudios = customizeHtml(estudiosHtml, promotor, true);
+        const pTestimonios = customizeHtml(testimoniosHtml, promotor, true);
+        const pNegocio = customizeHtml(negocioHtml, promotor, true);
+        const pPresentacion = customizeHtml(presentacionHtml, promotor, true);
+        const pSitemap = customizeHtml(sitemapHtml, promotor, true);
+        const pAviso = avisoHtml.replace(/href="assets\//g, 'href="/assets/');
+        const pPrivacidad = privacidadHtml.replace(/href="assets\//g, 'href="/assets/');
+
+        // Archivos para subdominio (evitan que Netlify agregue /id/ a la URL)
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_index.html`), pIndex);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_estudios.html`), pEstudios);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_testimonios.html`), pTestimonios);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_negocio.html`), pNegocio);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_presentacion.html`), pPresentacion);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_sitemap.html`), pSitemap);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_aviso-legal.html`), pAviso);
+        fs.writeFileSync(path.join(pDir, `${promotor.id}_privacidad.html`), pPrivacidad);
+
+        // Archivos para subcarpetas (retrocompatibilidad)
+        fs.writeFileSync(path.join(promotorDir, 'index.html'), pIndex);
+        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), pEstudios);
+        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), pTestimonios);
+        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), pNegocio);
+        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), pPresentacion);
+        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), pSitemap);
+        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), pAviso);
+        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), pPrivacidad);
     });
 
     // 4. Generar archivo _redirects dinámico para Netlify
@@ -172,10 +195,10 @@ function runBuild() {
         redirectsContent += `https://gotas-triglp.com/${promotor.id}  https://${promotor.id}.gotas-triglp.com/  301!\n`;
     });
 
-    redirectsContent += `\n# 3. Enrutamiento automático de Subdominios a carpetas estáticas\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/  /:sub/index.html  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/:page  /:sub/:page.html  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/*  /:sub/:splat  200\n`;
+    redirectsContent += `\n# 3. Enrutamiento automático de Subdominios a archivos estáticos de promotores\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/  /_p/:sub_index.html  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/index.html  /_p/:sub_index.html  200\n`;
+    redirectsContent += `https://:sub.gotas-triglp.com/:page  /_p/:sub_:page.html  200\n`;
 
     fs.writeFileSync(path.join(DIST_DIR, '_redirects'), redirectsContent);
 
