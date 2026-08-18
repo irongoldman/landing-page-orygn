@@ -48,19 +48,19 @@ function customizeHtml(html, promotor, isSubfolder = true) {
 
     if (isSubfolder) {
         output = output
-            .replace(/href="assets\//g, 'href="/assets/')
-            .replace(/src="assets\//g, 'src="/assets/')
-            .replace(/src="video\//g, 'src="/video/')
-            .replace(/poster="assets\//g, 'poster="/assets/')
-            .replace(/url\(['"]?assets\//g, 'url(\'/assets/')
-            .replace(/href="documents\//g, 'href="/documents/')
+            .replace(/href="assets\//g, 'href="../assets/')
+            .replace(/src="assets\//g, 'src="../assets/')
+            .replace(/src="video\//g, 'src="../video/')
+            .replace(/poster="assets\//g, 'poster="../assets/')
+            .replace(/url\(['"]?assets\//g, 'url(\'../assets/')
+            .replace(/href="documents\//g, 'href="../documents/')
             .replace(/href="index\.html"/g, 'href="./"')
             .replace(/href="estudios\.html"/g, 'href="estudios"')
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
-            .replace(/src="testiminios_triGLP\//g, 'src="/testiminios_triGLP/')
-            .replace(/href="favicon\.svg"/g, 'href="/favicon.svg"');
+            .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
+            .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
 
             
         // Reemplazar PDFs por versiones genéricas en subcarpetas
@@ -68,17 +68,14 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Presentation_\(SP\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN_Presentation_%28SP%29_gener.pdf')
             .replace(/https:\/\/technoeconomia\.com\/docu-orygn\/ORYGN_Comp_Plan_\(ES\)\.pdf/g, 'https://technoeconomia.com/docu-orygn-genericos/ORYGN-Comp-Plan-%28ES%29-gener.pdf');
 
-        // Inyectar script de retención anti-bypass (Cookie 48h + localStorage)
+        // Inyectar script de retención anti-bypass (Cookie 48h)
         const antiBypassScript = `
     <script>
         // Sistema de retención (Anti-Bypass) 48h
         (function() {
             var d = new Date();
             d.setTime(d.getTime() + (48*60*60*1000));
-            var host = window.location.hostname;
-            var domainAttr = host.includes('gotas-triglp.com') ? '; domain=.gotas-triglp.com' : '';
-            document.cookie = "sponsor=${promotor.id}; expires=" + d.toUTCString() + "; path=/" + domainAttr;
-            try { localStorage.setItem('orygn_dist_id', '${promotor.id}'); } catch(e){}
+            document.cookie = "sponsor=${promotor.id}; expires=" + d.toUTCString() + "; path=/";
         })();
     </script>
 </head>`;
@@ -136,80 +133,26 @@ function runBuild() {
         fs.writeFileSync(path.join(DIST_DIR, 'sitemap.html'), rootSitemapHtml);
     }
 
-    // 3. Generar archivos de promotores (en _p/ para subdominios limpios, y en /id/ para retrocompatibilidad)
-    console.log('3. Generando archivos de promotores...');
-    const pDir = path.join(DIST_DIR, '_p');
-    if (!fs.existsSync(pDir)) fs.mkdirSync(pDir, { recursive: true });
-
+    // 3. Generar subcarpetas para todos los que NO sean "default"
+    console.log('3. Generando subcarpetas de promotores...');
     promotores.forEach(promotor => {
         if (!promotor.id || promotor.id === 'default') return;
 
-        console.log(`   -> Promotor: ${promotor.id} (${promotor.nombre})`);
+        console.log(`   -> Carpeta: /${promotor.id}/ (${promotor.nombre})`);
         const promotorDir = path.join(DIST_DIR, promotor.id);
         if (!fs.existsSync(promotorDir)) fs.mkdirSync(promotorDir, { recursive: true });
 
-        const pIndex = customizeHtml(templateHtml, promotor, true);
-        const pEstudios = customizeHtml(estudiosHtml, promotor, true);
-        const pTestimonios = customizeHtml(testimoniosHtml, promotor, true);
-        const pNegocio = customizeHtml(negocioHtml, promotor, true);
-        const pPresentacion = customizeHtml(presentacionHtml, promotor, true);
-        const pSitemap = customizeHtml(sitemapHtml, promotor, true);
-        const pAviso = avisoHtml.replace(/href="assets\//g, 'href="/assets/');
-        const pPrivacidad = privacidadHtml.replace(/href="assets\//g, 'href="/assets/');
+        fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), customizeHtml(estudiosHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
+        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
 
-        // Archivos para subdominio (evitan que Netlify agregue /id/ a la URL)
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_index.html`), pIndex);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_estudios.html`), pEstudios);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_testimonios.html`), pTestimonios);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_negocio.html`), pNegocio);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_presentacion.html`), pPresentacion);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_sitemap.html`), pSitemap);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_aviso-legal.html`), pAviso);
-        fs.writeFileSync(path.join(pDir, `${promotor.id}_privacidad.html`), pPrivacidad);
-
-        // Archivos para subcarpetas (retrocompatibilidad)
-        fs.writeFileSync(path.join(promotorDir, 'index.html'), pIndex);
-        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), pEstudios);
-        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), pTestimonios);
-        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), pNegocio);
-        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), pPresentacion);
-        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), pSitemap);
-        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), pAviso);
-        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), pPrivacidad);
     });
 
-    // 4. Generar archivo _redirects dinámico para Netlify
-    console.log('4. Generando reglas de redirección Netlify (_redirects)...');
-    let redirectsContent = `# Dynamic Netlify Redirects for Subdomains & Legacy Subfolders\n\n`;
-
-    promotores.forEach(promotor => {
-        if (!promotor.id || promotor.id === 'default') return;
-
-        const sub = promotor.id;
-        // Assets por subdominio
-        redirectsContent += `https://${sub}.gotas-triglp.com/assets/*  /assets/:splat  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/video/*  /video/:splat  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/documents/*  /documents/:splat  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/testiminios_triGLP/*  /testiminios_triGLP/:splat  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/favicon.svg  /favicon.svg  200!\n`;
-
-        // Redirección 301 de URLs antiguas en dominio principal
-        redirectsContent += `https://gotas-triglp.com/${sub}/*  https://${sub}.gotas-triglp.com/:splat  301!\n`;
-        redirectsContent += `https://gotas-triglp.com/${sub}  https://${sub}.gotas-triglp.com/  301!\n`;
-
-        // Enrutamiento directo forzado (200!) sin duplicación de carpetas
-        redirectsContent += `https://${sub}.gotas-triglp.com/  /_p/${sub}_index.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/index.html  /_p/${sub}_index.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/estudios  /_p/${sub}_estudios.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/testimonios  /_p/${sub}_testimonios.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/negocio  /_p/${sub}_negocio.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/presentacion  /_p/${sub}_presentacion.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/sitemap  /_p/${sub}_sitemap.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/aviso-legal  /_p/${sub}_aviso-legal.html  200!\n`;
-        redirectsContent += `https://${sub}.gotas-triglp.com/privacidad  /_p/${sub}_privacidad.html  200!\n\n`;
-    });
-
-    fs.writeFileSync(path.join(DIST_DIR, '_redirects'), redirectsContent);
 
     console.log('--- Build completado con éxito ---');
 }
