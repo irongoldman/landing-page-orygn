@@ -181,24 +181,33 @@ function runBuild() {
     // 4. Generar archivo _redirects dinámico para Netlify
     console.log('4. Generando reglas de redirección Netlify (_redirects)...');
     let redirectsContent = `# Dynamic Netlify Redirects for Subdomains & Legacy Subfolders\n\n`;
-    redirectsContent += `# 1. Reglas de Assets globales para Subdominios\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/assets/*  /assets/:splat  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/video/*  /video/:splat  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/documents/*  /documents/:splat  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/testiminios_triGLP/*  /testiminios_triGLP/:splat  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/favicon.svg  /favicon.svg  200\n\n`;
 
-    redirectsContent += `# 2. Redirecciones 301 de URLs antiguas (gotas-triglp.com/id -> id.gotas-triglp.com)\n`;
     promotores.forEach(promotor => {
         if (!promotor.id || promotor.id === 'default') return;
-        redirectsContent += `https://gotas-triglp.com/${promotor.id}/*  https://${promotor.id}.gotas-triglp.com/:splat  301!\n`;
-        redirectsContent += `https://gotas-triglp.com/${promotor.id}  https://${promotor.id}.gotas-triglp.com/  301!\n`;
-    });
 
-    redirectsContent += `\n# 3. Enrutamiento automático de Subdominios a archivos estáticos de promotores\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/  /_p/:sub_index.html  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/index.html  /_p/:sub_index.html  200\n`;
-    redirectsContent += `https://:sub.gotas-triglp.com/:page  /_p/:sub_:page.html  200\n`;
+        const sub = promotor.id;
+        // Assets por subdominio
+        redirectsContent += `https://${sub}.gotas-triglp.com/assets/*  /assets/:splat  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/video/*  /video/:splat  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/documents/*  /documents/:splat  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/testiminios_triGLP/*  /testiminios_triGLP/:splat  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/favicon.svg  /favicon.svg  200!\n`;
+
+        // Redirección 301 de URLs antiguas en dominio principal
+        redirectsContent += `https://gotas-triglp.com/${sub}/*  https://${sub}.gotas-triglp.com/:splat  301!\n`;
+        redirectsContent += `https://gotas-triglp.com/${sub}  https://${sub}.gotas-triglp.com/  301!\n`;
+
+        // Enrutamiento directo forzado (200!) sin duplicación de carpetas
+        redirectsContent += `https://${sub}.gotas-triglp.com/  /_p/${sub}_index.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/index.html  /_p/${sub}_index.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/estudios  /_p/${sub}_estudios.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/testimonios  /_p/${sub}_testimonios.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/negocio  /_p/${sub}_negocio.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/presentacion  /_p/${sub}_presentacion.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/sitemap  /_p/${sub}_sitemap.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/aviso-legal  /_p/${sub}_aviso-legal.html  200!\n`;
+        redirectsContent += `https://${sub}.gotas-triglp.com/privacidad  /_p/${sub}_privacidad.html  200!\n\n`;
+    });
 
     fs.writeFileSync(path.join(DIST_DIR, '_redirects'), redirectsContent);
 
