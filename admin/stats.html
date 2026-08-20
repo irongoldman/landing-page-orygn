@@ -443,13 +443,14 @@
                 { id: "marga", nombre: "Marga" }
             ];
 
-            var isFirebaseConnected = window.firebaseConfig && window.firebaseConfig.apiKey && window.firebaseConfig.apiKey !== "TU_API_KEY";
+            var isFirebaseConnected = window.firebaseConfig && window.firebaseConfig.apiKey && window.firebaseConfig.apiKey !== "TU_API_KEY" && !window.firebaseConfig.apiKey.includes("TU_API_KEY");
 
-            if (!isFirebaseConnected) {
+            if (isFirebaseConnected) {
+                document.getElementById('demoNotice').style.display = 'none';
+                loadFirebaseStats(promotoresDefault);
+            } else {
                 document.getElementById('demoNotice').style.display = 'flex';
                 loadLocalStorageStats(promotoresDefault);
-            } else {
-                loadFirebaseStats(promotoresDefault);
             }
         });
 
@@ -459,12 +460,10 @@
                 visits = JSON.parse(localStorage.getItem('orygn_local_visits') || '[]');
             } catch (e) {}
 
-            // Si está vacío, generar datos de prueba elegantes para visualizar el panel inmediatamente
             if (visits.length === 0) {
                 visits = generateMockVisits();
             }
-
-            processAndRenderStats(visits, promotoresDefault);
+            processAndRenderStats(visits, promotoresDefault, true);
         }
 
         function loadFirebaseStats(promotoresDefault) {
@@ -473,7 +472,8 @@
                     firebase.initializeApp(window.firebaseConfig);
                 }
                 var db = firebase.database();
-                db.ref('visitas').limitToLast(1000).once('value', function (snapshot) {
+                db.ref('visitas').limitToLast(1000).on('value', function (snapshot) {
+                    document.getElementById('demoNotice').style.display = 'none';
                     var data = snapshot.val();
                     var visits = [];
                     if (data) {
@@ -481,8 +481,12 @@
                             visits.push(data[key]);
                         });
                     }
-                    if (visits.length === 0) visits = generateMockVisits();
-                    processAndRenderStats(visits, promotoresDefault);
+                    processAndRenderStats(visits, promotoresDefault, false);
+                }, function (err) {
+                    console.log('Firebase DB Notice:', err);
+                    document.getElementById('demoNotice').style.display = 'flex';
+                    document.getElementById('demoNotice').querySelector('span').innerHTML = '⚠️ <strong>Aviso de Reglas en Firebase:</strong> Asegúrate de haber hecho clic en "Crear base de datos" en <em>Realtime Database</em> y haber activado las reglas en modo de prueba (o <code>".read": true, ".write": true</code>).';
+                    loadLocalStorageStats(promotoresDefault);
                 });
             } catch (err) {
                 console.log('Error conectando a Firebase:', err);
@@ -512,7 +516,12 @@
             return mock;
         }
 
-        function processAndRenderStats(visits, promotoresDefault) {
+        function processAndRenderStats(visits, promotoresDefault, isDemo) {
+            if (!isDemo) {
+                var noticeEl = document.getElementById('demoNotice');
+                if (noticeEl) noticeEl.style.display = 'none';
+            }
+
             var totalVisitas = visits.length;
             document.getElementById('kpiTotalVisitas').textContent = totalVisitas;
 
@@ -535,11 +544,11 @@
             // KPIs Top
             var topPromotor = Object.keys(promotorCounts).reduce((a, b) => promotorCounts[a] > promotorCounts[b] ? a : b, 'default');
             var topPromotorObj = promotoresDefault.find(p => p.id === topPromotor) || { nombre: topPromotor };
-            document.getElementById('kpiTopPromotor').textContent = topPromotorObj.nombre || topPromotor;
+            document.getElementById('kpiTopPromotor').textContent = totalVisitas > 0 ? (topPromotorObj.nombre || topPromotor) : '-';
             document.getElementById('kpiTopPromotorCount').textContent = (promotorCounts[topPromotor] || 0) + ' visitas';
 
-            var topFuente = Object.keys(fuenteCounts).reduce((a, b) => fuenteCounts[a] > fuenteCounts[b] ? a : b, 'Directo');
-            document.getElementById('kpiTopFuente').textContent = topFuente;
+            var topFuente = Object.keys(fuenteCounts).length > 0 ? Object.keys(fuenteCounts).reduce((a, b) => fuenteCounts[a] > fuenteCounts[b] ? a : b, 'Directo') : '-';
+            document.getElementById('kpiTopFuente').textContent = totalVisitas > 0 ? topFuente : '-';
             document.getElementById('kpiTopFuenteCount').textContent = (fuenteCounts[topFuente] || 0) + ' visitas';
 
             var mobilePct = totalVisitas > 0 ? Math.round((mobileCount / totalVisitas) * 100) : 0;
@@ -549,7 +558,8 @@
             var barLabels = promotoresDefault.map(p => p.nombre);
             var barData = promotoresDefault.map(p => promotorCounts[p.id] || 0);
 
-            new Chart(document.getElementById('barPromotores'), {
+            if (window.myBarChart) window.myBarChart.destroy();
+            window.myBarChart = new Chart(document.getElementById('barPromotores'), {
                 type: 'bar',
                 data: {
                     labels: barLabels,
@@ -572,11 +582,12 @@
             });
 
             // Render Pie Chart Fuentes
-            var pieLabels = Object.keys(fuenteCounts);
-            var pieData = Object.values(fuenteCounts);
+            var pieLabels = Object.keys(fuenteCounts).length > 0 ? Object.keys(fuenteCounts) : ['Sin datos aún'];
+            var pieData = Object.values(fuenteCounts).length > 0 ? Object.values(fuenteCounts) : [1];
             var pieColors = ['#f04e23', '#38bdf8', '#a855f7', '#22c55e', '#eab308', '#ec4899', '#64748b'];
 
-            new Chart(document.getElementById('pieFuentes'), {
+            if (window.myPieChart) window.myPieChart.destroy();
+            window.myPieChart = new Chart(document.getElementById('pieFuentes'), {
                 type: 'doughnut',
                 data: {
                     labels: pieLabels,
