@@ -394,3 +394,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// 6. Dynamic Top Bar Promoter Update
+(function updateTopBarPromotor() {
+    const promotorMap = {
+        'default': 'José',
+        'iorngoldman': 'José',
+        'gotasdesalud': 'Joaquin',
+        'agbnetwork': 'Felix',
+        'marce': 'Marcelino',
+        'raulct': 'Raul',
+        'etc313': 'Esther',
+        'elilete': 'Eli',
+        'marga': 'Marga'
+    };
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const pathParts = window.location.pathname.split('/').filter(p => p !== "");
+        const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+        
+        let distId = null;
+        if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
+            distId = pathParts[0];
+        } else {
+            distId = localStorage.getItem('orygn_dist_id');
+        }
+        
+        if (distId && promotorMap[distId]) {
+            document.querySelectorAll('.promotor-nombre').forEach(el => {
+                el.textContent = promotorMap[distId];
+            });
+        }
+    });
+})();
+

@@ -44,7 +44,8 @@ function customizeHtml(html, promotor, isSubfolder = true) {
     let output = html
         .replace(new RegExp(`https://${DEFAULT_USERNAME}\\.orygn\\.co`, 'g'), `https://${promotor.orygnUsername}.orygn.co`)
         .replace(new RegExp(`phone=${DEFAULT_WHATSAPP}`, 'g'), `phone=${promotor.whatsapp}`)
-        .replace(new RegExp('Jos%C3%A9', 'g'), encodeURIComponent(promotor.nombre || ''));
+        .replace(new RegExp('Jos%C3%A9', 'g'), encodeURIComponent(promotor.nombre || ''))
+        .replace(/<span class="promotor-nombre">José<\/span>/g, `<span class="promotor-nombre">${promotor.nombre || 'José'}</span>`);
 
     if (isSubfolder) {
         output = output
@@ -148,8 +149,8 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), avisoHtml.replace(/href="assets\//g, 'href="../assets/'));
-        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), privacidadHtml.replace(/href="assets\//g, 'href="../assets/'));
+        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true));
 
     });
 

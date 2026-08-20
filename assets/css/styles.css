@@ -2713,12 +2713,11 @@ footer {
 }
 .top-announcement-bar span {
     display: inline-block;
-    animation: pulse-text 2s infinite;
 }
-@keyframes pulse-text {
-    0% { opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { opacity: 0.8; }
+.top-announcement-bar .promotor-nombre {
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.8px;
 }
 
 /* Button Pulse Animation */
