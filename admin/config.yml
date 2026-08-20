@@ -23,3 +23,4 @@ collections:
               - {label: "Nombre para mostrar", name: "nombre", widget: "string"}
               - {label: "Usuario ORYGN", name: "orygnUsername", widget: "string"}
               - {label: "WhatsApp (con código de país)", name: "whatsapp", widget: "string"}
+              - {label: "Activo en el Rotador de Tráfico", name: "enRotador", widget: "boolean", default: true, required: false}

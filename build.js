@@ -42,12 +42,19 @@ function copyRecursiveSync(src, dest) {
     }
 }
 
-function customizeHtml(html, promotor, isSubfolder = true) {
+function customizeHtml(html, promotor, isSubfolder = true, activeRotatorPool = []) {
     let output = html
         .replace(new RegExp(`https://${DEFAULT_USERNAME}\\.orygn\\.co`, 'g'), `https://${promotor.orygnUsername}.orygn.co`)
         .replace(new RegExp(`phone=${DEFAULT_WHATSAPP}`, 'g'), `phone=${promotor.whatsapp}`)
         .replace(new RegExp('Jos%C3%A9', 'g'), encodeURIComponent(promotor.nombre || ''))
         .replace(/<span class="promotor-nombre">José<\/span>/g, `<span class="promotor-nombre">${promotor.nombre || 'José'}</span>`);
+
+    if (activeRotatorPool && activeRotatorPool.length > 0) {
+        output = output.replace(
+            /\/\*ROTADOR_POOL_PLACEHOLDER\*\/\[[\s\S]*?\]\/\*END_ROTADOR_POOL\*\//g,
+            `/*ROTADOR_POOL_PLACEHOLDER*/${JSON.stringify(activeRotatorPool)}/*END_ROTADOR_POOL*/`
+        );
+    }
 
     if (isSubfolder) {
         output = output
@@ -110,6 +117,13 @@ function runBuild() {
         promotores = promotores.promotores;
     }
 
+    // Extraer la lista de IDs activos en el rotador (enRotador !== false y id !== 'default')
+    const activeRotatorPool = promotores
+        .filter(p => p.id && p.id !== 'default' && p.enRotador !== false)
+        .map(p => p.id);
+
+    console.log(`Rotador activo con ${activeRotatorPool.length} promotores:`, activeRotatorPool);
+
     const templateHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     const estudiosHtml = fs.readFileSync(path.join(__dirname, 'estudios.html'), 'utf-8');
     const avisoHtml = fs.readFileSync(path.join(__dirname, 'aviso-legal.html'), 'utf-8');
@@ -124,13 +138,13 @@ function runBuild() {
     const defaultData = promotores.find(p => p.id === 'default');
     if (defaultData) {
         console.log('2. Actualizando página principal (raíz) con datos default...');
-        const rootHtml = customizeHtml(templateHtml, defaultData, false);
-        const rootEstudiosHtml = customizeHtml(estudiosHtml, defaultData, false);
-        const rootTestimoniosHtml = customizeHtml(testimoniosHtml, defaultData, false);
-        const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false);
-        const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false);
-        const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false);
-        const rootFaqHtml = customizeHtml(faqHtml, defaultData, false);
+        const rootHtml = customizeHtml(templateHtml, defaultData, false, activeRotatorPool);
+        const rootEstudiosHtml = customizeHtml(estudiosHtml, defaultData, false, activeRotatorPool);
+        const rootTestimoniosHtml = customizeHtml(testimoniosHtml, defaultData, false, activeRotatorPool);
+        const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false, activeRotatorPool);
+        const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false, activeRotatorPool);
+        const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false, activeRotatorPool);
+        const rootFaqHtml = customizeHtml(faqHtml, defaultData, false, activeRotatorPool);
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'estudios.html'), rootEstudiosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
@@ -149,18 +163,17 @@ function runBuild() {
         const promotorDir = path.join(DIST_DIR, promotor.id);
         if (!fs.existsSync(promotorDir)) fs.mkdirSync(promotorDir, { recursive: true });
 
-        fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), customizeHtml(estudiosHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'faq.html'), customizeHtml(faqHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true));
-        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'index.html'), customizeHtml(templateHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'estudios.html'), customizeHtml(estudiosHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'testimonios.html'), customizeHtml(testimoniosHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'faq.html'), customizeHtml(faqHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true, activeRotatorPool));
 
     });
-
 
     console.log('--- Build completado con éxito ---');
 }

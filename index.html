@@ -2,22 +2,37 @@
 <html lang="es">
 
 <head>
-    <!-- ============== PERSISTENCIA DE DISTRIBUIDOR ============== -->
+    <!-- ============== PERSISTENCIA Y ROTADOR DE DISTRIBUIDOR ============== -->
     <script>
         (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
-            const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'admin', 'assets'];
+            const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'admin', 'assets'];
 
-            // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
             if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
                 localStorage.setItem('orygn_dist_id', pathParts[0]);
+                var d = new Date();
+                d.setTime(d.getTime() + (90 * 24 * 60 * 60 * 1000));
+                document.cookie = "sponsor=" + pathParts[0] + "; expires=" + d.toUTCString() + "; path=/";
             }
-            // Si estamos en la raíz (/), comprobamos si hay un ID guardado
             else if (path === "/" || path === "" || path === "/index.html") {
                 const savedId = localStorage.getItem('orygn_dist_id');
-                if (savedId && savedId !== 'default' && savedId !== 'index.html' && !internalPaths.includes(savedId)) {
-                    window.location.href = "/" + savedId + "/";
+                var cookieMatch = document.cookie.match(new RegExp('(^| )sponsor=([^;]+)'));
+                var cookieId = cookieMatch ? cookieMatch[2] : null;
+                var activeId = savedId || cookieId;
+
+                if (activeId && activeId !== 'default' && activeId !== 'index.html' && !internalPaths.includes(activeId)) {
+                    window.location.href = "/" + activeId + "/";
+                } else {
+                    var rotadorPool = /*ROTADOR_POOL_PLACEHOLDER*/['iorngoldman', 'gotasdesalud', 'agbnetwork', 'marce', 'raulct', 'etc313', 'elilete', 'marga']/*END_ROTADOR_POOL*/;
+                    if (rotadorPool && rotadorPool.length > 0) {
+                        var elegido = rotadorPool[Math.floor(Math.random() * rotadorPool.length)];
+                        localStorage.setItem('orygn_dist_id', elegido);
+                        var d = new Date();
+                        d.setTime(d.getTime() + (90 * 24 * 60 * 60 * 1000));
+                        document.cookie = "sponsor=" + elegido + "; expires=" + d.toUTCString() + "; path=/";
+                        window.location.href = "/" + elegido + "/";
+                    }
                 }
             }
         })();
