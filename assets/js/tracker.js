@@ -18,23 +18,48 @@
 
     // 2. Normalizar la procedencia del tráfico (Referrer)
     var ref = document.referrer ? document.referrer.toLowerCase() : '';
+    var currentHost = window.location.hostname.toLowerCase();
+    var isInternal = false;
+
+    if (!ref || ref === '') {
+        isInternal = true;
+    } else {
+        try {
+            var refHost = new URL(ref).hostname.toLowerCase();
+            if (refHost === currentHost || 
+                refHost.endsWith('gotas-triglp.com') || 
+                refHost.endsWith('netlify.app') || 
+                refHost.endsWith('orygn.co') || 
+                refHost === 'localhost' || 
+                refHost === '127.0.0.1') {
+                isInternal = true;
+            }
+        } catch (e) {
+            isInternal = true;
+        }
+    }
+
     var fuente = 'Directo / Enlace Compartido';
 
-    if (ref.includes('google.')) fuente = 'Google';
-    else if (ref.includes('facebook.') || ref.includes('fb.com')) fuente = 'Facebook';
-    else if (ref.includes('instagram.')) fuente = 'Instagram';
-    else if (ref.includes('tiktok.')) fuente = 'TikTok';
-    else if (ref.includes('t.co') || ref.includes('twitter.') || ref.includes('x.com')) fuente = 'Twitter/X';
-    else if (ref.includes('whatsapp') || ref.includes('wa.me')) fuente = 'WhatsApp';
-    else if (ref.includes('youtube.')) fuente = 'YouTube';
-    else if (ref.includes('bing.')) fuente = 'Bing';
-    else if (ref.includes('yahoo.')) fuente = 'Yahoo';
-    else if (ref !== '') {
-        try {
-            var urlObj = new URL(ref);
-            fuente = urlObj.hostname.replace('www.', '');
-        } catch (e) {
-            fuente = 'Otros';
+    if (!isInternal) {
+        if (ref.includes('google.')) fuente = 'Google';
+        else if (ref.includes('facebook.') || ref.includes('fb.com')) fuente = 'Facebook';
+        else if (ref.includes('instagram.')) fuente = 'Instagram';
+        else if (ref.includes('tiktok.')) fuente = 'TikTok';
+        else if (ref.includes('t.co') || ref.includes('twitter.') || ref.includes('x.com')) fuente = 'Twitter/X';
+        else if (ref.includes('whatsapp') || ref.includes('wa.me')) fuente = 'WhatsApp';
+        else if (ref.includes('youtube.')) fuente = 'YouTube';
+        else if (ref.includes('telegram') || ref.includes('t.me')) fuente = 'Telegram';
+        else if (ref.includes('linkedin.')) fuente = 'LinkedIn';
+        else if (ref.includes('bing.')) fuente = 'Bing';
+        else if (ref.includes('yahoo.')) fuente = 'Yahoo';
+        else {
+            try {
+                var urlObj = new URL(ref);
+                fuente = urlObj.hostname.replace('www.', '');
+            } catch (e) {
+                fuente = 'Otros';
+            }
         }
     }
 

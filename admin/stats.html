@@ -598,7 +598,11 @@
                 var pId = v.promotorId || 'default';
                 promotorCounts[pId] = (promotorCounts[pId] || 0) + 1;
 
-                var src = v.fuente || 'Directo';
+                var src = v.fuente || 'Directo / Enlace Compartido';
+                if (src.includes('netlify.app') || src.includes('gotas-triglp.com') || src.includes('orygn.co') || src.includes('localhost') || src.includes('--')) {
+                    src = 'Directo / Enlace Compartido';
+                }
+
                 fuenteCounts[src] = (fuenteCounts[src] || 0) + 1;
 
                 if (v.dispositivo === 'Móvil') mobileCount++;
@@ -701,11 +705,15 @@
             recentSorted.forEach(function (v) {
                 var dateStr = v.timestamp ? new Date(v.timestamp).toLocaleString('es-ES') : new Date().toLocaleString('es-ES');
                 var pObj = promotoresDefault.find(p => p.id === v.promotorId) || { nombre: v.promotorId || 'default' };
+                var srcTag = v.fuente || 'Directo / Enlace Compartido';
+                if (srcTag.includes('netlify.app') || srcTag.includes('gotas-triglp.com') || srcTag.includes('orygn.co') || srcTag.includes('localhost') || srcTag.includes('--')) {
+                    srcTag = 'Directo / Enlace Compartido';
+                }
                 var tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
                     <td style="font-weight: 600; color: white;">${pObj.nombre} <span style="color: #64748b; font-weight: 400;">(/${v.promotorId}/)</span></td>
-                    <td><span class="badge-tag badge-source">${v.fuente || 'Directo'}</span></td>
+                    <td><span class="badge-tag badge-source">${srcTag}</span></td>
                     <td>${v.dispositivo || 'Escritorio'}</td>
                     <td style="color: #94a3b8; font-family: monospace;">${v.path || '/'}</td>
                 `;
