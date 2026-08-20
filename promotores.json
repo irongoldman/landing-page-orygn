@@ -5,7 +5,7 @@
       "nombre": "José",
       "orygnUsername": "iorngoldman",
       "whatsapp": "34655404502",
-      "enRotador": false
+      "enRotador": true
     },
     {
       "id": "iorngoldman",
@@ -47,21 +47,21 @@
       "nombre": "Esther",
       "orygnUsername": "etc313gmailcom",
       "whatsapp": "34608985827",
-      "enRotador": true
+      "enRotador": false
     },
     {
       "id": "elilete",
       "nombre": "Eli",
       "orygnUsername": "elilete",
       "whatsapp": "34680171711",
-      "enRotador": true
+      "enRotador": false
     },
     {
       "id": "marga",
       "nombre": "Marga",
       "orygnUsername": "marga1963",
       "whatsapp": "+34666099482",
-      "enRotador": true
+      "enRotador": false
     }
   ]
 }
