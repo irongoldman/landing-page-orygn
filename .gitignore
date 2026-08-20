@@ -12,7 +12,6 @@ node_modules/
 # Carpetas de contenido multimedia local (alojadas externamente)
 video/
 audio/
-assets/images/*
 
 # Carpetas de trabajo o documentos locales
 Fuentes de contenido/
