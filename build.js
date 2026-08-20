@@ -24,7 +24,8 @@ const ASSETS_TO_COPY = [
     'admin',
     'video',
     '404.html',
-    '500.html'
+    '500.html',
+    'promotores.json'
 ];
 
 const DEFAULT_USERNAME = 'iorngoldman';
