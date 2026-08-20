@@ -471,7 +471,15 @@
                 if (!firebase.apps.length) {
                     firebase.initializeApp(window.firebaseConfig);
                 }
-                var db = firebase.database();
+                var app = firebase.app();
+                var db;
+                try {
+                    db = app.database();
+                } catch (e) {
+                    var euUrl = "https://" + window.firebaseConfig.projectId + "-default-rtdb.europe-west1.firebasedatabase.app";
+                    db = app.database(euUrl);
+                }
+
                 db.ref('visitas').limitToLast(1000).on('value', function (snapshot) {
                     document.getElementById('demoNotice').style.display = 'none';
                     var data = snapshot.val();
@@ -485,7 +493,7 @@
                 }, function (err) {
                     console.log('Firebase DB Notice:', err);
                     document.getElementById('demoNotice').style.display = 'flex';
-                    document.getElementById('demoNotice').querySelector('span').innerHTML = '⚠️ <strong>Aviso de Reglas en Firebase:</strong> Asegúrate de haber hecho clic en "Crear base de datos" en <em>Realtime Database</em> y haber activado las reglas en modo de prueba (o <code>".read": true, ".write": true</code>).';
+                    document.getElementById('demoNotice').querySelector('span').innerHTML = '⚠️ <strong>Aviso de Reglas en Firebase:</strong> Asegúrate de haber entrado a <em>Realtime Database ➔ Reglas</em> y publicado <code>".read": true, ".write": true</code>.';
                     loadLocalStorageStats(promotoresDefault);
                 });
             } catch (err) {

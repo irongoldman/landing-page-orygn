@@ -1,14 +1,9 @@
 /**
  * ORYGN Real-Time Visitor Analytics Tracker
- * Captura y registra la procedencia del tráfico, el promotor y el dispositivo.
+ * Captura y registra la procedencia del tráfico, el promotor y el dispositivo en tiempo real.
  */
 
 (function () {
-    // Prevenir duplicados de conteo en la misma sesión de navegación (30 min)
-    var sessionKey = 'orygn_counted_' + window.location.pathname;
-    if (sessionStorage.getItem(sessionKey)) return;
-    sessionStorage.setItem(sessionKey, '1');
-
     // 1. Obtener el ID del Promotor
     var path = window.location.pathname;
     var pathParts = path.split('/').filter(p => p !== "");
@@ -57,17 +52,30 @@
         timestamp: Date.now()
     };
 
-    // 5. Enviar a Firebase o a LocalStorage de respaldo
+    // 5. Obtener instancia de base de datos con soporte Multi-Región (EE.UU. y Europa)
+    function getDatabaseInstance() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(window.firebaseConfig);
+        }
+        var app = firebase.app();
+        try {
+            return app.database();
+        } catch (e) {
+            var euUrl = "https://" + window.firebaseConfig.projectId + "-default-rtdb.europe-west1.firebasedatabase.app";
+            return app.database(euUrl);
+        }
+    }
+
     function recordVisit() {
-        if (window.firebase && window.firebaseConfig && window.firebaseConfig.apiKey && window.firebaseConfig.apiKey !== "TU_API_KEY") {
+        if (window.firebase && window.firebaseConfig && window.firebaseConfig.apiKey) {
             try {
-                if (!firebase.apps.length) {
-                    firebase.initializeApp(window.firebaseConfig);
-                }
-                var db = firebase.database();
-                db.ref('visitas').push(visitEvent);
+                var db = getDatabaseInstance();
+                db.ref('visitas').push(visitEvent).catch(function(err) {
+                    console.warn('ORYGN Tracker: Error enviando a Firebase (verificar Reglas .write: true):', err);
+                    saveLocalFallback(visitEvent);
+                });
             } catch (err) {
-                console.log('Firebase stats tracker info:', err);
+                console.warn('ORYGN Tracker Info:', err);
                 saveLocalFallback(visitEvent);
             }
         } else {
@@ -79,12 +87,11 @@
         try {
             var localVisits = JSON.parse(localStorage.getItem('orygn_local_visits') || '[]');
             localVisits.unshift(event);
-            if (localVisits.length > 200) localVisits = localVisits.slice(0, 200); // Guardar máximo 200 recortes
+            if (localVisits.length > 200) localVisits = localVisits.slice(0, 200);
             localStorage.setItem('orygn_local_visits', JSON.stringify(localVisits));
         } catch (e) {}
     }
 
-    // Ejecutar cuando cargue la página
     if (document.readyState === 'complete') {
         recordVisit();
     } else {
