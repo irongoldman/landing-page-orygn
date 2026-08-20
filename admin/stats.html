@@ -242,6 +242,31 @@
             color: white;
         }
 
+        .table-scroll-wrapper {
+            max-height: 420px;
+            overflow-y: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .table-scroll-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .table-scroll-wrapper::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .table-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(240, 78, 35, 0.4);
+            border-radius: 4px;
+        }
+
+        .table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
         .custom-table {
             width: 100%;
             border-collapse: collapse;
@@ -249,13 +274,17 @@
         }
 
         .custom-table th {
+            position: sticky;
+            top: 0;
+            background: #0f172a;
+            z-index: 10;
             padding: 14px 18px;
-            background: rgba(255, 255, 255, 0.04);
             color: var(--text-muted);
             font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .custom-table td {
@@ -385,39 +414,43 @@
         <!-- Ranking por Promotor Table -->
         <div class="table-card">
             <h3>Desglose de Visitas por Distribuidor</h3>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Promotor ID</th>
-                        <th>Nombre</th>
-                        <th>Visitas Registradas</th>
-                        <th>% del Tráfico Total</th>
-                        <th>Estado Rotador</th>
-                    </tr>
-                </thead>
-                <tbody id="tablePromotoresBody">
-                    <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Cargando estadísticas...</td></tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Promotor ID</th>
+                            <th>Nombre</th>
+                            <th>Visitas Registradas</th>
+                            <th>% del Tráfico Total</th>
+                            <th>Estado Rotador</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablePromotoresBody">
+                        <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Cargando estadísticas...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Realtime Recent Activity Table -->
         <div class="table-card">
             <h3>Registro de Últimas Visitas Recibidas</h3>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Fecha y Hora</th>
-                        <th>Promotor Asignado</th>
-                        <th>Fuente de Procedencia</th>
-                        <th>Dispositivo</th>
-                        <th>Ruta Visitada</th>
-                    </tr>
-                </thead>
-                <tbody id="tableRecentVisitsBody">
-                    <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No hay visitas registradas aún.</td></tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>Promotor Asignado</th>
+                            <th>Fuente de Procedencia</th>
+                            <th>Dispositivo</th>
+                            <th>Ruta Visitada</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableRecentVisitsBody">
+                        <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No hay visitas registradas aún.</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Firebase Instructions Box -->
