@@ -7,7 +7,7 @@
         (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
-            const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+            const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'admin', 'assets'];
 
             // Si estamos en una subcarpeta (ej: /sara/), guardamos el ID
             if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {

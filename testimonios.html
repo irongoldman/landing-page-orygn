@@ -115,7 +115,6 @@
                 var sponsor = match[2];
                 if (sponsor && sponsor !== 'default') {
                     var path = window.location.pathname;
-                    // Testimonios can be accessed with or without .html or trailing slash
                     if (path === '/testimonios' || path === '/testimonios/' || path === '/testimonios.html') {
                         window.location.replace('/' + sponsor + '/testimonios.html');
                     }

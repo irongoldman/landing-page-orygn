@@ -62,6 +62,7 @@ function customizeHtml(html, promotor, isSubfolder = true) {
             .replace(/href="testimonios\.html"/g, 'href="testimonios"')
             .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
+            .replace(/href="faq\.html"/g, 'href="faq"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
 
@@ -117,6 +118,7 @@ function runBuild() {
     const negocioHtml = fs.readFileSync(path.join(__dirname, 'negocio.html'), 'utf-8');
     const presentacionHtml = fs.readFileSync(path.join(__dirname, 'presentacion.html'), 'utf-8');
     const sitemapHtml = fs.readFileSync(path.join(__dirname, 'sitemap.html'), 'utf-8');
+    const faqHtml = fs.readFileSync(path.join(__dirname, 'faq.html'), 'utf-8');
 
     // 2. Actualizar la RAÍZ (index.html principal) con los datos de "default"
     const defaultData = promotores.find(p => p.id === 'default');
@@ -128,12 +130,14 @@ function runBuild() {
         const rootNegocioHtml = customizeHtml(negocioHtml, defaultData, false);
         const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false);
         const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false);
+        const rootFaqHtml = customizeHtml(faqHtml, defaultData, false);
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'estudios.html'), rootEstudiosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'negocio.html'), rootNegocioHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'presentacion.html'), rootPresentacionHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'sitemap.html'), rootSitemapHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'faq.html'), rootFaqHtml);
     }
 
     // 3. Generar subcarpetas para todos los que NO sean "default"
@@ -151,6 +155,7 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'negocio.html'), customizeHtml(negocioHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true));
+        fs.writeFileSync(path.join(promotorDir, 'faq.html'), customizeHtml(faqHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true));
 
