@@ -1,12 +1,10 @@
 // Configuración de Firebase para Estadísticas en Tiempo Real
-// Sustituye las credenciales a continuación con las de tu proyecto en Firebase Console (https://console.firebase.google.com)
-
 window.firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "tu-proyecto.firebaseapp.com",
-    databaseURL: "https://tu-proyecto-default-rtdb.firebaseio.com",
-    projectId: "tu-proyecto",
-    storageBucket: "tu-proyecto.appspot.com",
-    messagingSenderId: "1234567890",
-    appId: "1:1234567890:web:abcdef"
+    apiKey: "AIzaSyDxh3OITCUrHTWOUPEtNyzeTnyua9EcdtE",
+    authDomain: "orygn-analytics.firebaseapp.com",
+    databaseURL: "https://orygn-analytics-default-rtdb.firebaseio.com",
+    projectId: "orygn-analytics",
+    storageBucket: "orygn-analytics.firebasestorage.app",
+    messagingSenderId: "700763599161",
+    appId: "1:700763599161:web:b1361159407d3186a5f8e8"
 };
