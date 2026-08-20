@@ -315,12 +315,17 @@
             background: rgba(34, 197, 94, 0.15);
             color: #4ade80;
             border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .badge-inactive {
+        }        .badge-inactive {
             background: rgba(148, 163, 184, 0.15);
             color: #94a3b8;
             border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .badge-ai {
+            background: rgba(168, 85, 247, 0.15);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
         }
 
         /* Config Modal / Box */
@@ -334,8 +339,8 @@
 
         .config-box h4 {
             color: #38bdf8;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
         }
 
         .config-box p {
@@ -385,20 +390,26 @@
                 <div class="kpi-sub">Métricas acumuladas</div>
             </div>
             <div class="kpi-card">
+                <div class="kpi-label">🤖 Tráfico desde IA (AEO)</div>
+                <div class="kpi-value" id="kpiAiPercent" style="color: #c084fc;">0%</div>
+                <div class="kpi-sub" id="kpiAiCount">ChatGPT, Perplexity, Gemini</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">🔍 Tráfico Buscadores (SEO)</div>
+                <div class="kpi-value" id="kpiSearchPercent" style="color: #38bdf8;">0%</div>
+                <div class="kpi-sub" id="kpiSearchCount">Google, Bing, Yahoo</div>
+            </div>
+            <div class="kpi-card">
                 <div class="kpi-label">Promotor Más Visitado</div>
                 <div class="kpi-value" id="kpiTopPromotor" style="color: var(--primary); font-size: 1.8rem;">-</div>
                 <div class="kpi-sub" id="kpiTopPromotorCount">0 visitas</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">Fuente Principal de Tráfico</div>
-                <div class="kpi-value" id="kpiTopFuente" style="color: #38bdf8; font-size: 1.8rem;">-</div>
-                <div class="kpi-sub" id="kpiTopFuenteCount">0 visitas</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tráfico Móvil</div>
                 <div class="kpi-value" id="kpiMobilePercent">0%</div>
                 <div class="kpi-sub">Dispositivos móviles</div>
             </div>
+        </div></div>
         </div>
 
         <!-- Charts Grid -->
@@ -593,6 +604,8 @@
             promotoresDefault.forEach(function (p) { promotorCounts[p.id] = 0; });
             var fuenteCounts = {};
             var mobileCount = 0;
+            var aiCount = 0;
+            var searchCount = 0;
 
             visits.forEach(function (v) {
                 var pId = v.promotorId || 'default';
@@ -601,6 +614,13 @@
                 var src = v.fuente || 'Directo / Enlace Compartido';
                 if (src.includes('netlify.app') || src.includes('gotas-triglp.com') || src.includes('orygn.co') || src.includes('localhost') || src.includes('--')) {
                     src = 'Directo / Enlace Compartido';
+                }
+
+                var srcLower = src.toLowerCase();
+                if (srcLower.includes('chatgpt') || srcLower.includes('perplexity') || srcLower.includes('claude') || srcLower.includes('gemini') || srcLower.includes('copilot') || srcLower.includes('(ia)') || srcLower.includes('ias')) {
+                    aiCount++;
+                } else if (srcLower.includes('google') || srcLower.includes('search') || srcLower.includes('bing') || srcLower.includes('yahoo') || srcLower.includes('duckduckgo') || srcLower.includes('ecosia')) {
+                    searchCount++;
                 }
 
                 fuenteCounts[src] = (fuenteCounts[src] || 0) + 1;
@@ -614,9 +634,18 @@
             document.getElementById('kpiTopPromotor').textContent = totalVisitas > 0 ? (topPromotorObj.nombre || topPromotor) : '-';
             document.getElementById('kpiTopPromotorCount').textContent = (promotorCounts[topPromotor] || 0) + ' visitas';
 
-            var topFuente = Object.keys(fuenteCounts).length > 0 ? Object.keys(fuenteCounts).reduce((a, b) => fuenteCounts[a] > fuenteCounts[b] ? a : b, 'Directo') : '-';
-            document.getElementById('kpiTopFuente').textContent = totalVisitas > 0 ? topFuente : '-';
-            document.getElementById('kpiTopFuenteCount').textContent = (fuenteCounts[topFuente] || 0) + ' visitas';
+            var aiPct = totalVisitas > 0 ? Math.round((aiCount / totalVisitas) * 100) : 0;
+            var searchPct = totalVisitas > 0 ? Math.round((searchCount / totalVisitas) * 100) : 0;
+
+            var elAi = document.getElementById('kpiAiPercent');
+            if (elAi) elAi.textContent = aiPct + '%';
+            var elAiC = document.getElementById('kpiAiCount');
+            if (elAiC) elAiC.textContent = aiCount + ' visitas (IA)';
+
+            var elSearch = document.getElementById('kpiSearchPercent');
+            if (elSearch) elSearch.textContent = searchPct + '%';
+            var elSearchC = document.getElementById('kpiSearchCount');
+            if (elSearchC) elSearchC.textContent = searchCount + ' visitas (SEO)';
 
             var mobilePct = totalVisitas > 0 ? Math.round((mobileCount / totalVisitas) * 100) : 0;
             document.getElementById('kpiMobilePercent').textContent = mobilePct + '%';
@@ -709,11 +738,15 @@
                 if (srcTag.includes('netlify.app') || srcTag.includes('gotas-triglp.com') || srcTag.includes('orygn.co') || srcTag.includes('localhost') || srcTag.includes('--')) {
                     srcTag = 'Directo / Enlace Compartido';
                 }
+                var badgeClass = 'badge-source';
+                if (srcTag.toLowerCase().includes('(ia)') || srcTag.toLowerCase().includes('chatgpt') || srcTag.toLowerCase().includes('perplexity') || srcTag.toLowerCase().includes('claude') || srcTag.toLowerCase().includes('gemini') || srcTag.toLowerCase().includes('copilot')) {
+                    badgeClass = 'badge-ai';
+                }
                 var tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
                     <td style="font-weight: 600; color: white;">${pObj.nombre} <span style="color: #64748b; font-weight: 400;">(/${v.promotorId}/)</span></td>
-                    <td><span class="badge-tag badge-source">${srcTag}</span></td>
+                    <td><span class="badge-tag ${badgeClass}">${srcTag}</span></td>
                     <td>${v.dispositivo || 'Escritorio'}</td>
                     <td style="color: #94a3b8; font-family: monospace;">${v.path || '/'}</td>
                 `;

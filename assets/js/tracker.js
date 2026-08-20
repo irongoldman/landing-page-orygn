@@ -1,6 +1,7 @@
 /**
  * ORYGN Real-Time Visitor Analytics Tracker
  * Captura y registra la procedencia del tráfico, el promotor y el dispositivo en tiempo real.
+ * Incluye detección avanzada de Inteligencia Artificial (ChatGPT, Perplexity, Gemini, Claude, Copilot).
  */
 
 (function () {
@@ -42,7 +43,22 @@
     var fuente = 'Directo / Enlace Compartido';
 
     if (!isInternal) {
-        if (ref.includes('google.')) fuente = 'Google';
+        // 🤖 MOTORES DE INTELIGENCIA ARTIFICIAL (AEO / GEO)
+        if (ref.includes('chatgpt.com') || ref.includes('chat.openai.com')) fuente = 'ChatGPT (IA)';
+        else if (ref.includes('perplexity.ai')) fuente = 'Perplexity (IA)';
+        else if (ref.includes('claude.ai')) fuente = 'Claude (IA)';
+        else if (ref.includes('gemini.google.com') || ref.includes('bard.google.com')) fuente = 'Google Gemini (IA)';
+        else if (ref.includes('copilot.microsoft.com')) fuente = 'Microsoft Copilot (IA)';
+        else if (ref.includes('poe.com') || ref.includes('phind.com') || ref.includes('you.com')) fuente = 'Otras IAs';
+
+        // 🔍 BUSCADORES TRADICIONALES (SEO)
+        else if (ref.includes('google.')) fuente = 'Google Search';
+        else if (ref.includes('bing.')) fuente = 'Bing';
+        else if (ref.includes('yahoo.')) fuente = 'Yahoo';
+        else if (ref.includes('duckduckgo.') || ref.includes('ddg.gg')) fuente = 'DuckDuckGo';
+        else if (ref.includes('ecosia.')) fuente = 'Ecosia';
+
+        // 📱 REDES SOCIALES Y MENSAJERÍA
         else if (ref.includes('facebook.') || ref.includes('fb.com')) fuente = 'Facebook';
         else if (ref.includes('instagram.')) fuente = 'Instagram';
         else if (ref.includes('tiktok.')) fuente = 'TikTok';
@@ -51,8 +67,6 @@
         else if (ref.includes('youtube.')) fuente = 'YouTube';
         else if (ref.includes('telegram') || ref.includes('t.me')) fuente = 'Telegram';
         else if (ref.includes('linkedin.')) fuente = 'LinkedIn';
-        else if (ref.includes('bing.')) fuente = 'Bing';
-        else if (ref.includes('yahoo.')) fuente = 'Yahoo';
         else {
             try {
                 var urlObj = new URL(ref);
