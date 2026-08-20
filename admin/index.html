@@ -6,13 +6,67 @@
   <title>Panel de Administración - triGLP</title>
   <!-- Script de Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Barra Superior Personalizada */
+    .admin-nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: #0f172a;
+      color: white;
+      padding: 0 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      z-index: 1000000;
+      box-sizing: border-box;
+    }
+
+    .admin-nav-bar span {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .admin-nav-bar a {
+      background: #f04e23;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(240, 78, 35, 0.3);
+    }
+
+    /* Bajar el encabezado y controles de Decap CMS 48px para no tapar el botón de publicar */
+    header, 
+    div[class*="AppHeader"],
+    div[class*="TopBar"] {
+      top: 48px !important;
+    }
+
+    main, 
+    div[class*="AppMainContainer"] {
+      padding-top: 48px !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Barra Superior de Navegación -->
-  <div style="background: #0f172a; color: white; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: sans-serif; position: relative; z-index: 100000;">
-      <span style="font-weight: 700; font-size: 0.95rem;">⚙️ Panel de Control ORYGN</span>
-      <a href="stats.html" style="background: #f04e23; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 700; box-shadow: 0 4px 10px rgba(240,78,35,0.3);">📊 Ver Estadísticas de Visitas y Fuentes</a>
+  <!-- Barra Superior de Navegación Fija -->
+  <div class="admin-nav-bar">
+      <span>⚙️ Panel de Control ORYGN</span>
+      <a href="stats.html">📊 Ver Estadísticas de Visitas y Fuentes</a>
   </div>
+
   <!-- Cargar Decap CMS oficial -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
