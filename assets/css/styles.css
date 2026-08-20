@@ -3550,5 +3550,89 @@ footer {
     font-weight: 600;
 }
 
+/* =========================================================
+   INTERCONNECTED EXPLORER GRID & BANNER STYLES
+   ========================================================= */
+
+.explore-nav-banner {
+    padding: 80px 0;
+    background: radial-gradient(circle at center, rgba(240, 78, 35, 0.09) 0%, rgba(13, 17, 23, 1) 85%);
+    border-top: 1px solid rgba(240, 78, 35, 0.25);
+    border-bottom: 1px solid rgba(240, 78, 35, 0.25);
+}
+.explore-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+}
+@media (max-width: 1024px) {
+    .explore-nav-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .explore-nav-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+.explore-card {
+    background: rgba(22, 27, 34, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 25px 18px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+.explore-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(240, 78, 35, 0.25);
+    background: rgba(22, 27, 34, 0.95);
+}
+.explore-card-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease;
+}
+.explore-card:hover .explore-card-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+.explore-card-title {
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-family: var(--font-heading);
+}
+.explore-card-sub {
+    color: #94a3b8;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+.explore-card-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: rgba(240, 78, 35, 0.15);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.explore-card:hover .explore-card-btn {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(240, 78, 35, 0.4);
+}
+
 
 
