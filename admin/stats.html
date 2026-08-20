@@ -624,7 +624,7 @@
             // Render Bar Chart Promotores con distinción de color entre Activo y Pausado
             var barLabels = promotoresDefault.map(p => p.nombre);
             var barData = promotoresDefault.map(p => promotorCounts[p.id] || 0);
-            var barColors = promotoresDefault.map(p => (p.enRotador !== false ? '#f04e23' : 'rgba(148, 163, 184, 0.4)'));
+            var barColors = promotoresDefault.map(p => (p.enRotador !== false && p.enRotador !== 'false' ? '#f04e23' : 'rgba(148, 163, 184, 0.4)'));
 
             if (window.myBarChart) window.myBarChart.destroy();
             window.myBarChart = new Chart(document.getElementById('barPromotores'), {
@@ -681,7 +681,7 @@
             promotoresDefault.forEach(function (p) {
                 var cnt = promotorCounts[p.id] || 0;
                 var pct = totalVisitas > 0 ? ((cnt / totalVisitas) * 100).toFixed(1) : '0';
-                var isEnRotador = p.enRotador !== false;
+                var isEnRotador = p.enRotador !== false && p.enRotador !== 'false';
                 var statusBadge = isEnRotador 
                     ? '<span class="badge-tag badge-active">Activo</span>' 
                     : '<span class="badge-tag badge-inactive">Pausado</span>';

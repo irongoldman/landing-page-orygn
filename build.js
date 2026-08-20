@@ -130,7 +130,7 @@ function runBuild() {
 
     // Extraer la lista de IDs activos en el rotador (enRotador !== false y id !== 'default')
     const activeRotatorPool = promotores
-        .filter(p => p.id && p.id !== 'default' && p.enRotador !== false)
+        .filter(p => p.id && p.id !== 'default' && p.enRotador !== false && p.enRotador !== 'false')
         .map(p => p.id);
 
     console.log(`Rotador activo con ${activeRotatorPool.length} promotores:`, activeRotatorPool);

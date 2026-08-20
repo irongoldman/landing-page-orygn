@@ -27,7 +27,6 @@ collections:
                 name: "enRotador"
                 widget: "select"
                 options:
-                  - { label: "✅ Activo (Recibe visitas del rotador)", value: true }
-                  - { label: "⏸️ Pausado / Desactivado (No recibe visitas)", value: false }
-                default: true
-                required: true
+                  - { label: "Activo (Recibe visitas del rotador)", value: "true" }
+                  - { label: "Pausado / Desactivado (No recibe visitas)", value: "false" }
+                default: "true"
