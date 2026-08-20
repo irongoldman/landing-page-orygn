@@ -17,6 +17,7 @@ const ASSETS_TO_COPY = [
     'robots.txt',
     'sitemap.xml',
     'sitemap.html',
+    'llms.txt',
     'favicon.svg',
     'testiminios_triGLP',
     'admin',

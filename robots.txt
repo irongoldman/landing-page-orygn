@@ -1,4 +1,26 @@
+# Robots.txt optimizado para SEO, GEO, AEO e IA (LLMs)
 User-agent: *
 Allow: /
 
+# Agentes de IA y LLM Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Archivos de mapa e índice de IA
 Sitemap: https://gotas-triglp.com/sitemap.xml
+# LLM Information Index: https://gotas-triglp.com/llms.txt
