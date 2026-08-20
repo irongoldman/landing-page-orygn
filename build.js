@@ -56,6 +56,16 @@ function customizeHtml(html, promotor, isSubfolder = true, activeRotatorPool = [
         );
     }
 
+    // Inyectar Scripts de Analítica y Estadísticas
+    const trackerScripts = `
+    <!-- Analytics Tracker -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/tracker.js"></script>
+</head>`;
+    output = output.replace('</head>', trackerScripts);
+
     if (isSubfolder) {
         output = output
             .replace(/href="assets\//g, 'href="../assets/')
