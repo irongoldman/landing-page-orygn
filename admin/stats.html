@@ -317,6 +317,12 @@
             border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
+        .badge-inactive {
+            background: rgba(148, 163, 184, 0.15);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
         /* Config Modal / Box */
         .config-box {
             background: rgba(15, 23, 42, 0.9);
@@ -465,27 +471,43 @@
     <script>
         // Cargar datos y renderizar gráficos
         document.addEventListener('DOMContentLoaded', function () {
-            var promotoresDefault = [
-                { id: "iorngoldman", nombre: "José" },
-                { id: "gotasdesalud", nombre: "Joaquin" },
-                { id: "agbnetwork", nombre: "Felix" },
-                { id: "marce", nombre: "Marcelino" },
-                { id: "raulct", nombre: "Raul" },
-                { id: "etc313", nombre: "Esther" },
-                { id: "elilete", nombre: "Eli" },
-                { id: "marga", nombre: "Marga" }
-            ];
-
             var isFirebaseConnected = window.firebaseConfig && window.firebaseConfig.apiKey && window.firebaseConfig.apiKey !== "TU_API_KEY" && !window.firebaseConfig.apiKey.includes("TU_API_KEY");
 
+            // Cargar promotores desde promotores.json dinámicamente
+            fetch('/promotores.json?v=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    var promotoresList = (data && data.promotores) ? data.promotores.filter(p => p.id && p.id !== 'default') : getPromotoresFallback();
+                    initStats(promotoresList, isFirebaseConnected);
+                })
+                .catch(err => {
+                    console.log('Using default promoter list for stats:', err);
+                    initStats(getPromotoresFallback(), isFirebaseConnected);
+                });
+        });
+
+        function getPromotoresFallback() {
+            return [
+                { id: "iorngoldman", nombre: "José", enRotador: true },
+                { id: "gotasdesalud", nombre: "Joaquin", enRotador: true },
+                { id: "agbnetwork", nombre: "Felix", enRotador: true },
+                { id: "marce", nombre: "Marcelino", enRotador: true },
+                { id: "raulct", nombre: "Raul", enRotador: true },
+                { id: "etc313", nombre: "Esther", enRotador: false },
+                { id: "elilete", nombre: "Eli", enRotador: true },
+                { id: "marga", nombre: "Marga", enRotador: true }
+            ];
+        }
+
+        function initStats(promotoresList, isFirebaseConnected) {
             if (isFirebaseConnected) {
                 document.getElementById('demoNotice').style.display = 'none';
-                loadFirebaseStats(promotoresDefault);
+                loadFirebaseStats(promotoresList);
             } else {
                 document.getElementById('demoNotice').style.display = 'flex';
-                loadLocalStorageStats(promotoresDefault);
+                loadLocalStorageStats(promotoresList);
             }
-        });
+        }
 
         function loadLocalStorageStats(promotoresDefault) {
             var visits = [];
@@ -595,9 +617,10 @@
             var mobilePct = totalVisitas > 0 ? Math.round((mobileCount / totalVisitas) * 100) : 0;
             document.getElementById('kpiMobilePercent').textContent = mobilePct + '%';
 
-            // Render Bar Chart Promotores
+            // Render Bar Chart Promotores con distinción de color entre Activo y Pausado
             var barLabels = promotoresDefault.map(p => p.nombre);
             var barData = promotoresDefault.map(p => promotorCounts[p.id] || 0);
+            var barColors = promotoresDefault.map(p => (p.enRotador !== false ? '#f04e23' : 'rgba(148, 163, 184, 0.4)'));
 
             if (window.myBarChart) window.myBarChart.destroy();
             window.myBarChart = new Chart(document.getElementById('barPromotores'), {
@@ -607,7 +630,7 @@
                     datasets: [{
                         label: 'Visitas Recibidas',
                         data: barData,
-                        backgroundColor: '#f04e23',
+                        backgroundColor: barColors,
                         borderRadius: 8
                     }]
                 },
@@ -647,20 +670,25 @@
                 }
             });
 
-            // Render Promotores Table
+            // Render Promotores Table con estado real (Activo / Pausado)
             var tbodyP = document.getElementById('tablePromotoresBody');
             tbodyP.innerHTML = '';
 
             promotoresDefault.forEach(function (p) {
                 var cnt = promotorCounts[p.id] || 0;
                 var pct = totalVisitas > 0 ? ((cnt / totalVisitas) * 100).toFixed(1) : '0';
+                var isEnRotador = p.enRotador !== false;
+                var statusBadge = isEnRotador 
+                    ? '<span class="badge-tag badge-active">Activo</span>' 
+                    : '<span class="badge-tag badge-inactive">Pausado</span>';
+
                 var tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-weight: 700; color: #38bdf8;">/${p.id}/</td>
-                    <td>${p.nombre}</td>
+                    <td style="color: white; font-weight: 500;">${p.nombre}</td>
                     <td><strong style="color: white;">${cnt}</strong> visitas</td>
                     <td>${pct}%</td>
-                    <td><span class="badge-tag badge-active">Activo</span></td>
+                    <td>${statusBadge}</td>
                 `;
                 tbodyP.appendChild(tr);
             });
