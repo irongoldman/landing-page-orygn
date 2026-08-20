@@ -2742,14 +2742,24 @@ footer {
 /* Hero Stats Row */
 .sci-stats-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
     margin-top: 40px;
-    padding: 25px;
+    padding: 25px 15px;
     background: rgba(13, 17, 23, 0.75);
     border: 1px solid rgba(240, 78, 35, 0.3);
     border-radius: 20px;
     backdrop-filter: blur(10px);
+}
+@media (max-width: 1024px) {
+    .sci-stats-row {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .sci-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 .sci-stat-item {
     text-align: center;
