@@ -2720,6 +2720,21 @@ footer {
     letter-spacing: 0.8px;
 }
 
+/* Fixed background section for absorption technology */
+#producto.section-fixed-bg {
+    position: relative;
+    background-image: linear-gradient(180deg, rgba(13, 17, 23, 0.82) 0%, rgba(13, 17, 23, 0.88) 100%), url('../images/absorcion_tecnologia_bg.webp');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@media (max-width: 768px) {
+    #producto.section-fixed-bg {
+        background-attachment: scroll;
+    }
+}
+
 /* Button Pulse Animation */
 .btn-glow {
     animation: btn-pulse 2.5s infinite;
