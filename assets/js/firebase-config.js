@@ -3,7 +3,7 @@
 window.firebaseConfig = {
     apiKey: ["AIzaSyDxh3OITCUrHTW", "OUPEtNyzeTnyua9EcdtE"].join(""),
     authDomain: "orygn-analytics.firebaseapp.com",
-    databaseURL: "https://orygn-analytics-default-rtdb.firebaseio.com",
+    databaseURL: "https://orygn-analytics-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "orygn-analytics",
     storageBucket: "orygn-analytics.firebasestorage.app",
     messagingSenderId: "700763599161",
