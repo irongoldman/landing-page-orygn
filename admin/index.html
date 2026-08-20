@@ -6,14 +6,101 @@
   <title>Panel de Administración - triGLP</title>
   <!-- Script de Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    /* Estilos globales para modernizar Decap CMS */
+    body {
+      margin: 0;
+      background-color: #0f172a !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    }
+
+    /* Ocultar el panel derecho de vista previa sin formato */
+    div[class*="Pane2"], 
+    div[class*="PreviewPaneContainer"],
+    section[class*="PreviewPaneContainer"] {
+      display: none !important;
+      width: 0 !important;
+    }
+
+    /* Expandir la lista de edición al 100% de la pantalla */
+    div[class*="Pane1"], 
+    div[class*="EditorControlPaneContainer"] {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+
+    /* Barra Superior Personalizada */
+    .admin-top-bar {
+      background: #0f172a;
+      color: white;
+      padding: 12px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .admin-top-bar h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .admin-btn-stats {
+      background: linear-gradient(135deg, #f04e23 0%, #d93812 100%);
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(240, 78, 35, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .admin-btn-stats:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(240, 78, 35, 0.4);
+    }
+
+    /* Estilar el botón de Publicar / Guardar Cambios de Decap CMS */
+    button[class*="PublishButton"], 
+    a[class*="PublishButton"],
+    button[class*="button-default-success"] {
+      background: #22c55e !important;
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+      padding: 10px 24px !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4) !important;
+      border: none !important;
+    }
+
+    /* Mejorar la estética de las tarjetas de cada promotor */
+    div[class*="ListControl-item"] {
+      background: #1e293b !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 12px !important;
+      margin-bottom: 20px !important;
+      padding: 20px !important;
+    }
+  </style>
 </head>
 <body>
-  <!-- Bar Navigation Top for Admin Stats -->
-  <div style="background: #0f172a; color: white; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: sans-serif; position: relative; z-index: 100000;">
-      <span style="font-weight: 700; font-size: 0.95rem;">⚙️ Panel de Control ORYGN</span>
-      <a href="stats.html" style="background: #f04e23; color: white; padding: 7px 16px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 600;">📊 Ver Estadísticas de Visitas y Fuentes</a>
+  <div class="admin-top-bar">
+    <h1>⚙️ Gestor de Distribuidores - ORYGN</h1>
+    <a href="stats.html" class="admin-btn-stats">📊 Ver Estadísticas de Visitas y Fuentes</a>
   </div>
-  <!-- Include the script that builds the page and powers Decap CMS -->
+
+  <!-- Include Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Eliminar vista previa sin formato para dejar espacio al 100% al formulario y botón de guardar
+    CMS.registerPreviewTemplate("lista", function() { return null; });
+  </script>
 </body>
 </html>
