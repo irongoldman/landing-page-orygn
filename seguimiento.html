@@ -151,7 +151,7 @@
 </head>
 
 <body>
-    <!-- CABECERA LIMPIA (SIN MENÚS NI BANNERS) -->
+    <!-- CABECERA LIMPIA -->
     <header class="clean-header">
         <div class="container">
             <img src="https://technoeconomia.com/assets/images/frame7.png" alt="ORYGN">
@@ -172,8 +172,11 @@
             </div>
 
             <div class="form-card-box">
+                <!-- iframe oculto para evitar bloqueos por CORS -->
+                <iframe name="hidden_form_target" id="hidden_form_target" style="display:none;"></iframe>
+
                 <!-- Formulario de Suscripción -->
-                <form id="newsletter-form-4" style="width: 100%;">
+                <form id="newsletter-form-4" action="https://technoeconomia.com/newsletteruni2/public/forms/submit/4" method="POST" target="hidden_form_target" style="width: 100%;">
                     <div class="form-group-custom">
                         <label class="form-label-custom">Email *</label>
                         <input type="email" name="email" class="form-input-custom" placeholder="tu.email@ejemplo.com" required>
@@ -181,7 +184,7 @@
 
                     <div class="form-group-custom">
                         <label class="form-label-custom">Nombre</label>
-                        <input type="text" name="name" class="form-input-custom" placeholder="Tu nombre y apellidos">
+                        <input type="text" name="name" class="form-input-custom" placeholder="Tu nombre de pila">
                     </div>
 
                     <div class="form-group-custom">
@@ -203,47 +206,24 @@
 
                 <script>
                     document.getElementById('newsletter-form-4').addEventListener('submit', function (e) {
-                        e.preventDefault();
                         var btn = this.querySelector('button[type="submit"]');
-                        var originalBtnText = btn.innerHTML;
+                        var msg = document.getElementById('form-message-4');
                         btn.disabled = true;
                         btn.innerHTML = '<span>Enviando...</span>';
 
-                        var formData = new FormData(this);
-                        fetch('https://technoeconomia.com/newsletteruni2/public/forms/submit/4', {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                var msg = document.getElementById('form-message-4');
-                                if (data.success) {
-                                    msg.innerHTML = '<div style="color: #10b981; padding: 1rem; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; font-weight: 600; margin-top: 1.25rem;">' + data.message + '</div>';
-                                    this.reset();
-                                    if (data.redirect) {
-                                        setTimeout(() => window.location.href = data.redirect, 1500);
-                                    } else {
-                                        setTimeout(() => window.location.href = 'gracias.html', 1500);
-                                    }
-                                } else {
-                                    btn.disabled = false;
-                                    btn.innerHTML = originalBtnText;
-                                    msg.innerHTML = '<div style="color: #ef4444; padding: 1rem; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 10px; font-weight: 600; margin-top: 1.25rem;">' + data.message + '</div>';
-                                }
-                            })
-                            .catch(err => {
-                                btn.disabled = false;
-                                btn.innerHTML = originalBtnText;
-                                var msg = document.getElementById('form-message-4');
-                                msg.innerHTML = '<div style="color: #ef4444; padding: 1rem; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 10px; font-weight: 600; margin-top: 1.25rem;">Ocurrió un error al enviar el formulario. Por favor, inténtalo de nuevo.</div>';
-                            });
+                        msg.innerHTML = '<div style="color: #10b981; padding: 1rem; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; font-weight: 600; margin-top: 1.25rem;">¡Gracias! Procesando tu suscripción...</div>';
+
+                        // Redirección suave a la página de gracias tras la sumisión
+                        setTimeout(function() {
+                            window.location.href = 'gracias.html';
+                        }, 1200);
                     });
                 </script>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER LIMPIO (SIN MENÚS) -->
+    <!-- FOOTER LIMPIO -->
     <footer class="footer" style="padding: 40px 0 30px; background: #080b0f; border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="container text-center">
             <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.7; max-width: 900px; margin: 0 auto 15px;">
