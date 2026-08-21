@@ -6,7 +6,7 @@
         (function () {
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
-            const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'admin', 'assets'];
+            const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
 
             if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {
                 localStorage.setItem('orygn_dist_id', pathParts[0]);

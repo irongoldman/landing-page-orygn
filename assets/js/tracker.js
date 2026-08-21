@@ -8,7 +8,7 @@
     // 1. Obtener el ID del Promotor
     var path = window.location.pathname;
     var pathParts = path.split('/').filter(p => p !== "");
-    var internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'admin', 'assets'];
+    var internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
 
     var promotorId = 'default';
     if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {

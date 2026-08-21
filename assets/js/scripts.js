@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.addEventListener('DOMContentLoaded', () => {
         const pathParts = window.location.pathname.split('/').filter(p => p !== "");
-        const internalPaths = ['estudios', 'negocio', 'testimonios', 'privacidad', 'aviso-legal', 'sitemap', 'admin', 'assets'];
+        const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
         
         let distId = null;
         if (pathParts.length > 0 && !pathParts[0].includes('.html') && !internalPaths.includes(pathParts[0])) {

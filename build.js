@@ -18,6 +18,8 @@ const ASSETS_TO_COPY = [
     'sitemap.xml',
     'sitemap.html',
     'faq.html',
+    'seguimiento.html',
+    'gracias.html',
     'llms.txt',
     'favicon.svg',
     'testiminios_triGLP',
@@ -81,6 +83,8 @@ function customizeHtml(html, promotor, isSubfolder = true, activeRotatorPool = [
             .replace(/href="negocio\.html"/g, 'href="negocio"')
             .replace(/href="presentacion\.html"/g, 'href="presentacion"')
             .replace(/href="faq\.html"/g, 'href="faq"')
+            .replace(/href="seguimiento\.html"/g, 'href="seguimiento"')
+            .replace(/href="gracias\.html"/g, 'href="gracias"')
             .replace(/src="testiminios_triGLP\//g, 'src="../testiminios_triGLP/')
             .replace(/href="favicon\.svg"/g, 'href="../favicon.svg"');
 
@@ -114,6 +118,7 @@ function runBuild() {
 
     console.log('1. Copiando archivos base...');
     ASSETS_TO_COPY.forEach(item => {
+        console.log(`   -> Copiando base: ${item}`);
         const src = path.join(__dirname, item);
         const dest = path.join(DIST_DIR, item);
         if (fs.existsSync(src)) copyRecursiveSync(src, dest);
@@ -144,6 +149,8 @@ function runBuild() {
     const presentacionHtml = fs.readFileSync(path.join(__dirname, 'presentacion.html'), 'utf-8');
     const sitemapHtml = fs.readFileSync(path.join(__dirname, 'sitemap.html'), 'utf-8');
     const faqHtml = fs.readFileSync(path.join(__dirname, 'faq.html'), 'utf-8');
+    const seguimientoHtml = fs.readFileSync(path.join(__dirname, 'seguimiento.html'), 'utf-8');
+    const graciasHtml = fs.readFileSync(path.join(__dirname, 'gracias.html'), 'utf-8');
 
     // 2. Actualizar la RAÍZ (index.html principal) con los datos de "default"
     const defaultData = promotores.find(p => p.id === 'default');
@@ -156,6 +163,9 @@ function runBuild() {
         const rootPresentacionHtml = customizeHtml(presentacionHtml, defaultData, false, activeRotatorPool);
         const rootSitemapHtml = customizeHtml(sitemapHtml, defaultData, false, activeRotatorPool);
         const rootFaqHtml = customizeHtml(faqHtml, defaultData, false, activeRotatorPool);
+        const rootSeguimientoHtml = customizeHtml(seguimientoHtml, defaultData, false, activeRotatorPool);
+        const rootGraciasHtml = customizeHtml(graciasHtml, defaultData, false, activeRotatorPool);
+
         fs.writeFileSync(path.join(DIST_DIR, 'index.html'), rootHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'estudios.html'), rootEstudiosHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'testimonios.html'), rootTestimoniosHtml);
@@ -163,6 +173,8 @@ function runBuild() {
         fs.writeFileSync(path.join(DIST_DIR, 'presentacion.html'), rootPresentacionHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'sitemap.html'), rootSitemapHtml);
         fs.writeFileSync(path.join(DIST_DIR, 'faq.html'), rootFaqHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'seguimiento.html'), rootSeguimientoHtml);
+        fs.writeFileSync(path.join(DIST_DIR, 'gracias.html'), rootGraciasHtml);
     }
 
     // 3. Generar subcarpetas para todos los que NO sean "default"
@@ -181,6 +193,8 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'faq.html'), customizeHtml(faqHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'seguimiento.html'), customizeHtml(seguimientoHtml, promotor, true, activeRotatorPool));
+        fs.writeFileSync(path.join(promotorDir, 'gracias.html'), customizeHtml(graciasHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true, activeRotatorPool));
 
