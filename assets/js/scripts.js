@@ -151,6 +151,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const recSavings = document.getElementById('rec-savings');
 
     if(weightInput && ageInput) {
+        // Preservar el enlace del promotor activo
+        let promoterShopUrl = (calcBuyBtn && calcBuyBtn.getAttribute('href') && calcBuyBtn.getAttribute('href') !== '#') 
+            ? calcBuyBtn.getAttribute('href') 
+            : null;
+            
+        const savedId = localStorage.getItem('orygn_dist_id');
+        var cookieMatch = document.cookie.match(new RegExp('(?:^|; )sponsor=([^;]+)'));
+        var activeSponsor = (savedId && savedId !== 'default' && savedId !== 'index.html') ? savedId : (cookieMatch ? cookieMatch[1] : null);
+
+        if (activeSponsor && activeSponsor !== 'default' && (!promoterShopUrl || promoterShopUrl.includes('iorngoldman.orygn.co'))) {
+            promoterShopUrl = `https://${activeSponsor}.orygn.co/`;
+        } else if (!promoterShopUrl) {
+            promoterShopUrl = "https://iorngoldman.orygn.co/";
+        }
+
         function calculatePlan() {
             const isResultados = document.querySelector('input[name="calc-objective"]:checked').value === 'resultados';
             const weight = parseInt(weightInput.value);
@@ -173,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     recPackDesc.textContent = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.";
                 }
                 recPackPrice.textContent = "113,60€ / $129,95 (+ envío e impuestos)";
-                calcBuyBtn.href = "https://iorngoldman.orygn.co/";
+                if (calcBuyBtn) calcBuyBtn.href = promoterShopUrl;
                 calcBuyBtn.textContent = "Pedir Pack de 2 Botellas";
                 if(recSavings) recSavings.style.display = 'block';
             } else {
@@ -188,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     recPackDesc.textContent = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
                 }
                 recPackPrice.textContent = "64€ / $75 (+ envío e impuestos)";
-                calcBuyBtn.href = "https://iorngoldman.orygn.co/";
+                if (calcBuyBtn) calcBuyBtn.href = promoterShopUrl;
                 calcBuyBtn.textContent = "Pedir 1 Botella de Mantenimiento";
                 if(recSavings) recSavings.style.display = 'none';
             }
