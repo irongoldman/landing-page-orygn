@@ -8,10 +8,10 @@
     xmlns:darktable="http://darktable.sf.net/"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:lr="http://ns.adobe.com/lightroom/1.0/"
-   exif:DateTimeOriginal="2026:07:07 05:16:16.000"
-   xmpMM:DerivedFrom="triGLP-ORYGN_perder_peso.png"
+   exif:DateTimeOriginal=""
+   xmpMM:DerivedFrom="logo_gotas-triglp.png"
    xmp:Rating="1"
-   darktable:import_timestamp="63918998318218286"
+   darktable:import_timestamp="63923356769523941"
    darktable:change_timestamp="-1"
    darktable:export_timestamp="-1"
    darktable:print_timestamp="-1"
@@ -73,6 +73,11 @@
       darktable:blendop_params="gz11eJxjYIAACQYYOOHEgAZY0QWAgBGLGANDgz0Ej1Q+dcF/IADRAGpyHQU="/>
     </rdf:Seq>
    </darktable:history>
+   <dc:title>
+    <rdf:Alt>
+     <rdf:li xml:lang="x-default">logo_gotas-triglp - 1</rdf:li>
+    </rdf:Alt>
+   </dc:title>
    <dc:subject>
     <rdf:Bag>
      <rdf:li>darktable</rdf:li>
