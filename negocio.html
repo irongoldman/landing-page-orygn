@@ -5,6 +5,10 @@
     <!-- ============== PERSISTENCIA Y ROTADOR DE DISTRIBUIDOR ============== -->
     <script>
         (function () {
+            // SEO & Bot Bypass: Prevenir redirección en crawlers de motores de búsqueda (Googlebot, Bing, etc.)
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|slurp|bingbot|yandexbot|baidu|duckduckbot/i.test(navigator.userAgent);
+            if (isBot) return;
+
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
             const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
@@ -44,13 +48,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- ============== SEO PRIMARIO ============== -->
-    <title>TriGLP de ORYGN | Alternativa Natural GLP-1 para Control de Peso</title>
+    <title>Oportunidad de Negocio ORYGN | Distribuidor Independiente TriGLP</title>
     <meta name="description"
-        content="Conoce TriGLP de ORYGN: la alternativa natural GLP-1 en gotas sublinguales para la pérdida de peso y el bienestar metabólico, respaldada por ciencia clínica.">
+        content="Descubre la oportunidad de negocio de ORYGN con TriGLP. Conviértete en distribuidor independiente del primer suplemento natural GLP-1 del mercado.">
     <meta name="author" content="José Jumilla - Promotor Independiente ORYGN">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <link rel="canonical" href="https://gotas-triglp.com/">
+    <link rel="canonical" href="https://gotas-triglp.com/negocio.html">
     <meta name="theme-color" content="#F04E23">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -592,6 +596,13 @@
                 "name": "ORYGN"
             },
             "category": "Suplemento Dietético > Salud Metabólica > Control de Peso",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "128",
+                "bestRating": "5",
+                "worstRating": "1"
+            },
             "offers": {
                 "@type": "AggregateOffer",
                 "url": "https://iorngoldman.orygn.co/",
@@ -599,8 +610,17 @@
                 "lowPrice": "75.00",
                 "highPrice": "130.00",
                 "offerCount": "2",
+                "priceValidUntil": "2027-12-31",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition",
+                "hasMerchantReturnPolicy": {
+                    "@type": "MerchantReturnPolicy",
+                    "applicableCountry": "Worldwide",
+                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                    "merchantReturnDays": 14,
+                    "returnMethod": "https://schema.org/ReturnByMail",
+                    "returnFees": "https://schema.org/ReturnCustomerResponsibility"
+                },
                 "shippingDetails": {
                     "@type": "OfferShippingDetails",
                     "shippingRate": {
@@ -629,6 +649,22 @@
                     }
                 }
             }
+        }
+    </script>
+
+    <!-- Schema.org VideoObject para rich snippet de vídeo -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "Oportunidad de Negocio y Producto ORYGN TriGLP",
+            "description": "Video explicativo sobre la oportunidad de negocio y la ciencia de las gotas sublinguales TriGLP.",
+            "thumbnailUrl": [
+                "https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg"
+            ],
+            "uploadDate": "2026-01-20T08:00:00+00:00",
+            "contentUrl": "https://technoeconomia.com/videos-orygn/triGLP-ORYGN-OPORTUNIDAD.mp4",
+            "embedUrl": "https://gotas-triglp.com/negocio.html#promo-video"
         }
     </script>
 

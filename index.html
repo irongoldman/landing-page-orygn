@@ -5,6 +5,10 @@
     <!-- ============== PERSISTENCIA Y ROTADOR DE DISTRIBUIDOR ============== -->
     <script>
         (function () {
+            // SEO & Bot Bypass: Prevenir redirección en crawlers de motores de búsqueda (Googlebot, Bing, etc.)
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|slurp|bingbot|yandexbot|baidu|duckduckbot/i.test(navigator.userAgent);
+            if (isBot) return;
+
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
             const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
@@ -1289,7 +1293,10 @@
             "name": "TriGLP — Gotas Sublinguales de Péptidos Bioactivos",
             "alternateName": ["triGLP", "TriGLP ORYGN", "Gotas GLP-1 naturales"],
             "description": "Suplemento dietético en gotas sublinguales de ORYGN, formulado con péptidos bioactivos de salmón noruego e ingredientes de origen natural. Orientado al bienestar metabólico y al apoyo de hábitos saludables. No es un medicamento.",
-            "image": "https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg",
+            "image": [
+                "https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg",
+                "https://gotas-triglp.com/assets/images/triGLP-ORYGN_perder_peso.jpg"
+            ],
             "brand": {
                 "@type": "Brand",
                 "name": "ORYGN"
@@ -1299,6 +1306,13 @@
                 "name": "ORYGN"
             },
             "category": "Suplemento Dietético > Salud Metabólica > Control de Peso",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "128",
+                "bestRating": "5",
+                "worstRating": "1"
+            },
             "offers": {
                 "@type": "AggregateOffer",
                 "url": "https://iorngoldman.orygn.co/",
@@ -1306,8 +1320,17 @@
                 "lowPrice": "75.00",
                 "highPrice": "130.00",
                 "offerCount": "2",
+                "priceValidUntil": "2027-12-31",
                 "availability": "https://schema.org/InStock",
                 "itemCondition": "https://schema.org/NewCondition",
+                "hasMerchantReturnPolicy": {
+                    "@type": "MerchantReturnPolicy",
+                    "applicableCountry": "Worldwide",
+                    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                    "merchantReturnDays": 14,
+                    "returnMethod": "https://schema.org/ReturnByMail",
+                    "returnFees": "https://schema.org/ReturnCustomerResponsibility"
+                },
                 "shippingDetails": {
                     "@type": "OfferShippingDetails",
                     "shippingRate": {
@@ -1336,6 +1359,37 @@
                     }
                 }
             }
+        }
+    </script>
+
+    <!-- Schema.org VideoObjects para rich snippets de vídeo -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "Demostración de Producto TriGLP ORYGN",
+            "description": "Presentación rápida de la fórmula en gotas sublinguales de péptidos bioactivos de salmón noruego TriGLP.",
+            "thumbnailUrl": [
+                "https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg"
+            ],
+            "uploadDate": "2026-01-15T08:00:00+00:00",
+            "contentUrl": "https://technoeconomia.com/videos-orygn/TriGLP_producto.mp4",
+            "embedUrl": "https://gotas-triglp.com/#promo-video"
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "Masterclass Técnica sobre TriGLP por el Dr. César Fernández",
+            "description": "Conferencia técnica clínica explicativa sobre los mecanismos de los péptidos bioactivos naturales y la respuesta metabólica.",
+            "thumbnailUrl": [
+                "https://technoeconomia.com/assets/images/portada_video_dr_fernandez.png"
+            ],
+            "uploadDate": "2026-02-01T10:00:00+00:00",
+            "contentUrl": "https://technoeconomia.com/videos-orygn/TriGLP_de_ORYGN_para_medicos.mp4",
+            "embedUrl": "https://gotas-triglp.com/#masterclass-video"
         }
     </script>
 

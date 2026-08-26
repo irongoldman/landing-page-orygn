@@ -193,7 +193,6 @@ function runBuild() {
         fs.writeFileSync(path.join(promotorDir, 'presentacion.html'), customizeHtml(presentacionHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'sitemap.html'), customizeHtml(sitemapHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'faq.html'), customizeHtml(faqHtml, promotor, true, activeRotatorPool));
-        fs.writeFileSync(path.join(promotorDir, 'seguimiento.html'), customizeHtml(seguimientoHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'gracias.html'), customizeHtml(graciasHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'aviso-legal.html'), customizeHtml(avisoHtml, promotor, true, activeRotatorPool));
         fs.writeFileSync(path.join(promotorDir, 'privacidad.html'), customizeHtml(privacidadHtml, promotor, true, activeRotatorPool));

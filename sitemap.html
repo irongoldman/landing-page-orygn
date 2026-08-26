@@ -5,6 +5,10 @@
     <!-- ============== PERSISTENCIA Y ROTADOR DE DISTRIBUIDOR ============== -->
     <script>
         (function () {
+            // SEO & Bot Bypass: Prevenir redirección en crawlers de motores de búsqueda (Googlebot, Bing, etc.)
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|slurp|bingbot|yandexbot|baidu|duckduckbot/i.test(navigator.userAgent);
+            if (isBot) return;
+
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
             const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
@@ -42,6 +46,8 @@
     <title>Sitemap | ORYGN — Alternativa Natural TriGLP</title>
     <meta name="description"
         content="Mapa del sitio de ORYGN. Encuentra fácilmente toda la información sobre TriGLP, testimonios, estudios y la oportunidad de negocio.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gotas-triglp.com/sitemap.html">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sitemap | ORYGN — Alternativa Natural TriGLP">

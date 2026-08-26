@@ -4,6 +4,10 @@
     <!-- ============== PERSISTENCIA Y ROTADOR DE DISTRIBUIDOR ============== -->
     <script>
         (function () {
+            // SEO & Bot Bypass: Prevenir redirección en crawlers de motores de búsqueda (Googlebot, Bing, etc.)
+            const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit|slurp|bingbot|yandexbot|baidu|duckduckbot/i.test(navigator.userAgent);
+            if (isBot) return;
+
             const path = window.location.pathname;
             const pathParts = path.split('/').filter(p => p !== "");
             const internalPaths = ['estudios', 'negocio', 'testimonios', 'presentacion', 'privacidad', 'aviso-legal', 'sitemap', 'faq', 'seguimiento', 'gracias', 'admin', 'assets'];
@@ -45,6 +49,7 @@
     <meta name="geo.placename" content="Global">
     <meta name="geo.region" content="Internacional">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gotas-triglp.com/testimonios.html">
     <meta name="citation_title" content="Testimonios y Experiencias con triGLP">
     <meta name="citation_abstract" content="Testimonios reales de usuarios que han integrado triGLP en su rutina diaria para el bienestar metabólico, una alternativa natural basada en péptidos de salmón.">
     
@@ -407,12 +412,26 @@
       "@type": "Product",
       "name": "triGLP de ORYGN",
       "description": "Suplemento sublingual natural de péptidos bioactivos de salmón noruego (ProGo®).",
+      "image": "https://gotas-triglp.com/assets/images/triGLP-ORYGN_perder_peso.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "ORYGN"
+      },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
         "reviewCount": "128",
         "bestRating": "5",
         "worstRating": "1"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "75.00",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2027-12-31",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/InStock",
+        "url": "https://iorngoldman.orygn.co/"
       },
       "review": [
         {
@@ -442,6 +461,20 @@
           "reviewBody": "Sin inyecciones ni recetas. He bajado de peso manteniendo mi tono muscular y con perfecta digestión."
         }
       ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Testimonios y Experiencias de Usuarios con TriGLP",
+      "description": "Recopilación de testimonios y resultados compartidos por usuarios de las gotas sublinguales TriGLP.",
+      "thumbnailUrl": [
+        "https://gotas-triglp.com/assets/images/triGLP-ORYGN_perder_peso.jpg"
+      ],
+      "uploadDate": "2026-02-10T12:00:00+00:00",
+      "contentUrl": "https://technoeconomia.com/videos-orygn/TriGLP_producto.mp4",
+      "embedUrl": "https://gotas-triglp.com/testimonios.html#video-testimonios"
     }
     </script>
     <script src="assets/js/scripts.js?v=4.4"></script>

@@ -1,3 +1,21 @@
 [build]
   command = "npm run build"
   publish = "dist"
+
+[[redirects]]
+  from = "https://www.gotas-triglp.com/*"
+  to = "https://gotas-triglp.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.gotas-triglp.com/*"
+  to = "https://gotas-triglp.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://gotas-triglp.com/*"
+  to = "https://gotas-triglp.com/:splat"
+  status = 301
+  force = true
