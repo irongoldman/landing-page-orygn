@@ -1268,6 +1268,7 @@
         {
           "@type": ["DietarySupplement", "Product"],
           "name": "triGLP / ProGo®",
+          "description": "Suplemento sublingual natural de péptidos bioactivos de salmón noruego (ProGo®) para el apoyo del bienestar metabólico.",
           "image": "https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg",
           "brand": {
             "@type": "Brand",
@@ -1290,10 +1291,46 @@
             "@type": "Offer",
             "price": "75.00",
             "priceCurrency": "USD",
+            "validFrom": "2024-01-01",
             "priceValidUntil": "2027-12-31",
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock",
-            "url": "https://iorngoldman.orygn.co/"
+            "url": "https://iorngoldman.orygn.co/",
+            "hasMerchantReturnPolicy": {
+              "@type": "MerchantReturnPolicy",
+              "applicableCountry": "Worldwide",
+              "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+              "merchantReturnDays": 14,
+              "returnMethod": "https://schema.org/ReturnByMail",
+              "returnFees": "https://schema.org/ReturnCustomerResponsibility"
+            },
+            "shippingDetails": {
+              "@type": "OfferShippingDetails",
+              "shippingRate": {
+                "@type": "MonetaryAmount",
+                "value": "15.00",
+                "currency": "USD"
+              },
+              "shippingDestination": {
+                "@type": "DefinedRegion",
+                "addressCountry": "Internacional"
+              },
+              "deliveryTime": {
+                "@type": "ShippingDeliveryTime",
+                "handlingTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 1,
+                  "maxValue": 2,
+                  "unitCode": "DAY"
+                },
+                "transitTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 3,
+                  "maxValue": 10,
+                  "unitCode": "DAY"
+                }
+              }
+            }
           }
         }
       ]
