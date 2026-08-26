@@ -113,8 +113,14 @@ function customizeHtml(html, promotor, isSubfolder = true, activeRotatorPool = [
 function runBuild() {
     console.log('--- Iniciando Build Mejorado ---');
 
-    if (fs.existsSync(DIST_DIR)) fs.rmSync(DIST_DIR, { recursive: true, force: true });
-    fs.mkdirSync(DIST_DIR);
+    if (fs.existsSync(DIST_DIR)) {
+        try {
+            fs.rmSync(DIST_DIR, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 });
+        } catch (e) {
+            console.warn('Advertencia al limpiar dist, continuando...', e.message);
+        }
+    }
+    if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR, { recursive: true });
 
     console.log('1. Copiando archivos base...');
     ASSETS_TO_COPY.forEach(item => {
