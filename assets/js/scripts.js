@@ -123,6 +123,7 @@ function initApp() {
         const resDuracion = document.getElementById('res-duracion');
         const resDuracionDesc = document.getElementById('res-duracion-desc');
         const resFormato = document.getElementById('res-formato');
+        const resFormatoDesc = document.getElementById('res-formato-desc');
         const tipTitle = document.getElementById('tip-title');
         const tipDesc = document.getElementById('tip-desc');
 
@@ -171,26 +172,35 @@ function initApp() {
 
                 let planName = "";
                 let formatText = "";
+                let formatDesc = "";
+                let duracionText = "";
 
                 if (selectedFormat === 'duo') {
                     formatText = "Protocolo Dúo Sinergia (Gotas + IGNYT)";
+                    formatDesc = "Gotas Sublinguales + Sobres Monodosis";
+                    duracionText = "36 días aprox.";
                 } else if (selectedFormat === 'gotas') {
                     formatText = isResultados ? "Pack 2 Botellas triGLP (Gotas)" : "1 Botella triGLP (Gotas)";
+                    formatDesc = "Gotas Sublinguales de Absorción Rápida";
+                    duracionText = "36 días aprox.";
                 } else {
-                    formatText = isResultados ? "Pack 2 Cajas IGNYT (Sobres)" : "1 Caja IGNYT (Sobres)";
+                    formatText = isResultados ? "Pack 2 Envases IGNYT (Sobres)" : "1 Envase IGNYT (30 Sobres)";
+                    formatDesc = "Sobres Monodosis On-the-Go";
+                    duracionText = isResultados ? "60 días aprox." : "30 días aprox.";
                 }
 
                 if (resFormato) resFormato.textContent = formatText;
+                if (resFormatoDesc) resFormatoDesc.textContent = formatDesc;
+                if (resDuracion) resDuracion.textContent = duracionText;
 
                 if (isResultados) {
                     if (resTomas) resTomas.textContent = "2 tomas al día";
                     if (resTomasDesc) resTomasDesc.textContent = "Mañana en ayunas + Tarde";
-                    if (resDuracion) resDuracion.textContent = "36 días completos";
                     if (resDuracionDesc) resDuracionDesc.textContent = "Tratamiento intensivo";
 
                     planName = (selectedFormat === 'duo') 
                         ? "Pack de 2 (Dúo triGLP + IGNYT) — Máximo Ahorro" 
-                        : `Pack de 2 (${selectedFormat === 'gotas' ? '2 Botellas triGLP' : '2 Cajas IGNYT'}) — Máximo Ahorro`;
+                        : `Pack de 2 (${selectedFormat === 'gotas' ? '2 Botellas triGLP' : '2 Envases IGNYT'}) — Máximo Ahorro`;
 
                     if (recPackTitle) recPackTitle.textContent = planName;
                     if (recPackPrice) recPackPrice.innerHTML = `128,40 € / $139.95 USD <span class="tax-note">(+ gastos de envío e impuestos)</span>`;
@@ -212,12 +222,11 @@ function initApp() {
                 } else {
                     if (resTomas) resTomas.textContent = "1 toma al día";
                     if (resTomasDesc) resTomasDesc.textContent = "Mañana en ayunas";
-                    if (resDuracion) resDuracion.textContent = "36 días completos";
                     if (resDuracionDesc) resDuracionDesc.textContent = "Mantenimiento diario";
 
                     planName = (selectedFormat === 'duo')
-                        ? "1 Botella triGLP o 1 Caja IGNYT"
-                        : (selectedFormat === 'gotas' ? "1 Botella triGLP (Gotas)" : "1 Caja IGNYT (Sobres)");
+                        ? "1 Botella triGLP o 1 Envase IGNYT (Sobres)"
+                        : (selectedFormat === 'gotas' ? "1 Botella triGLP (Gotas)" : "1 Envase IGNYT (30 Sobres)");
 
                     if (recPackTitle) recPackTitle.textContent = planName;
                     if (recPackPrice) recPackPrice.innerHTML = `78,00 € / $84.95 USD <span class="tax-note">(+ gastos de envío e impuestos)</span>`;
