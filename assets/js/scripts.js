@@ -133,17 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Fuente Única de Verdad de Precios ---
+    // --- Fuente Única de Verdad de Precios (PVP y Distribuidor en EUR / USD) ---
     window.ORYGN_PRICING = {
-        singleEur: 92.15,
-        pack2Eur: 151.81,
-        savingsEur: 32.49,
+        singleEur: 78.00,
+        singleUsd: 84.95,
+        singleDistEur: 69.00,
+        singleDistUsd: 74.95,
+        pack2Eur: 128.40,
+        pack2Usd: 139.95,
+        pack2DistEur: 119.20,
+        pack2DistUsd: 129.95,
+        savingsEur: 27.60,
+        savingsUsd: 29.95,
         discountPct: 18
     };
 
-    // --- Calculadora Metabólica Interactiva ---
-    const objResultados = document.getElementById('obj-resultados');
-    const objMantenimiento = document.getElementById('obj-mantenimiento');
+    // --- Calculadora Metabólica Interactiva (Lógica Rediseñada) ---
     const weightInput = document.getElementById('calc-weight');
     const ageInput = document.getElementById('calc-age');
     const weightVal = document.getElementById('weight-val');
@@ -152,12 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const resTomas = document.getElementById('res-tomas');
     const resTomasDesc = document.getElementById('res-tomas-desc');
     const resDuracion = document.getElementById('res-duracion');
+    const resDuracionDesc = document.getElementById('res-duracion-desc');
+    const resFormato = document.getElementById('res-formato');
+    const tipTitle = document.getElementById('tip-title');
+    const tipDesc = document.getElementById('tip-desc');
+    
     const recPackTitle = document.getElementById('rec-pack-title');
-    const recPackDesc = document.getElementById('rec-pack-desc');
     const recPackPrice = document.getElementById('rec-pack-price');
+    const recSavings = document.getElementById('rec-savings');
     const calcBuyBtn = document.getElementById('calc-buy-btn');
     const calcWaBtn = document.getElementById('calc-wa-btn');
-    const recSavings = document.getElementById('rec-savings');
 
     if(weightInput && ageInput) {
         // Obtener datos del promotor activo
@@ -170,9 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
             : null;
 
         if (activeSponsor && activeSponsor !== 'default' && (!promoterShopUrl || promoterShopUrl.includes('iorngoldman.orygn.co'))) {
-            promoterShopUrl = `https://${activeSponsor}.orygn.co/`;
+            promoterShopUrl = `https://${activeSponsor}.orygn.co/product`;
         } else if (!promoterShopUrl) {
-            promoterShopUrl = "https://iorngoldman.orygn.co/";
+            promoterShopUrl = "https://iorngoldman.orygn.co/product";
         }
 
         // Obtener teléfono de WhatsApp del promotor si está en el DOM
@@ -189,7 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function calculatePlan() {
-            const isResultados = document.querySelector('input[name="calc-objective"]:checked').value === 'resultados';
+            const isResultados = document.querySelector('input[name="calc-objective"]:checked')?.value === 'resultados';
+            const selectedFormat = document.querySelector('input[name="calc-format"]:checked')?.value || 'duo';
             const weight = parseInt(weightInput.value);
             const age = parseInt(ageInput.value);
 
@@ -197,56 +207,76 @@ document.addEventListener('DOMContentLoaded', () => {
             ageVal.textContent = age;
 
             let planName = "";
-            let planDesc = "";
+            let formatText = "";
+
+            if (selectedFormat === 'duo') {
+                formatText = "Protocolo Dúo Sinergia (Gotas + IGNYT)";
+            } else if (selectedFormat === 'gotas') {
+                formatText = isResultados ? "Pack 2 Botellas triGLP (Gotas)" : "1 Botella triGLP (Gotas)";
+            } else {
+                formatText = isResultados ? "Pack 2 Cajas IGNYT (Sobres)" : "1 Caja IGNYT (Sobres)";
+            }
+
+            if (resFormato) resFormato.textContent = formatText;
 
             if (isResultados) {
-                resTomas.textContent = "2 tomas al día";
-                resTomasDesc.textContent = "Repartido en mañana y tarde";
-                resDuracion.textContent = "18 a 36 días";
+                if (resTomas) resTomas.textContent = "2 tomas al día";
+                if (resTomasDesc) resTomasDesc.textContent = "Mañana en ayunas + Tarde";
+                if (resDuracion) resDuracion.textContent = "36 días completos";
+                if (resDuracionDesc) resDuracionDesc.textContent = "Tratamiento intensivo";
+
+                planName = (selectedFormat === 'duo') 
+                    ? "Pack de 2 (Dúo triGLP + IGNYT) — Máximo Ahorro" 
+                    : `Pack de 2 (${selectedFormat === 'gotas' ? '2 Botellas triGLP' : '2 Cajas IGNYT'}) — Máximo Ahorro`;
+
+                if (recPackTitle) recPackTitle.textContent = planName;
+                if (recPackPrice) recPackPrice.innerHTML = `128,40 € / $139.95 USD <span class="tax-note">(+ gastos de envío e impuestos)</span>`;
                 
-                if (weight > 90 || age > 45) {
-                    planName = "Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas) - Plan Recomendado";
-                    planDesc = "Cubre 36 días completos. Recomendado especialmente para metabolismos que requieren un apoyo más constante y sinérgico.";
-                } else {
-                    planName = "Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas)";
-                    planDesc = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados metabólicos visibles de 6 a 8 semanas.";
+                if (recSavings) {
+                    recSavings.style.display = 'inline-block';
+                    recSavings.textContent = `Ahorras 27,60 € / $29.95 USD (~18%)`;
                 }
-                recPackTitle.textContent = planName;
-                recPackDesc.textContent = planDesc;
-                recPackPrice.textContent = `${window.ORYGN_PRICING.pack2Eur.toFixed(2).replace('.', ',')} € (+ envío e impuestos)`;
-                if (calcBuyBtn) {
-                    calcBuyBtn.href = promoterShopUrl;
-                    calcBuyBtn.textContent = "Comprar Pack de 2 en Tienda Oficial";
-                }
-                if(recSavings) {
-                    recSavings.style.display = 'block';
-                    recSavings.textContent = `🔥 Ahorra ${window.ORYGN_PRICING.savingsEur.toFixed(2).replace('.', ',')} € (~${window.ORYGN_PRICING.discountPct}%) con respecto a la compra individual`;
+
+                if (tipTitle && tipDesc) {
+                    if (weight >= 85 || age >= 45) {
+                        tipTitle.textContent = "Perfil Metabólico: Apoyo Doble Sincronizado";
+                        tipDesc.textContent = "Recomendado 2 tomas diarias para activar saciedad y optimizar la combustión lipídica sin pérdida muscular.";
+                    } else {
+                        tipTitle.textContent = "Perfil Metabólico: Pérdida Activa y Control";
+                        tipDesc.textContent = "Recomendado protocolo de 2 tomas al día durante 6 a 8 semanas para consolidar el control del apetito.";
+                    }
                 }
             } else {
-                resTomas.textContent = "1 toma al día";
-                resTomasDesc.textContent = "En una sola toma (por la mañana o tarde)";
-                resDuracion.textContent = "36 días";
+                if (resTomas) resTomas.textContent = "1 toma al día";
+                if (resTomasDesc) resTomasDesc.textContent = "Mañana en ayunas";
+                if (resDuracion) resDuracion.textContent = "36 días completos";
+                if (resDuracionDesc) resDuracionDesc.textContent = "Mantenimiento diario";
+
+                planName = (selectedFormat === 'duo')
+                    ? "1 Botella triGLP o 1 Caja IGNYT"
+                    : (selectedFormat === 'gotas' ? "1 Botella triGLP (Gotas)" : "1 Caja IGNYT (Sobres)");
+
+                if (recPackTitle) recPackTitle.textContent = planName;
+                if (recPackPrice) recPackPrice.innerHTML = `78,00 € / $84.95 USD <span class="tax-note">(+ gastos de envío e impuestos)</span>`;
                 
-                planName = "1 Botella Individual o 1 Paquete IGNYT";
-                if (age > 50) {
-                    planDesc = "Cubre 36 días completos. Excelente para mantenimiento y vitalidad diaria en la madurez metabólica.";
-                } else {
-                    planDesc = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
+                if (recSavings) {
+                    recSavings.style.display = 'none';
                 }
-                recPackTitle.textContent = planName;
-                recPackDesc.textContent = planDesc;
-                recPackPrice.textContent = `${window.ORYGN_PRICING.singleEur.toFixed(2).replace('.', ',')} € (+ envío e impuestos)`;
-                if (calcBuyBtn) {
-                    calcBuyBtn.href = promoterShopUrl;
-                    calcBuyBtn.textContent = "Comprar 1 Botella / Paquete en Tienda Oficial";
+
+                if (tipTitle && tipDesc) {
+                    tipTitle.textContent = "Perfil Metabólico: Bienestar y Longevidad";
+                    tipDesc.textContent = "1 sola toma diaria en ayunas para sostener el equilibrio hormonal, la energía celular y la salud intestinal.";
                 }
-                if(recSavings) recSavings.style.display = 'none';
+            }
+
+            if (calcBuyBtn) {
+                calcBuyBtn.href = promoterShopUrl;
             }
 
             // Actualizar botón de WhatsApp interactivo
             if (calcWaBtn) {
                 const objetivoStr = isResultados ? "Pérdida de Peso Activa" : "Mantenimiento / Bienestar";
-                const waMessage = `Hola ${promoterNombre}, he calculado mi plan en la web: peso ${weight} kg, edad ${age} años, objetivo: ${objetivoStr}. Mi plan sugerido es ${planName}. ¿Me ayudas a pedirlo con la garantía oficial de 28 días?`;
+                const waMessage = `Hola ${promoterNombre}, he calculado mi plan en la web: peso ${weight} kg, edad ${age} años, objetivo: ${objetivoStr}, formato preferido: ${formatText}. Mi plan sugerido es ${planName} (128,40 € / $139.95 USD + envío e impuestos). ¿Me ayudas a pedirlo con la garantía oficial de 28 días?`;
                 calcWaBtn.href = `https://api.whatsapp.com/send?phone=${promoterPhone}&text=${encodeURIComponent(waMessage)}`;
             }
         }
@@ -254,6 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
         weightInput.addEventListener('input', calculatePlan);
         ageInput.addEventListener('input', calculatePlan);
         document.querySelectorAll('input[name="calc-objective"]').forEach(radio => {
+            radio.addEventListener('change', calculatePlan);
+        });
+        document.querySelectorAll('input[name="calc-format"]').forEach(radio => {
             radio.addEventListener('change', calculatePlan);
         });
 
@@ -285,16 +318,16 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Social Proof FOMO Notifications con datos territoriales y packs reales
     const fomoNames = [
-        { name: "Marta S. (Sevilla, España)", time: "hace 4 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
-        { name: "Carlos R. (Madrid, España)", time: "hace 7 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" },
-        { name: "Laura M. (Valencia, España)", time: "hace 11 min", pack: "1 Botella triGLP (92,15 €)" },
-        { name: "Javier T. (Barcelona, España)", time: "hace 2 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
-        { name: "Ana P. (Bilbao, España)", time: "hace 9 min", pack: "Sobres IGNYT Booster (92,15 €)" },
-        { name: "David L. (Málaga, España)", time: "hace 15 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" },
-        { name: "Elena S. (Zaragoza, España)", time: "hace 6 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
-        { name: "Sergio V. (Alicante, España)", time: "hace 13 min", pack: "1 Botella triGLP (92,15 €)" },
-        { name: "Paula N. (Murcia, España)", time: "hace 8 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
-        { name: "Antonio W. (Granada, España)", time: "hace 18 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" }
+        { name: "Marta S. (Sevilla, España)", time: "hace 4 min", pack: "Pack Dúo triGLP + IGNYT (128,40 € / $139.95 USD)" },
+        { name: "Carlos R. (Madrid, España)", time: "hace 7 min", pack: "Pack de 2 Gotas triGLP (128,40 € / $139.95 USD)" },
+        { name: "Laura M. (Valencia, España)", time: "hace 11 min", pack: "1 Botella triGLP (78,00 € / $84.95 USD)" },
+        { name: "Javier T. (Barcelona, España)", time: "hace 2 min", pack: "Pack Dúo triGLP + IGNYT (128,40 € / $139.95 USD)" },
+        { name: "Ana P. (Bilbao, España)", time: "hace 9 min", pack: "Sobres IGNYT Booster (78,00 € / $84.95 USD)" },
+        { name: "David L. (Málaga, España)", time: "hace 15 min", pack: "Pack de 2 Gotas triGLP (128,40 € / $139.95 USD)" },
+        { name: "Elena S. (Zaragoza, España)", time: "hace 6 min", pack: "Pack Dúo triGLP + IGNYT (128,40 € / $139.95 USD)" },
+        { name: "Sergio V. (Alicante, España)", time: "hace 13 min", pack: "1 Botella triGLP (78,00 € / $84.95 USD)" },
+        { name: "Paula N. (Murcia, España)", time: "hace 8 min", pack: "Pack Dúo triGLP + IGNYT (128,40 € / $139.95 USD)" },
+        { name: "Antonio W. (Granada, España)", time: "hace 18 min", pack: "Pack de 2 Gotas triGLP (128,40 € / $139.95 USD)" }
     ];
     
     const fomoNotification = document.getElementById('fomo-notification');
