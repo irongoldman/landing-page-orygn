@@ -86,21 +86,15 @@
 </head>
 
 <body>
-    <!-- BARRA SUPERIOR PROMOTOR -->
-    <div class="top-announcement-bar">
-        <span>Te está invitado a conocer triGLP y IGNYT: <span class="promotor-nombre">José</span></span>
-    </div>
-
     <!-- NAVEGACIÓN PRINCIPAL -->
     <header class="navbar">
         <div class="container"
             style="display: flex; justify-content: space-between; align-items: center; position: relative;">
             <div class="logo">
-                <a href="index.html">
-                    <img src="assets/images/logo_gotas-triglp.png" alt="ORYGN" class="header-logo"
-                        style="height: 45px;">
+                <a href="index.html" class="brand-logo-text">
+                    <span class="brand-main">ORYGN</span>
+                    <span class="brand-sub">triGLP & IGNYT</span>
                 </a>
-                <span class="badge" style="display: none;">Distribuidor Independiente</span>
             </div>
 
             <button class="mobile-menu-btn" aria-label="Menú">&#9776;</button>
@@ -553,9 +547,7 @@
                         <span class="faq-toggle-icon">+</span>
                     </div>
                     <div class="faq-body-content">
-                        El precio de partida de la botella individual de triGLP es de <strong>64 € / $75 USD (+ envío e
-                            impuestos correspondientes según país de destino)</strong>. Incluye el tratamiento mensual
-                        completo con cuentagotas graduado.
+                        El precio oficial de la botella individual de triGLP (9 mL / 36 tomas) o caja de sobres IGNYT (30 sobres) es de <strong>92,15 € (+ envío e impuestos correspondientes según país de destino)</strong>. Incluye el tratamiento mensual completo con cuentagotas graduado y la garantía oficial de 28 días.
                     </div>
                 </div>
 
@@ -568,13 +560,23 @@
                         <span class="faq-toggle-icon">+</span>
                     </div>
                     <div class="faq-body-content">
-                        Sí. Disponemos de opciones de ahorro:
+                        Sí. Disponemos de la mejor opción de ahorro:
                         <ul style="margin-top: 8px; padding-left: 20px;">
-                            <li><strong>Pack de 2 Botellas (Tratamiento 60 Días):</strong> Ahorro del 14% en el importe
-                                por unidad (+ envío e impuestos).</li>
-                            <li><strong>Pack de 3 Botellas (Tratamiento Recomendado 90 Días):</strong> Máximo descuento
-                                por volumen con tarifa optimizada de envío (+ envío e impuestos).</li>
+                            <li><strong>Pack Ahorro de 2 (2 triGLP, 2 IGNYT o Protocolo Dúo Combinado):</strong> Tan solo <strong>151,81 €</strong> (+ envío e impuestos). Te ahorras <strong>32,49 € (~18% de descuento)</strong> frente a la compra individual.</li>
                         </ul>
+                    </div>
+                </div>
+
+                <div class="faq-card-item" data-category="precios">
+                    <div class="faq-header-trigger">
+                        <div>
+                            <span class="faq-cat-tag">💶 Precios &amp; Envíos</span>
+                            <h3 class="faq-question-title">¿Qué garantía de devolución tengo?</h3>
+                        </div>
+                        <span class="faq-toggle-icon">+</span>
+                    </div>
+                    <div class="faq-body-content">
+                        Dispones de <strong>28 días completos de garantía de satisfacción</strong> desde el momento en que se realiza el pedido oficial. Si tienes cualquier consulta durante tus tomas, cuentas con el apoyo directo y continuo de tu promotor asignado por WhatsApp.
                     </div>
                 </div>
 
@@ -590,7 +592,7 @@
                     <div class="faq-body-content">
                         Realizamos envíos internacionales a más de 80 países en Europa, América del Norte, América
                         Latina y Asia-Pacífico. Los plazos habituales de entrega oscilan entre 2 y 5 días laborables
-                        según la zona geográfica.
+                        según la zona geográfica mediante mensajería express.
                     </div>
                 </div>
 
@@ -754,23 +756,12 @@
                         <a href="negocio.html" class="explore-card">
                             <div class="explore-card-icon">🚀</div>
                             <div class="explore-card-title">Oportunidad Promotor</div>
-                            <div class="explore-card-sub">Modelo inteligente de distribución y plan de ingresos</div>
-                            <span class="explore-card-btn">Conocer Negocio &rarr;</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FOOTER -->
-            <footer class="footer"
-                style="padding: 60px 0 30px; background: #080b0f; border-top: 1px solid rgba(255,255,255,0.05);">
-                <div class="container text-center">
-                    <p
-                        style="color: #94a3b8; font-size: 0.85rem; line-height: 1.7; max-width: 900px; margin: 0 auto 15px;">
-                        <strong>Aviso Legal &amp; Descargo:</strong> triGLP es un suplemento dietético natural a base de
-                        péptidos bioactivos solubles de salmón noruego. No es un medicamento, no contiene semaglutida ni
-                        tirzepatida, y no está destinado a diagnosticar, tratar, curar o prevenir ninguna enfermedad.
-                        Los precios oficiales parten de 64 € / $75 USD + gastos de envío e impuestos según país de
+                            <div class="explore-card-sub">Modelo inteligente de                    <p
+                        style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; max-width: 900px; margin: 0 auto 15px;">
+                        <strong>Aviso Legal &amp; Descargo:</strong> triGLP e IGNYT son suplementos dietéticos naturales a base de
+                        péptidos bioactivos solubles de salmón noruego. No son medicamentos, no contienen semaglutida ni
+                        tirzepatida, y no están destinados a diagnosticar, tratar, curar o prevenir ninguna enfermedad.
+                        Los precios oficiales parten de 92,15 € + gastos de envío e impuestos según país de
                         destino.
                     </p>
                     <p
@@ -818,7 +809,6 @@
                         const trigger = item.querySelector('.faq-header-trigger');
                         trigger.addEventListener('click', () => {
                             const isActive = item.classList.contains('active');
-                            // Opcional: Cerrar otros o mantener abierto
                             faqItems.forEach(other => other.classList.remove('active'));
                             if (!isActive) {
                                 item.classList.add('active');
@@ -1009,7 +999,7 @@
           "name": "¿Cuál es el precio oficial de triGLP y qué incluye?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "El precio oficial de la botella individual parte de 64 € / $75 USD (+ envío e impuestos correspondientes según país de destino). Incluye el tratamiento mensual completo."
+            "text": "El precio oficial de la botella individual o caja de sobres IGNYT es de 92,15 € (+ envío e impuestos correspondientes según país de destino). El Pack de 2 cuesta 151,81 € con un ahorro directo de 32,49 €."
           }
         },
         {
@@ -1017,7 +1007,7 @@
           "name": "¿Existen paquetes o promociones con descuento?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sí, existen el Pack de 2 Botellas (14% de ahorro por unidad + envío e impuestos) y el Pack de 3 Botellas (máximo descuento por volumen + envío e impuestos)."
+            "text": "Sí, dispones del Pack Ahorro de 2 (2 botellas, 2 cajas o Protocolo Dúo) por tan solo 151,81 € con un ahorro de 32,49 € (~18% de descuento)."
           }
         },
         {
@@ -1025,7 +1015,7 @@
           "name": "¿A qué países se realizan envíos y cuál es el plazo de entrega?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Se envían a más de 80 países en Europa, América y Asia-Pacífico con entregas habituales entre 2 y 5 días laborables."
+            "text": "Se envían a más de 80 países en Europa, América y Asia-Pacífico con entregas habituales entre 2 y 5 días laborables mediante mensajería express y disponen de 28 días de garantía oficial."
           }
         },
         {
@@ -1034,6 +1024,20 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Se aceptan tarjetas de crédito/débito principales (Visa, Mastercard, AMEX), procesadores de pago cifrados SSL y plataformas locales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿En qué consiste la oportunidad de Promotor Independiente de ORYGN?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Obtienes tu propia tienda online personalizada para recomendar triGLP globalmente, generando comisiones directas y bonos por ventas en equipo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo funciona el Plan de Compensación y qué formas de ingreso existen?",
+          "acceptedAnswer": {MEX), procesadores de pago cifrados SSL y plataformas locales."
           }
         },
         {

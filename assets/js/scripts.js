@@ -133,6 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Fuente Única de Verdad de Precios ---
+    window.ORYGN_PRICING = {
+        singleEur: 92.15,
+        pack2Eur: 151.81,
+        savingsEur: 32.49,
+        discountPct: 18
+    };
+
     // --- Calculadora Metabólica Interactiva ---
     const objResultados = document.getElementById('obj-resultados');
     const objMantenimiento = document.getElementById('obj-mantenimiento');
@@ -148,22 +156,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const recPackDesc = document.getElementById('rec-pack-desc');
     const recPackPrice = document.getElementById('rec-pack-price');
     const calcBuyBtn = document.getElementById('calc-buy-btn');
+    const calcWaBtn = document.getElementById('calc-wa-btn');
     const recSavings = document.getElementById('rec-savings');
 
     if(weightInput && ageInput) {
-        // Preservar el enlace del promotor activo
-        let promoterShopUrl = (calcBuyBtn && calcBuyBtn.getAttribute('href') && calcBuyBtn.getAttribute('href') !== '#') 
-            ? calcBuyBtn.getAttribute('href') 
-            : null;
-            
+        // Obtener datos del promotor activo
         const savedId = localStorage.getItem('orygn_dist_id');
         var cookieMatch = document.cookie.match(new RegExp('(?:^|; )sponsor=([^;]+)'));
         var activeSponsor = (savedId && savedId !== 'default' && savedId !== 'index.html') ? savedId : (cookieMatch ? cookieMatch[1] : null);
+
+        let promoterShopUrl = (calcBuyBtn && calcBuyBtn.getAttribute('href') && calcBuyBtn.getAttribute('href') !== '#') 
+            ? calcBuyBtn.getAttribute('href') 
+            : null;
 
         if (activeSponsor && activeSponsor !== 'default' && (!promoterShopUrl || promoterShopUrl.includes('iorngoldman.orygn.co'))) {
             promoterShopUrl = `https://${activeSponsor}.orygn.co/`;
         } else if (!promoterShopUrl) {
             promoterShopUrl = "https://iorngoldman.orygn.co/";
+        }
+
+        // Obtener teléfono de WhatsApp del promotor si está en el DOM
+        const waFloat = document.querySelector('.whatsapp-float');
+        let promoterPhone = "34655404502";
+        let promoterNombre = "José";
+        const promotorNombreEl = document.querySelector('.promotor-nombre');
+        if (promotorNombreEl && promotorNombreEl.textContent.trim()) {
+            promoterNombre = promotorNombreEl.textContent.trim();
+        }
+        if (waFloat && waFloat.href) {
+            const phoneMatch = waFloat.href.match(/phone=([0-9+]+)/);
+            if (phoneMatch) promoterPhone = phoneMatch[1].replace('+', '');
         }
 
         function calculatePlan() {
@@ -174,38 +196,58 @@ document.addEventListener('DOMContentLoaded', () => {
             weightVal.textContent = weight;
             ageVal.textContent = age;
 
+            let planName = "";
+            let planDesc = "";
+
             if (isResultados) {
                 resTomas.textContent = "2 tomas al día";
                 resTomasDesc.textContent = "Repartido en mañana y tarde";
-                resDuracion.textContent = "18 días";
+                resDuracion.textContent = "18 a 36 días";
                 
-                // Si pesa más de 90kg o es mayor de 45 años, damos un consejo dinámico
                 if (weight > 90 || age > 45) {
-                    recPackTitle.textContent = "Pack de 2 Botellas (18 mL) - Plan Recomendado";
-                    recPackDesc.textContent = "Cubre 36 días completos. Recomendado especialmente para metabolismos que requieren un apoyo más constante y sostenido.";
+                    planName = "Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas) - Plan Recomendado";
+                    planDesc = "Cubre 36 días completos. Recomendado especialmente para metabolismos que requieren un apoyo más constante y sinérgico.";
                 } else {
-                    recPackTitle.textContent = "Pack de 2 Botellas (18 mL)";
-                    recPackDesc.textContent = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados clínicos visibles de 6 a 8 semanas.";
+                    planName = "Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas)";
+                    planDesc = "Cubre 36 días completos. Ideal para alcanzar los primeros resultados metabólicos visibles de 6 a 8 semanas.";
                 }
-                recPackPrice.textContent = "113,60€ / $129,95 (+ envío e impuestos)";
-                if (calcBuyBtn) calcBuyBtn.href = promoterShopUrl;
-                calcBuyBtn.textContent = "Pedir Pack de 2 Botellas";
-                if(recSavings) recSavings.style.display = 'block';
+                recPackTitle.textContent = planName;
+                recPackDesc.textContent = planDesc;
+                recPackPrice.textContent = `${window.ORYGN_PRICING.pack2Eur.toFixed(2).replace('.', ',')} € (+ envío e impuestos)`;
+                if (calcBuyBtn) {
+                    calcBuyBtn.href = promoterShopUrl;
+                    calcBuyBtn.textContent = "Comprar Pack de 2 en Tienda Oficial";
+                }
+                if(recSavings) {
+                    recSavings.style.display = 'block';
+                    recSavings.textContent = `🔥 Ahorra ${window.ORYGN_PRICING.savingsEur.toFixed(2).replace('.', ',')} € (~${window.ORYGN_PRICING.discountPct}%) con respecto a la compra individual`;
+                }
             } else {
                 resTomas.textContent = "1 toma al día";
-                resTomasDesc.textContent = "En una sola toma (por la mañana)";
+                resTomasDesc.textContent = "En una sola toma (por la mañana o tarde)";
                 resDuracion.textContent = "36 días";
                 
-                recPackTitle.textContent = "1 Botella Individual (9 mL)";
+                planName = "1 Botella Individual o 1 Paquete IGNYT";
                 if (age > 50) {
-                    recPackDesc.textContent = "Cubre 36 días completos. Excelente para mantenimiento y vitalidad diaria en la madurez metabólica.";
+                    planDesc = "Cubre 36 días completos. Excelente para mantenimiento y vitalidad diaria en la madurez metabólica.";
                 } else {
-                    recPackDesc.textContent = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
+                    planDesc = "Cubre 36 días completos. Diseñado para mantener de forma duradera tus resultados y tu bienestar.";
                 }
-                recPackPrice.textContent = "64€ / $75 (+ envío e impuestos)";
-                if (calcBuyBtn) calcBuyBtn.href = promoterShopUrl;
-                calcBuyBtn.textContent = "Pedir 1 Botella de Mantenimiento";
+                recPackTitle.textContent = planName;
+                recPackDesc.textContent = planDesc;
+                recPackPrice.textContent = `${window.ORYGN_PRICING.singleEur.toFixed(2).replace('.', ',')} € (+ envío e impuestos)`;
+                if (calcBuyBtn) {
+                    calcBuyBtn.href = promoterShopUrl;
+                    calcBuyBtn.textContent = "Comprar 1 Botella / Paquete en Tienda Oficial";
+                }
                 if(recSavings) recSavings.style.display = 'none';
+            }
+
+            // Actualizar botón de WhatsApp interactivo
+            if (calcWaBtn) {
+                const objetivoStr = isResultados ? "Pérdida de Peso Activa" : "Mantenimiento / Bienestar";
+                const waMessage = `Hola ${promoterNombre}, he calculado mi plan en la web: peso ${weight} kg, edad ${age} años, objetivo: ${objetivoStr}. Mi plan sugerido es ${planName}. ¿Me ayudas a pedirlo con la garantía oficial de 28 días?`;
+                calcWaBtn.href = `https://api.whatsapp.com/send?phone=${promoterPhone}&text=${encodeURIComponent(waMessage)}`;
             }
         }
 
@@ -241,36 +283,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Social Proof FOMO Notifications
+    // 1. Social Proof FOMO Notifications con datos territoriales y packs reales
     const fomoNames = [
-        { name: "María C. (Madrid, ESP)", time: "hace 2 min", pack: "Pack de 2 Botellas" },
-        { name: "Carlos R. (CDMX, MEX)", time: "hace 5 min", pack: "Pack de 4 Botellas" },
-        { name: "Laura M. (Bogotá, COL)", time: "hace 12 min", pack: "Pack de 2 Botellas" },
-        { name: "Javier T. (Buenos Aires, ARG)", time: "hace 1 min", pack: "Pack de 6 Botellas" },
-        { name: "Ana P. (Lima, PER)", time: "hace 8 min", pack: "1 Botella Individual" },
-        { name: "Luis F. (Santiago, CHI)", time: "hace 15 min", pack: "Pack de 4 Botellas" },
-        { name: "Carmen G. (Santa Cruz, BOL)", time: "hace 3 min", pack: "Pack de 2 Botellas" },
-        { name: "David L. (Caracas, VEN)", time: "hace 21 min", pack: "Pack de 6 Botellas" },
-        { name: "Elena S. (Monterrey, MEX)", time: "hace 4 min", pack: "Pack de 2 Botellas" },
-        { name: "Sergio V. (Medellín, COL)", time: "hace 11 min", pack: "1 Botella Individual" },
-        { name: "Paula N. (Mendoza, ARG)", time: "hace 7 min", pack: "Pack de 4 Botellas" },
-        { name: "Andrés B. (Guayaquil, ECU)", time: "hace 14 min", pack: "Pack de 2 Botellas" },
-        { name: "Marta J. (Valencia, ESP)", time: "hace 2 min", pack: "Pack de 6 Botellas" },
-        { name: "Hugo D. (Arequipa, PER)", time: "hace 19 min", pack: "1 Botella Individual" },
-        { name: "Sofía Q. (La Paz, BOL)", time: "hace 6 min", pack: "Pack de 2 Botellas" },
-        { name: "Raúl H. (Guadalajara, MEX)", time: "hace 9 min", pack: "Pack de 4 Botellas" },
-        { name: "Isabel Y. (Rosario, ARG)", time: "hace 13 min", pack: "Pack de 6 Botellas" },
-        { name: "Miguel Z. (Cali, COL)", time: "hace 25 min", pack: "Pack de 2 Botellas" },
-        { name: "Lucía F. (Maracaibo, VEN)", time: "hace 1 min", pack: "1 Botella Individual" },
-        { name: "Antonio W. (Sevilla, ESP)", time: "hace 18 min", pack: "Pack de 4 Botellas" },
-        { name: "Rocío K. (Quito, ECU)", time: "hace 32 min", pack: "Pack de 6 Botellas" },
-        { name: "Pablo M. (Cochabamba, BOL)", time: "hace 41 min", pack: "Pack de 2 Botellas" },
-        { name: "Natalia C. (Córdoba, ARG)", time: "hace 10 min", pack: "1 Botella Individual" },
-        { name: "Óscar T. (Puebla, MEX)", time: "hace 22 min", pack: "Pack de 4 Botellas" },
-        { name: "Irene R. (Asunción, PAR)", time: "hace 28 min", pack: "Pack de 6 Botellas" },
-        { name: "Diego S. (Montevideo, URU)", time: "hace 3 min", pack: "Pack de 2 Botellas" },
-        { name: "Valeria P. (San José, CRC)", time: "hace 16 min", pack: "Pack de 4 Botellas" },
-        { name: "Gabriel M. (Ciudad de Panamá, PAN)", time: "hace 27 min", pack: "1 Botella Individual" }
+        { name: "Marta S. (Sevilla, España)", time: "hace 4 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
+        { name: "Carlos R. (Madrid, España)", time: "hace 7 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" },
+        { name: "Laura M. (Valencia, España)", time: "hace 11 min", pack: "1 Botella triGLP (92,15 €)" },
+        { name: "Javier T. (Barcelona, España)", time: "hace 2 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
+        { name: "Ana P. (Bilbao, España)", time: "hace 9 min", pack: "Sobres IGNYT Booster (92,15 €)" },
+        { name: "David L. (Málaga, España)", time: "hace 15 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" },
+        { name: "Elena S. (Zaragoza, España)", time: "hace 6 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
+        { name: "Sergio V. (Alicante, España)", time: "hace 13 min", pack: "1 Botella triGLP (92,15 €)" },
+        { name: "Paula N. (Murcia, España)", time: "hace 8 min", pack: "Pack Dúo triGLP + IGNYT (151,81 €)" },
+        { name: "Antonio W. (Granada, España)", time: "hace 18 min", pack: "Pack de 2 Gotas triGLP (151,81 €)" }
     ];
     
     const fomoNotification = document.getElementById('fomo-notification');
