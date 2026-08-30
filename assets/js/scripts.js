@@ -238,7 +238,8 @@ function initApp() {
 
                 if (calcWaBtn) {
                     const objetivoStr = isResultados ? "Pérdida de Peso Activa" : "Mantenimiento / Bienestar";
-                    const waMessage = `Hola ${promoterNombre}, he calculado mi plan en la web: peso ${weight} kg, edad ${age} años, objetivo: ${objetivoStr}, formato preferido: ${formatText}. Mi plan sugerido es ${planName} (128,40 € / $139.95 USD + envío e impuestos). ¿Me ayudas a pedirlo con la garantía oficial de 28 días?`;
+                    const priceStr = isResultados ? "128,40 € / $139.95 USD" : "78,00 € / $84.95 USD";
+                    const waMessage = `Hola ${promoterNombre}, he calculado mi plan en la web: peso ${weight} kg, edad ${age} años, objetivo: ${objetivoStr}, formato preferido: ${formatText}. Mi plan sugerido es ${planName} (${priceStr} + gastos de envío e impuestos). ¿Me ayudas a pedirlo con la garantía oficial de 28 días?`;
                     calcWaBtn.href = `https://api.whatsapp.com/send?phone=${promoterPhone}&text=${encodeURIComponent(waMessage)}`;
                 }
             }
