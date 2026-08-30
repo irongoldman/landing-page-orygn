@@ -17,7 +17,7 @@ window.ORYGN_PRICING = {
     discountPct: 18
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
 
     // --- 2. Scroll Animations Observer (Fail-safe) ---
     try {
@@ -158,8 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             function calculatePlan() {
-                const isResultados = document.querySelector('input[name="calc-objective"]:checked')?.value !== 'mantenimiento';
-                const selectedFormat = document.querySelector('input[name="calc-format"]:checked')?.value || 'duo';
+                const objectiveRadio = document.querySelector('input[name="calc-objective"]:checked');
+                const isResultados = objectiveRadio ? (objectiveRadio.value !== 'mantenimiento') : true;
+                const formatRadio = document.querySelector('input[name="calc-format"]:checked');
+                const selectedFormat = formatRadio ? formatRadio.value : 'duo';
+
                 const weight = parseInt(weightInput.value) || 75;
                 const age = parseInt(ageInput.value) || 40;
 
@@ -241,15 +244,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             weightInput.addEventListener('input', calculatePlan);
+            weightInput.addEventListener('change', calculatePlan);
             ageInput.addEventListener('input', calculatePlan);
+            ageInput.addEventListener('change', calculatePlan);
+
             document.querySelectorAll('input[name="calc-objective"]').forEach(radio => {
                 radio.addEventListener('change', calculatePlan);
+                radio.addEventListener('click', calculatePlan);
             });
             document.querySelectorAll('input[name="calc-format"]').forEach(radio => {
                 radio.addEventListener('change', calculatePlan);
+                radio.addEventListener('click', calculatePlan);
             });
 
-            // Ejecutar de inmediato
+            // Soporte táctil / clic en las etiquetas
+            document.querySelectorAll('.segmented-control label').forEach(lbl => {
+                lbl.addEventListener('click', () => {
+                    setTimeout(calculatePlan, 50);
+                });
+            });
+
+            // Ejecutar inicialmente
             calculatePlan();
         }
     } catch (e) {
@@ -316,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (exitModal) {
             function triggerExitModal(e) {
                 if (exitModalTriggered) return;
-                // Si el cursor sube a la barra superior o sale de la ventana
                 if ((e.clientY <= 20) || (!e.relatedTarget && !e.toElement)) {
                     exitModal.classList.add('show');
                     exitModalTriggered = true;
@@ -330,7 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Cerrar al hacer clic en el backdrop oscuro
             exitModal.addEventListener('click', (e) => {
                 if (e.target === exitModal) {
                     exitModal.classList.remove('show');
@@ -376,4 +389,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch (e) {}
 
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
