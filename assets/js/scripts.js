@@ -1,23 +1,34 @@
 /* Reemplazar scripts o agregar nuevo en assets/js/scripts.js */
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Scroll Animations Observer ---
+    // --- Scroll Animations Observer (Ultra-Rápido & Sin Retrasos) ---
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.15
+        rootMargin: '150px 0px',
+        threshold: 0.01
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.reveal-up, .reveal-fade, .reveal-left, .reveal-right');
-    revealElements.forEach(el => observer.observe(el));
+        const revealElements = document.querySelectorAll('.reveal-up, .reveal-fade, .reveal-left, .reveal-right');
+        revealElements.forEach(el => observer.observe(el));
+
+        // Timeout de seguridad: Si tras 1.2s algún elemento sigue oculto, forzar su visibilidad
+        setTimeout(() => {
+            revealElements.forEach(el => el.classList.add('is-visible'));
+        }, 1200);
+    } else {
+        document.querySelectorAll('.reveal-up, .reveal-fade, .reveal-left, .reveal-right').forEach(el => {
+            el.classList.add('is-visible');
+        });
+    }
 
     // --- Audio Player Controls ---
     const audio = document.getElementById('podcast-audio');
