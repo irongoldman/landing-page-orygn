@@ -650,51 +650,152 @@ nav a:not(.btn):hover {
 }
 
 /* Footer */
-footer {
-    background: var(--bg-darker);
-    padding: 60px 0 20px;
-    border-top: 1px solid var(--glass-border);
+footer.footer, footer {
+    background: #090d16;
+    padding: 70px 0 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    position: relative;
+    z-index: 10;
 }
 
 .footer-content {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.footer-brand {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.brand-logo-text {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.brand-logo-text .brand-main {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+}
+
+.brand-logo-text .brand-sub {
+    font-size: 0.85rem;
+    color: #f97316;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.brand-tagline {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 340px;
+}
+
+.brand-badges {
+    display: flex;
     flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.brand-badges span {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.footer-links-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
 
-.footer-info h4 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: white;
+.footer-col h4 {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.footer-info p {
-    color: var(--text-muted);
-    max-width: 400px;
-    font-size: 0.9rem;
-}
-
-.footer-links {
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.footer-links a {
-    color: var(--text-muted);
+.footer-col ul li a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
 }
 
-.footer-links a:hover {
-    color: var(--primary);
+.footer-col ul li a:hover {
+    color: #f97316;
+    transform: translateX(3px);
+}
+
+.disclaimer {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+.disclaimer p {
+    margin-bottom: 10px;
+}
+
+.disclaimer p:last-child {
+    margin-bottom: 0;
 }
 
 .footer-bottom {
     text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid var(--glass-border);
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .footer-links-group {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-links-group {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
 }
 
 /* Compare Section */
@@ -1997,20 +2098,13 @@ footer {
 }
 
 /* =========================================================================
-   SCROLL REVEAL ANIMATIONS
+   SCROLL REVEAL ANIMATIONS (ACCESIBLE & FAIL-SAFE)
    ========================================================================= */
-.reveal-up {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: opacity, transform;
-}
-
+.reveal-up,
 .reveal-fade {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    will-change: opacity;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .reveal-up.is-visible,
