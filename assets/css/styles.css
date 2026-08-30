@@ -271,19 +271,109 @@ nav a:not(.btn):hover {
     gap: 15px;
 }
 
-.hero-video {
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 35px rgba(240, 78, 35, 0.5);
-    border: 3px solid var(--primary);
+/* Hero Product Showcase (Reemplazo Premium del Vídeo) */
+.hero-product-showcase {
     position: relative;
-    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
 }
 
-.hero-video video {
+.hero-showcase-card {
+    position: relative;
+    background: radial-gradient(circle at center, rgba(240, 78, 35, 0.18) 0%, rgba(20, 26, 36, 0.9) 80%);
+    border: 1.5px solid rgba(240, 78, 35, 0.45);
+    border-radius: 28px;
+    padding: 30px 24px 22px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(240, 78, 35, 0.25);
+    text-align: center;
+    backdrop-filter: blur(12px);
     width: 100%;
+    max-width: 520px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-showcase-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 45px rgba(240, 78, 35, 0.35);
+}
+
+.hero-product-img {
+    width: 100%;
+    max-width: 360px;
     height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5));
     display: block;
+    margin: 0 auto 15px;
+    animation: floatProduct 4s ease-in-out infinite;
+}
+
+@keyframes floatProduct {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+.hero-floating-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.hero-float-badge {
+    background: rgba(13, 17, 23, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #f1f5f9;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-float-badge.highlight {
+    border-color: var(--primary);
+    color: #ff9d7f;
+    background: rgba(240, 78, 35, 0.18);
+}
+
+.hero-offer-strip {
+    background: rgba(0, 0, 0, 0.55);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+}
+
+.hero-offer-strip .offer-info strong {
+    color: #ffffff;
+    font-size: 1.02rem;
+    display: block;
+}
+
+.hero-offer-strip .offer-info span {
+    color: #ffb703;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.hero-offer-strip .btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 /* Video End Overlay */

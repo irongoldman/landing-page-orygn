@@ -207,25 +207,30 @@
                     situación de salud.
                 </div>
             </div>
-            <div class="hero-video">
-                <video id="promo-video" muted playsinline preload="metadata"
-                    poster="https://gotas-triglp.com/assets/images/triGLP-ORYGN-de_noruega_lo_mejor_para_ti.jpg">
-                    <source src="https://technoeconomia.com/videos-orygn/TriGLP_producto.webm" type="video/webm">
-                    Tu navegador no soporta el video.
-                </video>
-                <div class="video-end-overlay" id="video-end-overlay">
-                    <div class="end-text">
-                        <h3>Bienestar metabólico. Entrega natural.</h3>
+            <div class="hero-product-showcase">
+                <div class="hero-showcase-card">
+                    <div class="hero-floating-badges">
+                        <span class="hero-float-badge highlight">🇳🇴 Péptidos de Salmón Noruego (ProGo®)</span>
+                        <span class="hero-float-badge">⚡ 98% Absorción Sublingual</span>
+                        <span class="hero-float-badge">🛡️ 28 Días de Garantía</span>
+                        <span class="hero-float-badge">🌿 100% Natural • Sin Agujas</span>
+                    </div>
+
+                    <img src="assets/images/dos_formatos_triglp_ignyt_clean.png"
+                        alt="triGLP e IGNYT de ORYGN — Formatos Gotas Sublinguales y Sobres Monodosis"
+                        class="hero-product-img"
+                        width="400"
+                        height="380">
+
+                    <div class="hero-offer-strip">
+                        <div class="offer-info">
+                            <strong>Pack de 2: 151,81 €</strong>
+                            <span>🔥 Ahorras 32,49 € (18% dto.)</span>
+                        </div>
                         <a href="https://iorngoldman.orygn.co/" class="btn btn-glow" target="_blank"
-                            rel="noopener noreferrer">Ordena triGLP y IGNYT
-                            Ahora</a>
-                        <p class="price-tag price-tag--primary">Desde 92,15 € + envío e impuestos • Pack 2 con 18% Descuento (151,81 €)</p>
+                            rel="noopener noreferrer">Comprar Ahora &rarr;</a>
                     </div>
                 </div>
-                <button type="button" class="video-unmute-btn" id="unmute-btn"
-                    aria-label="Activar o desactivar sonido del video">
-                    <span class="icon">🔊</span> Haz clic para escuchar
-                </button>
             </div>
         </div>
     </section>
@@ -416,6 +421,102 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== CALCULADORA METABÓLICA INTERACTIVA (UBICACIÓN CRO ESTRATÉGICA) ============== -->
+    <section id="calculadora" class="section-light section--off-white">
+        <div class="container text-center">
+            <span class="badge badge-dark">Herramienta Interactiva</span>
+            <h2>Calculadora Metabólica Personalizada</h2>
+            <p class="subtitle">Calcula de forma personalizada tu plan sugerido, tomas al día y duración estimada de tu
+                pack.</p>
+
+            <div class="calculator-wrapper">
+                <div class="calc-inputs">
+                    <h3>Paso 1: Configura tus datos</h3>
+
+                    <div class="input-group">
+                        <label>Tu objetivo principal:</label>
+                        <div class="segmented-control">
+                            <input type="radio" name="calc-objective" value="resultados" id="obj-resultados" checked>
+                            <label for="obj-resultados">Pérdida de Peso Activa</label>
+
+                            <input type="radio" name="calc-objective" value="mantenimiento" id="obj-mantenimiento">
+                            <label for="obj-mantenimiento">Mantenimiento / Bienestar</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-with-value">
+                            <label for="calc-weight">Tu peso actual:</label>
+                            <span class="calc-value-display"><strong id="weight-val">75</strong> kg</span>
+                        </div>
+                        <input type="range" id="calc-weight" min="45" max="150" value="75" class="slider-calc">
+                        <div class="slider-labels">
+                            <span>45 kg</span>
+                            <span>95 kg</span>
+                            <span>150 kg</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-with-value">
+                            <label for="calc-age">Tu edad:</label>
+                            <span class="calc-value-display"><strong id="age-val">40</strong> años</span>
+                        </div>
+                        <input type="range" id="calc-age" min="18" max="85" value="40" class="slider-calc">
+                        <div class="slider-labels">
+                            <span>18 años</span>
+                            <span>50 años</span>
+                            <span>85 años</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <h3>Tu Plan Metabólico Sugerido</h3>
+
+                    <div class="results-grid-calc">
+                        <div class="result-box-calc">
+                            <span class="result-title-calc">Tomas recomendadas</span>
+                            <span class="result-highlight-calc" id="res-tomas">2 tomas al día</span>
+                            <span class="result-desc-calc" id="res-tomas-desc">Repartido en mañana y tarde</span>
+                        </div>
+                        <div class="result-box-calc">
+                            <span class="result-title-calc">Duración Estimada</span>
+                            <span class="result-highlight-calc" id="res-duracion">36 días (Pack Dúo)</span>
+                            <span class="result-desc-calc">Gotas sublinguales o Sobres IGNYT</span>
+                        </div>
+                    </div>
+
+                    <div class="calc-recommendation-card">
+                        <span class="rec-badge-calc">Recomendación Personalizada</span>
+                        <h4 id="rec-pack-title">Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas)</h4>
+                        <p id="rec-pack-desc">Cubre 36 días completos. Ideal para alcanzar los primeros resultados
+                            metabólicos visibles de 6 a 8 semanas.</p>
+                        <div class="rec-price-calc" id="rec-pack-price">151,81 € (+ envío e impuestos)</div>
+                        <p id="rec-savings"
+                            style="color: #ffab00; font-weight: 600; margin-top: 10px; font-size: 0.95rem;">🔥 Ahorra 32,49 € (18% de descuento) con respecto a la compra individual</p>
+                    </div>
+
+                    <div class="calc-actions-grid">
+                        <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20he%20calculado%20mi%20plan%20en%20la%20web%20y%20me%20gustar%C3%ADa%20recibir%20asesoramiento%20y%20pedirlo%20con%20la%20garant%C3%ADa%20de%2028%20d%C3%ADas."
+                            class="btn-whatsapp-calc" id="calc-wa-btn" target="_blank" rel="noopener noreferrer">
+                            <span>📲</span> Enviar mi Plan por WhatsApp a mi Asesor
+                        </a>
+                        <a href="https://iorngoldman.orygn.co/" class="btn btn-glow w-full calc-cta-btn" target="_blank"
+                            rel="noopener noreferrer" id="calc-buy-btn">Comprar en Tienda Oficial</a>
+                    </div>
+
+                    <div class="guarantee-badge-box">
+                        <span class="shield-icon">🛡️</span>
+                        <div>
+                            <strong>Garantía de Satisfacción de 28 Días:</strong> Tienes 28 días de garantía oficial desde el momento exacto en que realizas tu pedido.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1046,102 +1147,6 @@
                 <div class="pure-seal-item">
                     <span class="seal-icon">🧬</span>
                     <span>Fórmula Clinicamente Avalada</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============== CALCULADORA METABÓLICA INTERACTIVA ============== -->
-    <section id="calculadora" class="section-light section--off-white">
-        <div class="container text-center">
-            <span class="badge badge-dark">Herramienta Interactiva</span>
-            <h2>Calculadora Metabólica Personalizada</h2>
-            <p class="subtitle">Calcula de forma personalizada tu plan sugerido, tomas al día y duración estimada de tu
-                pack.</p>
-
-            <div class="calculator-wrapper">
-                <div class="calc-inputs">
-                    <h3>Paso 1: Configura tus datos</h3>
-
-                    <div class="input-group">
-                        <label>Tu objetivo principal:</label>
-                        <div class="segmented-control">
-                            <input type="radio" name="calc-objective" value="resultados" id="obj-resultados" checked>
-                            <label for="obj-resultados">Pérdida de Peso Activa</label>
-
-                            <input type="radio" name="calc-objective" value="mantenimiento" id="obj-mantenimiento">
-                            <label for="obj-mantenimiento">Mantenimiento / Bienestar</label>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <div class="label-with-value">
-                            <label for="calc-weight">Tu peso actual:</label>
-                            <span class="calc-value-display"><strong id="weight-val">75</strong> kg</span>
-                        </div>
-                        <input type="range" id="calc-weight" min="45" max="150" value="75" class="slider-calc">
-                        <div class="slider-labels">
-                            <span>45 kg</span>
-                            <span>95 kg</span>
-                            <span>150 kg</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <div class="label-with-value">
-                            <label for="calc-age">Tu edad:</label>
-                            <span class="calc-value-display"><strong id="age-val">40</strong> años</span>
-                        </div>
-                        <input type="range" id="calc-age" min="18" max="85" value="40" class="slider-calc">
-                        <div class="slider-labels">
-                            <span>18 años</span>
-                            <span>50 años</span>
-                            <span>85 años</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="calc-results">
-                    <h3>Tu Plan Metabólico Sugerido</h3>
-
-                    <div class="results-grid-calc">
-                        <div class="result-box-calc">
-                            <span class="result-title-calc">Tomas recomendadas</span>
-                            <span class="result-highlight-calc" id="res-tomas">2 tomas al día</span>
-                            <span class="result-desc-calc" id="res-tomas-desc">Repartido en mañana y tarde</span>
-                        </div>
-                        <div class="result-box-calc">
-                            <span class="result-title-calc">Duración Estimada</span>
-                            <span class="result-highlight-calc" id="res-duracion">36 días (Pack Dúo)</span>
-                            <span class="result-desc-calc">Gotas sublinguales o Sobres IGNYT</span>
-                        </div>
-                    </div>
-
-                    <div class="calc-recommendation-card">
-                        <span class="rec-badge-calc">Recomendación Personalizada</span>
-                        <h4 id="rec-pack-title">Pack de 2 (Dúo triGLP + IGNYT o 2 Botellas)</h4>
-                        <p id="rec-pack-desc">Cubre 36 días completos. Ideal para alcanzar los primeros resultados
-                            metabólicos visibles de 6 a 8 semanas.</p>
-                        <div class="rec-price-calc" id="rec-pack-price">151,81 € (+ envío e impuestos)</div>
-                        <p id="rec-savings"
-                            style="color: #ffab00; font-weight: 600; margin-top: 10px; font-size: 0.95rem;">🔥 Ahorra 32,49 € (18% de descuento) con respecto a la compra individual</p>
-                    </div>
-
-                    <div class="calc-actions-grid">
-                        <a href="https://api.whatsapp.com/send?phone=34655404502&text=Hola%20Jos%C3%A9%2C%20he%20calculado%20mi%20plan%20en%20la%20web%20y%20me%20gustar%C3%ADa%20recibir%20asesoramiento%20y%20pedirlo%20con%20la%20garant%C3%ADa%20de%2028%20d%C3%ADas."
-                            class="btn-whatsapp-calc" id="calc-wa-btn" target="_blank" rel="noopener noreferrer">
-                            <span>📲</span> Enviar mi Plan por WhatsApp a mi Asesor
-                        </a>
-                        <a href="https://iorngoldman.orygn.co/" class="btn btn-glow w-full calc-cta-btn" target="_blank"
-                            rel="noopener noreferrer" id="calc-buy-btn">Comprar en Tienda Oficial</a>
-                    </div>
-
-                    <div class="guarantee-badge-box">
-                        <span class="shield-icon">🛡️</span>
-                        <div>
-                            <strong>Garantía de Satisfacción de 28 Días:</strong> Tienes 28 días de garantía oficial desde el momento exacto en que realizas tu pedido.
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
