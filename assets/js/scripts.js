@@ -308,21 +308,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch (e) {}
 
-    // --- 8. Exit Intent Modal ---
+    // --- 8. Exit Intent Modal (Ultra-Receptivo) ---
     try {
         let exitModalTriggered = false;
         const exitModal = document.getElementById('exit-modal');
 
-        document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 0 && !exitModalTriggered && exitModal) {
-                exitModal.classList.add('show');
-                exitModalTriggered = true;
+        if (exitModal) {
+            function triggerExitModal(e) {
+                if (exitModalTriggered) return;
+                // Si el cursor sube a la barra superior o sale de la ventana
+                if ((e.clientY <= 20) || (!e.relatedTarget && !e.toElement)) {
+                    exitModal.classList.add('show');
+                    exitModalTriggered = true;
+                }
             }
-        });
 
-        window.closeExitModal = function() {
-            if (exitModal) exitModal.classList.remove('show');
-        };
+            document.addEventListener('mouseleave', triggerExitModal);
+            document.addEventListener('mouseout', (e) => {
+                if (!e.relatedTarget && !e.toElement && e.clientY <= 20) {
+                    triggerExitModal(e);
+                }
+            });
+
+            // Cerrar al hacer clic en el backdrop oscuro
+            exitModal.addEventListener('click', (e) => {
+                if (e.target === exitModal) {
+                    exitModal.classList.remove('show');
+                }
+            });
+
+            window.closeExitModal = function() {
+                exitModal.classList.remove('show');
+            };
+        }
     } catch (e) {}
 
     // --- 9. FAQ Accordion Handler Seguro ---
