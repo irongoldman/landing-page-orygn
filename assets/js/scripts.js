@@ -101,7 +101,7 @@ function initApp() {
         console.warn('Audio player warning:', e);
     }
 
-    // --- 4. Masterclass Video Reset ---
+    // --- 4. Masterclass & Promo Video Handlers ---
     try {
         const masterVideo = document.getElementById('masterclass-video');
         if (masterVideo) {
@@ -109,7 +109,50 @@ function initApp() {
                 masterVideo.load();
             });
         }
-    } catch (e) {}
+
+        const promoVideo = document.getElementById('promo-video');
+        const unmuteBtn = document.getElementById('unmute-btn');
+        const videoEndOverlay = document.getElementById('video-end-overlay');
+
+        if (promoVideo && unmuteBtn) {
+            function updateUnmuteBtnState() {
+                if (promoVideo.muted) {
+                    unmuteBtn.innerHTML = '<span class="icon">🔊</span> Haz clic para escuchar';
+                    unmuteBtn.setAttribute('aria-label', 'Activar sonido del video');
+                } else {
+                    unmuteBtn.innerHTML = '<span class="icon">🔇</span> Silenciar sonido';
+                    unmuteBtn.setAttribute('aria-label', 'Silenciar sonido del video');
+                }
+            }
+
+            unmuteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (promoVideo.muted) {
+                    promoVideo.muted = false;
+                    promoVideo.volume = 1.0;
+                    if (promoVideo.paused) {
+                        promoVideo.play().catch(() => {});
+                    }
+                } else {
+                    promoVideo.muted = true;
+                }
+                updateUnmuteBtnState();
+            });
+
+            promoVideo.addEventListener('volumechange', updateUnmuteBtnState);
+
+            if (videoEndOverlay) {
+                promoVideo.addEventListener('ended', () => {
+                    videoEndOverlay.style.display = 'flex';
+                });
+                promoVideo.addEventListener('play', () => {
+                    videoEndOverlay.style.display = 'none';
+                });
+            }
+        }
+    } catch (e) {
+        console.warn('Promo video handler warning:', e);
+    }
 
     // --- 5. Calculadora Metabólica Interactiva ---
     try {
