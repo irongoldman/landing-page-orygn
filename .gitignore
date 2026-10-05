@@ -19,7 +19,9 @@ documents/
 logs/
 skills/
 .tmp_validation/
+.tmp_*/
 version_netlify_final-3/
+find_overflow*.js
 
 # Otros
 *.ogv
